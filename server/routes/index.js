@@ -5,13 +5,13 @@ const orderRouter = require('./orderRouter');
 const typeRouter = require('./typeRouter');
 const userRouter = require('./userRouter');
 const infoRouter = require('./infoRouter');
-const restaurantsRouter = require('./restaurantsRouter');
+const restaurantRouter = require('./restaurantRouter');
 
 router.use('/user', userRouter);
 router.use('/type', typeRouter);
 router.use('/order', orderRouter);
 router.use('/food', foodRouter);
-router.use('/restaurants', restaurantsRouter);
+router.use('/restaurant', restaurantRouter);
 router.use('/foodinfo', infoRouter);
 
 module.exports = router;

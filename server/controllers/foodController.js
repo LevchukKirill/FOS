@@ -1,33 +1,55 @@
-const uuid = require('uuid');
-const path = require('path');
-const { Food } = require('../models/models');
+const foodService = require('../providers/foodService');
 const ApiError = require('../error/ApiError');
 
 class foodController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
-    } catch (e) {
-      ApiError.badRequest(e.message);
-    }
-    const { name, price, infoId, restaurantsId, typeId } = req.body;
-    const { img } = req.files;
-    let fileName = uuid.v4() + '.jpg';
-    img.mv(path.resolve(__dirname, '..', 'static', fileName));
+      const food = await foodService.create(req.body, req.files);
 
-    const food = await Food.create({
-      name,
-      price,
-      infoId,
-      restaurantsId,
-      typeId,
-      img: fileName,
-    });
-    return res.json(food);
+      return res.json(food);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
 
-  async getOne(req, res) {}
+  async getOne(req, res, next) {
+    try {
+      const food = await foodService.getOne(req.params.id);
 
-  async getAll(req, res) {}
+      return res.json(food);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async getAll(req, res, next) {
+    try {
+      let foods = await foodService.getAll(req.query);
+
+      return res.json(foods);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
+  async update(req, res, next) {
+    try {
+      const food = await foodService.update(req.body, req.params.id);
+
+      return res.json(food);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+  async delete(req, res, next) {
+    try {
+      await foodService.delete(req.params.id);
+
+      return res.send('');
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
 }
 
 module.exports = new foodController();
