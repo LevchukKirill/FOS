@@ -1,23 +1,23 @@
-import { Text, Image, TouchableHighlight, View } from "react-native";
-import { CategoriesData } from "../data/CategoiresData";
-import { COLORS, SIZES } from "../constants/theme";
-import { useState } from "react";
-import { styles } from "../style";
-import { BoxShadow } from "react-native-shadow";
+import { Text, Image, TouchableHighlight, View } from 'react-native';
+import { CategoriesData } from '../../data/CategoiresData';
+import { COLORS, SIZES } from '../../constants/theme';
+import { useState } from 'react';
+import { styles } from '../../style';
+import { BoxShadow } from 'react-native-shadow';
 
 const Categories = () => {
   const [active, setActive] = useState(null);
   return (
     <View
-      style={{ marginTop: 20, width: "65%", paddingLeft: 20, borderWidth: 1 }}
+      style={{ marginTop: 20, width: '65%', paddingLeft: 20, borderWidth: 1 }}
     >
       <Text style={{ fontSize: SIZES.h2 }}>Категории</Text>
       <View
         style={{
           marginTop: 20,
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
         }}
       >
         {CategoriesData.map((cat, idx) => (
@@ -53,7 +53,7 @@ const Categories = () => {
                   style={{
                     backgroundColor:
                       active === idx ? COLORS.primary : COLORS.white,
-                    alignItems: "center",
+                    alignItems: 'center',
                     paddingTop: 5,
 
                     borderRadius: SIZES.radius,
