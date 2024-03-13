@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
+    "@react-navigation/bottom-tabs": "^6.5.19",
     "axios": "^1.6.7",
     "expo": "~50.0.1",
     "expo-status-bar": "~1.11.1",
