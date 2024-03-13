@@ -7,28 +7,6 @@ import Profile from '../../../screens/Profile/Profile.jsx';
 
 const Tab = createBottomTabNavigator();
 
-// const HomeScreen = () => {
-//   return <Home />;
-// };
-
-// const BusketScreen = () => {
-//   return <Busket />;
-// };
-
-// const ProfileScreen = () => {
-//   return <Profile />;
-// };
-
-// const App = () => {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name='Home' component={HomeScreen} />
-//       <Tab.Screen name='Busket' component={BusketScreen} />
-//       <Tab.Screen name='Profile' component={ProfileScreen} />
-//     </Tab.Navigator>
-//   );
-// };
-
 const homeName = 'Home';
 const busketName = 'Busket';
 const profileName = 'Profile';
@@ -36,7 +14,10 @@ const profileName = 'Profile';
 export default BottomNavigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName={homeName}>
+      <Tab.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={homeName}
+      >
         <Tab.Screen name={homeName} component={Home} />
         <Tab.Screen name={busketName} component={Busket} />
         <Tab.Screen name={profileName} component={Profile} />

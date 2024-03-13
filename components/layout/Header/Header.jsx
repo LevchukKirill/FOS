@@ -1,31 +1,30 @@
-import { Button, Linking, Text, View } from "react-native";
+import { Button, Linking, Text, View, StyleSheet } from 'react-native';
+import Auth from '../Auth/Auth.jsx';
 
 const Header = () => {
   return (
-    <View
-      style={{
-        borderColor: "black",
-        borderWidth: 1,
-        height: 60,
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-between",
-      }}
-    >
+    <View style={styles.header}>
       <View>
         <Button
           title='BONUSI'
-          onPress={() => Linking.openURL("https://google.com")}
+          onPress={() => Linking.openURL('https://google.com')}
         />
       </View>
       <View>
-        <Button
-          title='BONUS CARD'
-          onPress={() => Linking.openURL("https://vk.com")}
-        />
+        <Auth></Auth>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    borderColor: 'black',
+    height: 60,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
 
 export default Header;
