@@ -1,17 +1,17 @@
-import { Button, Linking, Text, View, StyleSheet } from 'react-native';
-import Auth from '../Auth/Auth.jsx';
+import { Button, Linking, Text, View, StyleSheet } from "react-native";
+import Auth from "../Auth/Auth.jsx";
 
 const Header = () => {
   return (
     <View style={styles.header}>
       <View>
         <Button
-          title='BONUSI'
-          onPress={() => Linking.openURL('https://google.com')}
+          title="BONUSI"
+          onPress={() => Linking.openURL("https://google.com")}
         />
       </View>
       <View>
-        <Auth></Auth>
+        <Auth />
       </View>
     </View>
   );
@@ -19,11 +19,12 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    borderColor: 'black',
+    borderColor: "black",
     height: 60,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    margin: "auto",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 
