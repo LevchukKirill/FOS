@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from "expo-status-bar";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,48 +7,43 @@ import {
   TextInput,
   Pressable,
   Button,
-} from 'react-native';
-import Categories from './components/categories/Categories';
-import Restaraunts from './components/restaurants/Restaraunts';
-import { COLORS } from './constants/theme';
-import BottomNav from './components/layout/BottomNav/BottomNav.jsx';
-import Header from './components/layout/Header/Header.jsx';
+} from "react-native";
+import Categories from "./components/categories/Categories";
+import Restaraunts from "./components/restaurants/Restaraunts";
+import { COLORS } from "./constants/theme";
+import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
+import Header from "./components/layout/Header/Header.jsx";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
-      <BottomNav />
-    </View>
+      <MainNavigator />
+    </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
     backgroundColor: COLORS.white,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
-  input: {   
-    
+  input: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 10,
   },
   button: {
-
     borderWidth: 1,
     paddingVertical: 4,
     paddingHorizontal: 12,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.primary,
   },
-  asda: {
-    
-  }
+  asda: {},
 });

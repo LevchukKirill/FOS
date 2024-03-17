@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,20 +6,20 @@ import {
   Modal,
   StyleSheet,
   Pressable,
-} from 'react-native';
-import { COLORS } from '../../../constants/theme';
-// import { TextInput } from '../../node_modules/react-native-web/dist/cjs/index';
+  Alert,
+} from "react-native";
+import { COLORS } from "../../../constants/theme";
 
 const Auth = () => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={styles.centeredView}>
+    <View>
       <Modal
-        animationType='slide'
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -31,8 +31,8 @@ const Auth = () => {
           <Text style={{ fontSize: 10 }}>Введите свой номер телефона</Text>
           <TextInput
             style={styles.input}
-            type='tel'
-            placeholder='+7(9__)___-__-__'
+            type="tel"
+            placeholder="+7(9__)___-__-__"
           />
           <Pressable
             style={styles.button}
@@ -46,12 +46,11 @@ const Auth = () => {
           </Text>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.textStyle}>Auth</Text>
-      </Pressable>
+      <View>
+        <Pressable style={styles.button} onPress={() => setModalVisible(true)}>
+          <Text>Auth</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -59,21 +58,21 @@ const Auth = () => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalView: {
-    height: '25%',
-    width: '100%',
-    position: 'absolute',
+    height: "25%",
+    width: "100%",
+    position: "absolute",
     bottom: 100,
     marginBottom: 100,
     borderRadius: 50,
     padding: 15,
     backgroundColor: COLORS.white,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   shadow: {
     shadowColor: COLORS.black,
@@ -87,17 +86,17 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 10,
   },
   button: {
-    borderWidth: 1,
+    // height: 20,
+    // width: 50,
     paddingVertical: 4,
     paddingHorizontal: 12,
-    borderColor: 'black',
     borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.primary,
   },
 });
