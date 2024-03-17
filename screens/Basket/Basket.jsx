@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const Busket = () => {
+const Basket = () => {
   return (
     <View>
       <Text>Busket</Text>
@@ -10,4 +10,4 @@ const Busket = () => {
 };
 const styles = StyleSheet.create({});
 
-export default Busket;
+export default Basket;
