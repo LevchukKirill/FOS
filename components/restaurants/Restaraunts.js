@@ -1,7 +1,5 @@
-import { Text } from 'react-native';
+import ElladaScreen from "./ElladaScreen";
+import SindbadScreen from "./SindbadScreen";
+import ShtolenhofScreen from "./ShtolenhofScreen";
 
-const Restaraunts = () => {
-  return <Text>Restaraunts</Text>;
-};
-
-export default Restaraunts;
+export default (ElladaScreen, SindbadScreen, ShtolenhofScreen);
