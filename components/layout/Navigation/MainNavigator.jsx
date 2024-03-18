@@ -35,7 +35,7 @@ const MainNavigator = () => {
               iconName = "user";
             }
 
-            return <Icon name={iconName} size={24} color={color} />;
+            return <Icon name={iconName} size={28} color={color} />;
           },
         })}
       >
@@ -49,6 +49,7 @@ const MainNavigator = () => {
 
 const styles = StyleSheet.create({
   tabBar: {
+    height: 60,
     position: "absolute",
     bottom: 15,
     left: 10,

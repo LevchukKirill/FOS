@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: "black",
     borderRadius: 10,
   },
   button: {
-    borderWidth: 1,
+    // borderWidth: 1,
     paddingVertical: 4,
     paddingHorizontal: 12,
     borderColor: "black",

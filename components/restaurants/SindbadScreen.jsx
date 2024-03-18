@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Text, View } from "react-native";
+import Categories from "../categories/Categories";
 
 const SindbadScreen = () => {
-  return <Text>SindbadScreen</Text>;
+  return <Categories />;
 };
 
 export default SindbadScreen;

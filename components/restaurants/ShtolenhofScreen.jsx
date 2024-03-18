@@ -1,9 +1,10 @@
 import React from "react";
 
 import { Text, View } from "react-native";
+import Categories from "../categories/Categories";
 
 const ShtolenhofScreen = () => {
-  return <Text>ShtolenhofScreen</Text>;
+  return <Categories />;
 };
 
 export default ShtolenhofScreen;
