@@ -6,6 +6,7 @@ export const COLORS = {
   disactive: "#c4beb7",
   transparentPrimray: "rgba(227, 120, 75, 0.4)",
   orange: "#FFA133",
+  whiteOpacity: "#FFFFFF34",
   lightOrange: "#FFA133",
   lightOrange2: "#FDDED4",
   lightOrange3: "#FFD9AD",
