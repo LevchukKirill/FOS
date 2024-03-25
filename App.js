@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
     backgroundColor: COLORS.white,
+    // display: "flex",
     flex: 1,
     justifyContent: "center",
   },

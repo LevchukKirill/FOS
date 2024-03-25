@@ -11,27 +11,38 @@ import { COLORS, SIZES } from "../../constants";
 
 const CategoryItem = ({ cat, isActive, clickHandler }) => {
   return (
-    <TouchableHighlight
-      onPress={clickHandler}
-      underlayColor={COLORS.primary}
-      style={styles.shadow}
-    >
-      <View
-        style={{
-          backgroundColor: isActive ? COLORS.primary : COLORS.white,
-          alignItems: "center",
-          paddingTop: 5,
-          borderRadius: SIZES.radius,
-        }}
+    <View style={styles.container}>
+      <TouchableHighlight
+        underlayColor={COLORS.primary}
+        onPress={clickHandler}
+        style={
+          (styles.shadow,
+          { height: 100, width: 100, borderRadius: SIZES.radius })
+        }
       >
-        <Image source={{ uri: cat.image }} style={{ width: 75, height: 75 }} />
-        <Text style={{ fontSize: SIZES.h4 }}>{cat.name}</Text>
-      </View>
-    </TouchableHighlight>
+        <View
+          style={{
+            backgroundColor: isActive ? COLORS.primary : COLORS.white,
+            alignItems: "center",
+            paddingTop: 5,
+            height: 100,
+            width: 100,
+            borderRadius: SIZES.radius,
+          }}
+        >
+          <Image
+            source={{ uri: cat.image }}
+            style={{ width: 75, height: 75 }}
+          />
+          <Text style={{ fontSize: SIZES.h4 }}>{cat.name}</Text>
+        </View>
+      </TouchableHighlight>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: { paddingHorizontal: 0, padding: 0, paddingTop: 0 },
   shadow: {
     shadowColor: COLORS.black,
     shadowOffset: {
@@ -46,13 +57,9 @@ const styles = StyleSheet.create({
   },
   catItem: {
     width: 90,
-    marginTop: 10,
+    // marginTop: 10,
     borderRadius: SIZES.radius,
   },
 });
 
-function fn1(clickHandler) {
-  console.log({ clickHandler });
-  clickHandler();
-}
 export default CategoryItem;

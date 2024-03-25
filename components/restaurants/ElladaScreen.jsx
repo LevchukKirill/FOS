@@ -1,10 +1,16 @@
 import React from "react";
 
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Categories from "../categories/Categories";
+import { COLORS } from "../../constants";
 
 const ElladaScreen = () => {
-  return <Categories />;
+  return (
+    <ScrollView style={{ flex: 1, backgroundColor: COLORS.black }}>
+      <Categories />
+      <Categories />
+    </ScrollView>
+  );
 };
 
 export default ElladaScreen;

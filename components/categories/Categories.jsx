@@ -9,14 +9,15 @@ import { CategoriesData as catData } from "../../data/CategoiresData";
 import { COLORS, SIZES } from "../../constants/theme";
 import { useState } from "react";
 import CategoryItem from "./CategoryItem";
+import DiscountButton from "./DiscountButton";
 
 // import { styles } from "../../style";
 // import { BoxShadow } from "react-native-shadow";
 
-const Categories = () => {
+const Categories = (props) => {
   const [active, setActive] = useState(null);
   return (
-    <View style={{ width: "65%", paddingLeft: 20, borderWidth: 0 }}>
+    <View style={styles.main}>
       <View style={styles.container}>
         {catData.map((cat, idx) => (
           <View style={styles.catItem}>
@@ -26,6 +27,10 @@ const Categories = () => {
               isActive={active === idx}
               clickHandler={() => setActive(idx)}
             />
+            {/*<DiscountButton*/}
+            {/*  isActive={active === idx}*/}
+            {/*  clickHandler={() => setActive(idx)}*/}
+            {/*/>*/}
           </View>
         ))}
       </View>
@@ -34,9 +39,24 @@ const Categories = () => {
 };
 
 const styles = StyleSheet.create({
+  main: {
+    display: "flex",
+    width: "62%",
+    // borderWidth: 1,
+    paddingTop: 10,
+  },
   container: {
+    // borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: COLORS.lightGray1,
     flexDirection: "row",
     flexWrap: "wrap",
+    // rowGap: 10,
+    // columnGap: 0,
+    paddingHorizontal: 10,
+    paddingBottom: 10,
+
+    alignItems: "center",
     justifyContent: "space-between",
   },
   shadow: {
@@ -52,8 +72,8 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   catItem: {
-    width: 90,
-    marginTop: 10,
+    // borderWidth: 1,
+    paddingTop: 10,
     borderRadius: SIZES.radius,
   },
 });
