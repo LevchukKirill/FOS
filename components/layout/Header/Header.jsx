@@ -31,6 +31,8 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
+    paddingHorizontal: 10,
+    paddingBottom: 5,
     flexDirection: "row",
     justifyContent: "space-between",
   },

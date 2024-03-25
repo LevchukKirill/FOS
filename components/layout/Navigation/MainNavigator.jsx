@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/Feather";
 import { COLORS } from "../../../constants";
 import { StyleSheet } from "react-native";
 import RestaurantsNav from "./RestaurantsNav";
+import linearGradientNativeComponent from "react-native-svg/src/fabric/LinearGradientNativeComponent";
 
 const Tab = createBottomTabNavigator();
 
@@ -49,14 +50,15 @@ const MainNavigator = () => {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 60,
-    position: "absolute",
-    bottom: 15,
-    left: 10,
-    right: 10,
-    borderWidth: 0,
-    borderRadius: 50,
-    backgroundColor: COLORS.white,
+    height: 70,
+    // backgroundColor: transparent(),
+    // position: "absolute",
+    // bottom: 75,
+    // left: 10,
+    // right: 10,
+    // borderWidth: 0,
+    // borderRadius: 50,
+    // backgroundColor: "#FFFFFF",
   },
 });
 export default MainNavigator;
