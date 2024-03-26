@@ -6,6 +6,16 @@ export const CategoriesData = [
   },
   {
     image:
+      "https://cdn1.iconfinder.com/data/icons/birthday-30/64/pizza_food_slice_piece_fast_-1024.png",
+    name: "Пиццы",
+  },
+  {
+    image:
+      "https://cdn1.iconfinder.com/data/icons/birthday-30/64/pizza_food_slice_piece_fast_-1024.png",
+    name: "Пиццы",
+  },
+  {
+    image:
       "https://cdn.icon-icons.com/icons2/3277/PNG/512/soup_pottage_broth_food_bowl_dish_icon_208014.png",
     name: "Супы",
   },

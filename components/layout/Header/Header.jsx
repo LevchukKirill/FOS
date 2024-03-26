@@ -9,6 +9,9 @@ import {
 import Auth from "../Auth/Auth.jsx";
 import React from "react";
 import { COLORS } from "../../../constants";
+import RestaurantsService from "../../../services/RestaurantsService";
+
+const restService = new RestaurantsService();
 
 const Header = () => {
   return (
@@ -16,7 +19,9 @@ const Header = () => {
       <View>
         <Pressable
           style={styles.authBtn}
-          onPress={() => Linking.openURL("https://google.com")}
+          onPress={async () => {
+            console.log(await restService.getAllRestaurants());
+          }}
         >
           <Text>Binus</Text>
         </Pressable>

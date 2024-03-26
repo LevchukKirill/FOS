@@ -27,12 +27,23 @@ const CategoryItem = ({ cat, isActive, clickHandler }) => {
             paddingTop: 5,
             height: 100,
             width: 100,
+            display: "flex",
+            flexDirection: "column",
             borderRadius: SIZES.radius,
           }}
         >
           <Image
             source={{ uri: cat.image }}
-            style={{ width: 75, height: 75 }}
+            style={{
+              // display: "flex",
+              padding: 10,
+              width: "100%",
+              flexBasis: "auto",
+              flexGrow: 1,
+              // flexShrink: 1,
+              // height: "100%",
+              objectFit: "contain",
+            }}
           />
           <Text style={{ fontSize: SIZES.h4 }}>{cat.name}</Text>
         </View>
@@ -56,8 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   catItem: {
-    width: 90,
-    // marginTop: 10,
+    aspectRatio: "1 / 1", // marginTop: 10,
     borderRadius: SIZES.radius,
   },
 });

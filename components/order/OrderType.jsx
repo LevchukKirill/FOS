@@ -52,8 +52,12 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     width: "100%",
     height: 115,
-    // height: "30%",
-    paddingTop: 10,
+    position: "absolute",
+    // height: "30%",b
+    bottom: 0,
+    // left: "50%",
+    // transform: ,
+    // translate: "50%",
   },
   form: {
     width: "100%",

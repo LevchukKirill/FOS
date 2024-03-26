@@ -4,6 +4,7 @@ import {
   TouchableHighlight,
   View,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { CategoriesData as catData } from "../../data/CategoiresData";
 import { COLORS, SIZES } from "../../constants/theme";
@@ -17,7 +18,7 @@ import DiscountButton from "./DiscountButton";
 const Categories = (props) => {
   const [active, setActive] = useState(null);
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <View style={styles.container}>
         {catData.map((cat, idx) => (
           <View style={styles.catItem}>
@@ -27,6 +28,7 @@ const Categories = (props) => {
               isActive={active === idx}
               clickHandler={() => setActive(idx)}
             />
+
             {/*<DiscountButton*/}
             {/*  isActive={active === idx}*/}
             {/*  clickHandler={() => setActive(idx)}*/}
@@ -34,30 +36,29 @@ const Categories = (props) => {
           </View>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   main: {
     display: "flex",
-    width: "62%",
-    // borderWidth: 1,
+    maxWidth: "64%",
+    width: "auto",
+    height: "100%",
     paddingTop: 10,
   },
   container: {
-    // borderWidth: 1,
+    display: "flex",
     borderRadius: 20,
+    height: "100%",
     backgroundColor: COLORS.lightGray1,
     flexDirection: "row",
     flexWrap: "wrap",
-    // rowGap: 10,
-    // columnGap: 0,
-    paddingHorizontal: 10,
-    paddingBottom: 10,
-
-    alignItems: "center",
-    justifyContent: "space-between",
+    gap: 10,
+    padding: 10,
+    alignItems: "stretch",
+    justifyContent: "stretch",
   },
   shadow: {
     shadowColor: COLORS.black,
@@ -72,8 +73,9 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   catItem: {
-    // borderWidth: 1,
-    paddingTop: 10,
+    borderWidth: 1,
+    maxWidth: "50%",
+    // transform: [{ translateX: 50 }],
     borderRadius: SIZES.radius,
   },
 });
