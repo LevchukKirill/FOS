@@ -22,11 +22,12 @@ const CategoryItem = ({ cat, isActive, clickHandler }) => {
       >
         <View
           style={{
+            // borderWidth: 1,
             backgroundColor: isActive ? COLORS.primary : COLORS.white,
             alignItems: "center",
             paddingTop: 5,
-            height: 100,
-            width: 100,
+            height: "100%",
+            // maxWidth: "70%",
             display: "flex",
             flexDirection: "column",
             borderRadius: SIZES.radius,
@@ -35,13 +36,13 @@ const CategoryItem = ({ cat, isActive, clickHandler }) => {
           <Image
             source={{ uri: cat.image }}
             style={{
-              // display: "flex",
+              display: "flex",
               padding: 10,
               width: "100%",
               flexBasis: "auto",
               flexGrow: 1,
-              // flexShrink: 1,
-              // height: "100%",
+              flexShrink: 1,
+              maxHeight: "100%",
               objectFit: "contain",
             }}
           />
@@ -53,7 +54,7 @@ const CategoryItem = ({ cat, isActive, clickHandler }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 0, padding: 0, paddingTop: 0 },
+  // container: { borderWidth: 1 },
   shadow: {
     shadowColor: COLORS.black,
     shadowOffset: {
@@ -67,8 +68,9 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   catItem: {
-    aspectRatio: "1 / 1", // marginTop: 10,
-    borderRadius: SIZES.radius,
+    // maxWidth: "50%",
+    // aspectRatio: "1 / 1", // marginTop: 10,
+    // borderRadius: SIZES.radius,
   },
 });
 

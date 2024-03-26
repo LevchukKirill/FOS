@@ -42,23 +42,25 @@ const Categories = (props) => {
 
 const styles = StyleSheet.create({
   main: {
+    // borderWidth: 1,
     display: "flex",
     maxWidth: "64%",
     width: "auto",
     height: "100%",
-    paddingTop: 10,
+    // paddingTop: 10,
+    marginVertical: 10,
   },
   container: {
     display: "flex",
-    borderRadius: 20,
     height: "100%",
+    borderRadius: 20,
     backgroundColor: COLORS.lightGray1,
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
     padding: 10,
     alignItems: "stretch",
-    justifyContent: "stretch",
+    justifyContent: "center",
   },
   shadow: {
     shadowColor: COLORS.black,
@@ -73,9 +75,14 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.radius,
   },
   catItem: {
-    borderWidth: 1,
+    // borderWidth: 1,
+
+    // display: "flex",
+
+    // minWidth: "25%",
+    // padding: 5,
+
     maxWidth: "50%",
-    // transform: [{ translateX: 50 }],
     borderRadius: SIZES.radius,
   },
 });

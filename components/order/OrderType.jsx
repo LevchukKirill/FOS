@@ -54,7 +54,10 @@ const styles = StyleSheet.create({
     height: 115,
     position: "absolute",
     // height: "30%",b
+    marginHorizontal: 10,
     bottom: 0,
+    // display: "flex",
+    // justifyContent: "space-around",
     // left: "50%",
     // transform: ,
     // translate: "50%",

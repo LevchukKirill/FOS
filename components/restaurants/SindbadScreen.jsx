@@ -24,18 +24,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 10,
     overflow: "hidden",
-    // fontSize: 10,
+    fontSize: 10,
     // marginHorizontal: 10,
   },
   section: {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    maxHeight: "100%",
+    maxHeight: "80%",
     flexBasis: "auto",
     flexGrow: 1,
     flexShrink: 1,
     overflow: "hidden",
+    // borderWidth: 1,
+    // paddingBottom: 10,
   },
 });
 
