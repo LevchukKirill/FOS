@@ -1,18 +1,22 @@
 import axios from "axios";
-class RestaurantsService {
+import { ApiService } from "./ApiService";
+
+class RestaurantsService extends ApiService {
+  constructor() {
+    super({ namespace: "restaurant" });
+  }
   getAllRestaurants() {
-    return axios
-      .get("https://localhost/5000/api/restaurants")
+    console.log(this.axios.defaults.baseURL);
+    return this.axios
+      .get("")
       .then((response) => {
-        console.log(response);
+        return response.data;
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(console.error);
   }
   createRestaurant(data) {
-    return axios
-      .post("https://localhost/5000/api/restaurants", { data })
+    return this.axios
+      .post("", { data })
       .then((response) => {
         console.log(response);
       })
@@ -21,4 +25,4 @@ class RestaurantsService {
       });
   }
 }
-export const restaurantService = new RestaurantsService();
+export default RestaurantsService;
