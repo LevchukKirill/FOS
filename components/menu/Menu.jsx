@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignContent: "center",
     display: "flex",
+    columnGap: 0,
     // justifyContent: "center",
     // borderWidth: 1,
     width: "36%",
