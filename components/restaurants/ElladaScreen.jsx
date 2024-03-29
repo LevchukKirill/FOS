@@ -7,8 +7,8 @@ import { COLORS } from "../../constants";
 const ElladaScreen = () => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: COLORS.black }}>
-      <Categories />
-      <Categories />
+      {/*<Categories />*/}
+      {/*<Categories />*/}
     </ScrollView>
   );
 };

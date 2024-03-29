@@ -5,7 +5,8 @@ import { Text, View } from "react-native";
 import Categories from "../categories/Categories";
 
 const ShtolenhofScreen = () => {
-  return <Categories />;
+  // return <Categories />;
+  return <View></View>;
 };
 
 export default ShtolenhofScreen;

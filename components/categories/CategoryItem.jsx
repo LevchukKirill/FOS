@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { COLORS, SIZES } from "../../constants";
 
-const CategoryItem = ({ cat, isActive, clickHandler }) => {
+const CategoryItem = ({ type, isActive, clickHandler }) => {
   return (
     <View style={styles.container}>
       <TouchableHighlight
@@ -33,20 +33,21 @@ const CategoryItem = ({ cat, isActive, clickHandler }) => {
             borderRadius: SIZES.radius,
           }}
         >
-          <Image
-            source={{ uri: cat.image }}
-            style={{
-              display: "flex",
-              padding: 10,
-              width: "100%",
-              flexBasis: "auto",
-              flexGrow: 1,
-              flexShrink: 1,
-              maxHeight: "100%",
-              objectFit: "contain",
-            }}
-          />
-          <Text style={{ fontSize: SIZES.h4 }}>{cat.name}</Text>
+          {/*<Image*/}
+          {/*  source={{ uri: cat.image }}*/}
+          {/*  style={{*/}
+          {/*    display: "flex",*/}
+          {/*    padding: 10,*/}
+          {/*    width: "100%",*/}
+          {/*    flexBasis: "auto",*/}
+          {/*    flexGrow: 1,*/}
+          {/*    flexShrink: 1,*/}
+          {/*    maxHeight: "100%",*/}
+          {/*    objectFit: "contain",*/}
+          {/*  }}*/}
+          {/*/>*/}
+
+          <Text style={{ fontSize: SIZES.h4 }}>{type.name}</Text>
         </View>
       </TouchableHighlight>
     </View>

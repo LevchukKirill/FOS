@@ -1,38 +1,21 @@
-import {
-  Text,
-  Image,
-  TouchableHighlight,
-  View,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { Text, Image, View, StyleSheet, ScrollView } from "react-native";
 import { CategoriesData as catData } from "../../data/CategoiresData";
 import { COLORS, SIZES } from "../../constants/theme";
-import { useState } from "react";
 import CategoryItem from "./CategoryItem";
-import DiscountButton from "./DiscountButton";
 
-// import { styles } from "../../style";
-// import { BoxShadow } from "react-native-shadow";
-
-const Categories = (props) => {
+const Categories = ({ types }) => {
   const [active, setActive] = useState(null);
   return (
     <ScrollView style={styles.main}>
       <View style={styles.container}>
-        {catData.map((cat, idx) => (
-          <View style={styles.catItem}>
-            {/*<Text>{Object.values(cat).join("\n")}</Text>*/}
+        {types.map((type, id) => (
+          <View style={styles.catItem} key={id}>
             <CategoryItem
-              cat={cat}
-              isActive={active === idx}
-              clickHandler={() => setActive(idx)}
+              type={type}
+              isActive={active === id}
+              clickHandler={() => setActive(id)}
             />
-
-            {/*<DiscountButton*/}
-            {/*  isActive={active === idx}*/}
-            {/*  clickHandler={() => setActive(idx)}*/}
-            {/*/>*/}
           </View>
         ))}
       </View>

@@ -8,7 +8,7 @@ const Menu = ({ foods }) => {
     <ScrollView style={styles.menu}>
       <View>
         {foods.map((food) => (
-          <View>
+          <View key={food.id}>
             <MenuItem food={food} />
           </View>
         ))}
