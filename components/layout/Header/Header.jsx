@@ -9,9 +9,9 @@ import {
 import Auth from "../Auth/Auth.jsx";
 import React from "react";
 import { COLORS } from "../../../constants";
-import RestaurantsService from "../../../services/RestaurantsService";
+import FoodService from "../../../services/UserService";
 
-const restService = new RestaurantsService();
+const restService = new FoodService();
 
 const Header = () => {
   return (
@@ -20,7 +20,7 @@ const Header = () => {
         <Pressable
           style={styles.authBtn}
           onPress={async () => {
-            console.log(await restService.getAllRestaurants());
+            console.log(await restService.getAllUser());
           }}
         >
           <Text>Binus</Text>

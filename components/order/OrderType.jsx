@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   main: {
     // borderWidth: 1,
     width: "100%",
-    height: 115,
+    height: "18%",
     position: "absolute",
     // height: "30%",b
     marginHorizontal: 10,
