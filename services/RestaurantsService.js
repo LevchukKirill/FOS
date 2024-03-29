@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ApiService } from "./ApiService";
 
 class RestaurantsService extends ApiService {
@@ -20,9 +19,23 @@ class RestaurantsService extends ApiService {
       .then((response) => {
         console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(console.error);
+  }
+  updateRestaurant(id, data) {
+    return this.axios
+      .patch(`${id}`, { data })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(console.error);
+  }
+  deleteRestaurant(id) {
+    return this.axios
+      .delete(`${id}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(console.error);
   }
 }
 export default RestaurantsService;
