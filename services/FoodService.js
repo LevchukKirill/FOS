@@ -13,6 +13,15 @@ class FoodService extends ApiService {
       })
       .catch(console.error);
   }
+  getFoodByType(typeId) {
+    return this.axios
+      .get(`type/${typeId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(console.error);
+  }
+
   createFood(data) {
     return this.axios
       .post("", { data })

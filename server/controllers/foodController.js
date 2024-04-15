@@ -1,5 +1,5 @@
-const foodService = require('../providers/foodService');
-const ApiError = require('../error/ApiError');
+const foodService = require("../providers/foodService");
+const ApiError = require("../error/ApiError");
 
 class foodController {
   async create(req, res, next) {
@@ -32,6 +32,16 @@ class foodController {
     }
   }
 
+  async getByType(req, res, next) {
+    try {
+      let foods = await foodService.getByType(req.params.typeId);
+
+      return res.json(foods);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
+  }
+
   async update(req, res, next) {
     try {
       const food = await foodService.update(req.body, req.params.id);
@@ -45,7 +55,7 @@ class foodController {
     try {
       await foodService.delete(req.params.id);
 
-      return res.send('');
+      return res.send("");
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }

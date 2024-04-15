@@ -1,15 +1,17 @@
-const uuid = require('uuid');
-const path = require('path');
-const { Food } = require('../models/models');
-const ApiError = require('../error/ApiError');
+const uuid = require("uuid");
+const path = require("path");
+const { Food, Type } = require("../models/models");
+const ApiError = require("../error/ApiError");
+const typeService = require("../providers/typeService");
+const { Op } = require("sequelize");
 
 class foodService {
   async create(food, picture) {
     // console.log(picture);
     const { name, price, foodInfo, restaurantId, typeId } = food;
     const { img } = picture;
-    let fileName = uuid.v4() + '.jpg';
-    img.mv(path.resolve(__dirname, '..', 'static', fileName));
+    let fileName = uuid.v4() + ".jpg";
+    img.mv(path.resolve(__dirname, "..", "static", fileName));
     const { id } = await Food.create(
       {
         name,
@@ -19,7 +21,7 @@ class foodService {
         typeId,
         img: fileName,
       },
-      { include: [Food.FoodInfo] }
+      { include: [Food.FoodInfo] },
     );
 
     return this.getOne(id);
@@ -29,7 +31,7 @@ class foodService {
     const food = await Food.findOne({
       where: { id },
       include: [Food.FoodInfo, Food.Type],
-      attributes: { exclude: ['foodInfoId'] },
+      attributes: { exclude: ["foodInfoId"] },
     });
     if (!food) throw ApiError.notFound();
 
@@ -68,6 +70,13 @@ class foodService {
 
     return foods;
   }
+
+  async getByType(typeId) {
+    const type = await Type.findOne({ where: { id: typeId }, include: Food });
+
+    return type.food;
+  }
+
   async update(food, id) {
     const { name, price, foodInfoId, restaurantId, typeId } = food;
     const updatedFood = await Food.update(
@@ -78,7 +87,7 @@ class foodService {
         restaurantId,
         typeId,
       },
-      { where: { id } }
+      { where: { id } },
     );
 
     return updatedFood;
