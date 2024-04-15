@@ -2,22 +2,36 @@ import React from "react";
 
 import { Text, View, StyleSheet, Image } from "react-native";
 import FoodCounter from "./FoodCounter";
+import MenuButton from "../menu/MenuButton";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../../store/basket/BasketSlice";
 
-const OrderItem = () => {
+const OrderItem = ({ food, amount }) => {
+  const { basket } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  console.log(food);
   return (
     <View style={styles.container}>
       <FoodCounter name={"Я картинка"} />
       <View style={styles.productText}>
-        <Text>{"{название товара}"}</Text>
-        <Text>{"{описание товара}"}</Text>
+        <Text>{food.name}</Text>
+        <Text>{food.foodInfoId}</Text>
       </View>
-      <FoodCounter name={"Я счетчик"} />
+      <View>
+        <MenuButton
+          count={basket[food.id]?.amount ?? 0}
+          inc={() => dispatch(actions.addToBasket(food))}
+          dec={() => dispatch(actions.removeFromBasket(food))}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    alignItems: "center",
     width: "100%",
     flexDirection: "row",
     columnGap: 10,
@@ -25,6 +39,7 @@ const styles = StyleSheet.create({
   },
   productText: {
     flex: 1,
+    height: "100%",
     borderWidth: 1,
   },
 });

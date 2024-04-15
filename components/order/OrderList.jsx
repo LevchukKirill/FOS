@@ -3,21 +3,16 @@ import OrderItem from "./OrderItem";
 
 import { Text, View, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
+import { useSelector } from "react-redux";
 
 const OrderList = () => {
+  const { basket } = useSelector((state) => state);
   return (
     <View style={{ paddingTop: 30 }}>
       <View style={styles.container}>
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
-        <OrderItem />
+        {Object.values(basket).map(({ data: food, amount }) => (
+          <OrderItem food={food} amount={amount} />
+        ))}
       </View>
       <View style={styles.orderText}>
         <Text style={{ fontSize: 18 }}>{"{кол} товара на {сумма}"}</Text>

@@ -4,16 +4,10 @@ import { Text, View, StyleSheet, Pressable } from "react-native";
 import { COLORS } from "../../constants";
 import AddFoodButton from "./AddFoodButton";
 
-const MenuButton = (props) => {
-  const [count, setCount] = useState(0);
+const MenuButton = ({ count, inc, dec }) => {
   return (
     <View style={styles.box}>
-      <AddFoodButton
-        clickHandler={() => setCount((prevState) => prevState + 1)}
-        count={count}
-        name={"+"}
-        plus={true}
-      />
+      <AddFoodButton clickHandler={inc} count={count} name={"+"} plus={true} />
       <View style={styles.countText}>
         <Text>{count}</Text>
       </View>
@@ -21,7 +15,7 @@ const MenuButton = (props) => {
         <></>
       ) : (
         <AddFoodButton
-          clickHandler={() => setCount((prevState) => prevState - 1)}
+          clickHandler={dec}
           count={count}
           name={"--"}
           plus={false}
@@ -37,8 +31,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "90%",
-    // height: "10%",
+    width: 90,
+    // margin: "auto",
+    // height: ,
     // borderWidth: 1,
     // borderRadius: 10,
   },
