@@ -11,7 +11,7 @@ const OrderList = () => {
     <View style={{ paddingTop: 30 }}>
       <View style={styles.container}>
         {Object.values(basket).map(({ data: food, amount }) => (
-          <OrderItem food={food} amount={amount} />
+          <OrderItem food={food} amount={amount} key={food.id} />
         ))}
       </View>
       <View style={styles.orderText}>

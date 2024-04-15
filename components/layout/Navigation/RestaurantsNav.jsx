@@ -3,7 +3,7 @@ import ElladaScreen from "../../restaurants/ElladaScreen";
 import SindbadScreen from "../../restaurants/SindbadScreen";
 import ShtolenhofScreen from "../../restaurants/ShtolenhofScreen";
 import { COLORS } from "../../../constants";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FoodService from "../../../services/FoodService";
 import TypeService from "../../../services/TypeService";
 
@@ -12,24 +12,15 @@ const typeService = new TypeService();
 
 function RestaurantsNav() {
   const [types, setTypes] = useState([]);
-
-  // const fetchTypeData = async () => {
-  //   return await typeService.getAllTypes();
-  // };
-
   const [activeType, setActiveType] = useState(undefined);
   const [activeFoods, setActiveFoods] = useState([]);
 
   useEffect(() => {
-    // fetchTypeData().then((r) => {
-    //   setTypes(r);
-    //   setActive(r[0]);
-    // });
     typeService.getAllTypes().then((r) => {
       setTypes(r);
       setActiveType(r[0]);
     });
-  }, []);
+  }, [types]);
 
   useEffect(() => {
     if (!activeType) return () => {};
