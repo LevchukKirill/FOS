@@ -11,20 +11,37 @@ const foodService = new FoodService();
 const typeService = new TypeService();
 
 function RestaurantsNav() {
-  const [allFood, setAllFood] = useState([]);
   const [types, setTypes] = useState([]);
 
-  const fetchFoodData = async () => {
-    return await foodService.getAllFood();
-  };
-  const fetchTypeData = async () => {
-    return await typeService.getAllTypes();
-  };
+  // const fetchTypeData = async () => {
+  //   return await typeService.getAllTypes();
+  // };
+
+  const [activeType, setActiveType] = useState(undefined);
+  const [activeFoods, setActiveFoods] = useState([]);
 
   useEffect(() => {
-    fetchFoodData().then((r) => setAllFood(r));
-    fetchTypeData().then((r) => setTypes(r));
+    // fetchTypeData().then((r) => {
+    //   setTypes(r);
+    //   setActive(r[0]);
+    // });
+    typeService.getAllTypes().then((r) => {
+      setTypes(r);
+      setActiveType(r[0]);
+    });
   }, []);
+
+  useEffect(() => {
+    if (!activeType) return () => {};
+    if (!activeType.foods)
+      foodService.getFoodByType(activeType.id).then((res) => {
+        activeType.foods = res;
+        setActiveFoods(activeType.foods);
+      });
+    else {
+      setActiveFoods(activeType.foods);
+    }
+  }, [activeType]);
 
   const TopTab = createMaterialTopTabNavigator();
 
@@ -39,10 +56,10 @@ function RestaurantsNav() {
         component={ElladaScreen}
       />
       <TopTab.Screen name="sindbad">
-        {(props) => <SindbadScreen {...props} foods={allFood} type={types} />}
+        {(props) => (
+          <SindbadScreen {...props} foods={activeFoods} type={types} />
+        )}
       </TopTab.Screen>
-      {/*// name="sindbad" // component={SindbadScreen}*/}
-      {/*// initialParams={{ data: allFood }}*/}
       <TopTab.Screen name="shtolenhof" component={ShtolenhofScreen} />
     </TopTab.Navigator>
   );
