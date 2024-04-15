@@ -8,13 +8,6 @@ import TypeService from "../../services/TypeService";
 import Menu from "../menu/Menu";
 
 const SindbadScreen = (props) => {
-  // const fetchData = async () => {
-  //   return await foodService.getAllFood();
-  // };
-  //
-  // useEffect(() => {
-  //   fetchData().then((r) => setAllFood(r));
-  // }, []);
   return (
     <View style={styles.container}>
       <View style={styles.section}>

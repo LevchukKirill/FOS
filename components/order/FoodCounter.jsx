@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS } from "../../constants";
 
 const FoodCounter = (props) => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(props.count || 0);
   return (
     <View style={styles.box}>
       <TouchableOpacity
