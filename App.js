@@ -1,25 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Pressable,
-  Button,
-} from "react-native";
-import Categories from "./components/categories/Categories";
-import Restaraunts from "./components/restaurants/Restaraunts";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { COLORS } from "./constants/theme";
 import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
 import Header from "./components/layout/Header/Header.jsx";
+import { Provider } from "react-redux";
+import { store } from "./store/Store";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-      <MainNavigator />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <Header />
+        <MainNavigator />
+      </SafeAreaView>
+    </Provider>
   );
 }
 
