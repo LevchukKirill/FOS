@@ -1,15 +1,14 @@
 import React from "react";
 
 import { Text, View, StyleSheet } from "react-native";
-// import FoodCounter from "../order/FoodCounter";
 import MenuButton from "./MenuButton";
-import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../store/basket/BasketSlice";
+import { useActions } from "../../hooks/useActions";
+import { useBasket } from "../../hooks/useBasket";
 
 const MenuItem = ({ food }) => {
-  const { basket } = useSelector((state) => state);
+  const { basket } = useBasket();
 
-  const dispatch = useDispatch();
+  const { addToBasket, removeFromBasket } = useActions();
 
   return (
     <View style={styles.container}>
@@ -19,8 +18,8 @@ const MenuItem = ({ food }) => {
       </View>
       <MenuButton
         count={basket[food.id]?.amount ?? 0}
-        inc={() => dispatch(actions.addToBasket(food))}
-        dec={() => dispatch(actions.removeFromBasket(food))}
+        inc={() => addToBasket(food)}
+        dec={() => removeFromBasket(food)}
       />
     </View>
   );
