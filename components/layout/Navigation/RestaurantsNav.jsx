@@ -20,7 +20,7 @@ function RestaurantsNav() {
       setTypes(r);
       setActiveType(r[0]);
     });
-  }, [types]);
+  }, []);
 
   useEffect(() => {
     if (!activeType) return () => {};

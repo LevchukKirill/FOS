@@ -4,9 +4,10 @@ import { Text, View, StyleSheet } from "react-native";
 import MenuButton from "./MenuButton";
 import { useActions } from "../../hooks/useActions";
 import { useBasket } from "../../hooks/useBasket";
+import { useSelector } from "react-redux";
 
 const MenuItem = ({ food }) => {
-  const { basket } = useBasket();
+  const { basket } = useSelector((state) => state);
 
   const { addToBasket, removeFromBasket } = useActions();
 

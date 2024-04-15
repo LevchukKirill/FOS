@@ -5,9 +5,10 @@ import FoodCounter from "./FoodCounter";
 import MenuButton from "../menu/MenuButton";
 import { useActions } from "../../hooks/useActions";
 import { useBasket } from "../../hooks/useBasket";
+import { useSelector } from "react-redux";
 
 const OrderItem = ({ food, amount }) => {
-  const { basket } = useBasket();
+  const { basket } = useSelector((state) => state);
   const { addToBasket, removeFromBasket } = useActions();
 
   console.log(food);
