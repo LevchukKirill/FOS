@@ -1,5 +1,5 @@
-const ApiError = require('../error/ApiError');
-const { Type } = require('../models/models');
+const ApiError = require("../error/ApiError");
+const { Type } = require("../models/models");
 
 class typeService {
   async create(type) {
@@ -12,6 +12,12 @@ class typeService {
     const types = await Type.findAll();
 
     return types;
+  }
+
+  async getOne(id) {
+    const type = await Type.findOne({ where: id });
+
+    return type;
   }
 
   async update(type, id) {
