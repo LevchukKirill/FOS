@@ -11,11 +11,16 @@ const generateJwt = (id, name, phone, role) => {
 
 class userService {
   async registration(form) {
+    console.log(form);
     const { name, password, phone, address, role } = form;
-    if (!name || !password || !phone)
-      throw ApiError.notFound("Неккоректный ввод");
+
+    if (!name) this.name = phone;
+    else this.name = name;
+
+    if (!password || !phone) throw ApiError.notFound("Неккоректный ввод");
 
     const existedUser = await User.findOne({ where: { phone } });
+
     if (existedUser)
       throw ApiError.forbidden(
         "Пользователь с таким номером телефона уже существует",
@@ -24,7 +29,7 @@ class userService {
     const hashPassword = await bcrypt.hash(password, 4);
 
     const user = await User.create({
-      name,
+      name: this.name,
       password: hashPassword,
       phone,
       role,
@@ -39,6 +44,7 @@ class userService {
   }
 
   async login(form) {
+    console.log(form);
     const { phone, password } = form;
     const user = await User.findOne({ where: { phone } });
     if (!user) throw ApiError.notFound();

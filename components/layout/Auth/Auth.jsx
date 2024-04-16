@@ -9,17 +9,23 @@ import {
   Alert,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
+import UserService from "../../../services/UserService";
 
 const Auth = () => {
+  const [isExist, setIsExist] = useState(false);
+  const [phone, setPhoneNumber] = useState("+");
+  const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+
+  const userService = new UserService();
+
   return (
     <View>
       <Modal
-        animationType="slide"
+        animationType={"slide"}
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -27,23 +33,48 @@ const Auth = () => {
           <Text style={{ fontSize: 15 }}>
             Вход в системы рестаранов ИП Султанов
           </Text>
-          <Text style={{ fontSize: 20 }}>Номер телефона</Text>
-          <Text style={{ fontSize: 10 }}>Введите свой номер телефона</Text>
+          <View>
+            <Text style={{ fontSize: 20 }}>
+              {isExist ? "Авторизация" : "Регистрация"}
+            </Text>
+            <Text style={{ fontSize: 10 }}>
+              Введите свой номер телефона и пароль
+            </Text>
+            <TextInput
+              onChangeText={setPhoneNumber}
+              style={styles.input}
+              keyboardType="numeric"
+              value={phone}
+              placeholder="+7(9__)___-__-__"
+            />
+          </View>
           <TextInput
+            onChangeText={setPassword}
             style={styles.input}
-            type="tel"
-            placeholder="+7(9__)___-__-__"
+            secureTextEntry={true}
+            placeholder="Пароль"
           />
           <Pressable
             style={styles.button}
-            onPress={() => setModalVisible(false)}
+            onPress={async () => {
+              const userJWT = isExist
+                ? await userService.authUser({ phone, password })
+                : await userService.createUser({ phone, password });
+              userJWT ? setModalVisible(false) : () => {};
+            }}
           >
             <Text style={{ color: COLORS.white }}>Продолжить</Text>
           </Pressable>
-          <Text style={{ fontSize: 10 }}>
-            Продолжая, вы соглашаетесь со сбором и обработкой персональных
-            данных и пользовательским соглашением
-          </Text>
+          <Pressable
+            style={styles.button}
+            onPress={() => {
+              setIsExist(!isExist);
+            }}
+          >
+            <Text style={{ color: COLORS.white }}>
+              {isExist ? "Регистрация" : "Авторизация"}
+            </Text>
+          </Pressable>
         </View>
       </Modal>
       <View>
@@ -63,15 +94,17 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    height: "25%",
     width: "100%",
+
     position: "absolute",
-    bottom: 100,
+    bottom: -50,
     marginBottom: 100,
-    borderRadius: 50,
-    padding: 15,
+    borderRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
     backgroundColor: COLORS.white,
     flex: 1,
+    rowGap: 5,
     justifyContent: "center",
   },
   shadow: {
@@ -85,6 +118,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   input: {
+    paddingHorizontal: 5,
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 10,
