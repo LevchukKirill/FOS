@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, Image, View, StyleSheet, ScrollView } from "react-native";
 import { CategoriesData as catData } from "../../data/CategoiresData";
 import { COLORS, SIZES } from "../../constants/theme";
 import CategoryItem from "./CategoryItem";
+import {
+  ActiveContext,
+  TypesContext,
+} from "../layout/Navigation/RestaurantsNav";
 
-const Categories = ({ types }) => {
-  const [active, setActive] = useState(null);
+const Categories = ({ type }) => {
+  // const [types, setTypes] = useContext(Context);
+  const [activeType, setActiveType] = useContext(ActiveContext);
+  const types = useContext(TypesContext);
+
   return (
     <ScrollView style={styles.main}>
       <View style={styles.container}>
-        {types.map((type, id) => (
-          <View style={styles.catItem} key={id}>
+        {types.map((type) => (
+          <View style={styles.catItem} key={type.id}>
             <CategoryItem
               type={type}
-              isActive={active === id}
-              clickHandler={() => setActive(id)}
+              isActive={activeType?.id === type.id}
+              clickHandler={() => setActiveType(types[type.id - 1])}
             />
           </View>
         ))}
