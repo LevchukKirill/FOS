@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React from "react";
+import { View, StyleSheet, Text } from "react-native";
+import UserInfo from "../../components/profile/UserInfo";
+import Settings from "../../components/profile/Settings";
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <View>
-      <Text>Profile</Text>
+      <UserInfo />
+      <Settings />
     </View>
   );
 };
