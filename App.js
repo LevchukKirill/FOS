@@ -8,6 +8,7 @@ import { store } from "./store/Store";
 
 export default function App() {
   return (
+    //TODO: починить загрузку на айфон
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <Header />

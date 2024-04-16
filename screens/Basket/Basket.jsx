@@ -7,6 +7,7 @@ import OrderButton from "../../components/order/OrderButton";
 
 const Basket = () => {
   return (
+    //TODO: оборазить картинки в заказе
     <ScrollView style={{ paddingHorizontal: 10 }}>
       <View style={{ paddingBottom: 10 }}>
         <OrderList />

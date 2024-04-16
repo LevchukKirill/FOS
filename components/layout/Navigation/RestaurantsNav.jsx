@@ -42,6 +42,7 @@ function RestaurantsNav() {
   const TopTab = createMaterialTopTabNavigator();
 
   return (
+    //TODO: отображать заказ в порядке добавления
     <ActiveContext.Provider value={[activeType, setActiveType]}>
       <TypesContext.Provider value={types}>
         <TopTab.Navigator

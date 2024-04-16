@@ -7,6 +7,7 @@ import Menu from "../menu/Menu";
 
 const SindbadScreen = (props) => {
   return (
+    //TODO: убрать варнинги из за селекторов
     <View style={styles.container}>
       <View style={styles.section}>
         {props.type ? (
