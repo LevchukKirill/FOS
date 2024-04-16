@@ -11,7 +11,6 @@ const OrderItem = ({ food, amount }) => {
   const { basket } = useSelector((state) => state);
   const { addToBasket, removeFromBasket } = useActions();
 
-  console.log(food);
   return (
     <View style={styles.container}>
       <FoodCounter name={"Я картинка"} />

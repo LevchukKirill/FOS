@@ -3,12 +3,13 @@ import React from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import MenuItem from "./MenuItem";
 
-const Menu = ({ foods }) => {
+const Menu = (props) => {
+  console.log(props.foods);
   return (
     <ScrollView style={styles.menu}>
       <View>
-        {foods.map((food) => (
-          <View key={food.id}>
+        {props.foods.map((food, id) => (
+          <View key={id}>
             <MenuItem food={food} />
           </View>
         ))}

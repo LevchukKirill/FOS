@@ -7,8 +7,9 @@ import { useBasket } from "../../hooks/useBasket";
 import { useSelector } from "react-redux";
 
 const MenuItem = ({ food }) => {
+  // console.log(food.price);
   const { basket } = useSelector((state) => state);
-
+  console.log(basket);
   const { addToBasket, removeFromBasket } = useActions();
 
   return (

@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
-import FoodService from "../../services/FoodService";
-import TypeService from "../../services/TypeService";
 import Menu from "../menu/Menu";
 
 const SindbadScreen = (props) => {
