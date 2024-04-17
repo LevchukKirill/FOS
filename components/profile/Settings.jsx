@@ -5,12 +5,12 @@ import { Text, View, StyleSheet } from "react-native";
 
 const Settings = () => {
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.section}>
         <SettingItem name={"История заказов"} />
         <SettingItem name={"Адреса"} />
       </View>
-      <View>
+      <View style={styles.section}>
         <SettingItem name={"Поддержка"} />
         <SettingItem name={"Контакты"} />
       </View>
@@ -21,6 +21,18 @@ const Settings = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    display: "flex",
+    flexDirection: "column",
+    rowGap: 5,
+  },
+  section: {
+    rowGap: 1,
+  },
+});
 
 export default Settings;

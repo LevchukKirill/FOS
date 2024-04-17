@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -6,16 +6,18 @@ import {
   Modal,
   StyleSheet,
   Pressable,
-  Alert,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
+import { UserContext } from "../../../App";
 
 const Auth = () => {
   const [isExist, setIsExist] = useState(false);
   const [phone, setPhoneNumber] = useState("+");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+
+  const { setUser } = useContext(UserContext);
 
   const userService = new UserService();
 
@@ -57,10 +59,12 @@ const Auth = () => {
           <Pressable
             style={styles.button}
             onPress={async () => {
-              const userJWT = isExist
+              const data = isExist
                 ? await userService.authUser({ phone, password })
                 : await userService.createUser({ phone, password });
-              userJWT ? setModalVisible(false) : () => {};
+              setUser(data);
+              console.log(data);
+              setModalVisible(false);
             }}
           >
             <Text style={{ color: COLORS.white }}>Продолжить</Text>

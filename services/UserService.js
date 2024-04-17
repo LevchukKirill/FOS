@@ -28,7 +28,7 @@ class UserService extends ApiService {
     return (
       this.axios
         .post("/login", { phone, password })
-        .then((response) => response.data.token)
+        .then((response) => response.config.data)
         //TODO: вывод ошибки
         .catch(console.error)
     );
@@ -36,7 +36,7 @@ class UserService extends ApiService {
   createUser({ phone, password }) {
     return this.axios
       .post("/registration", { phone, password })
-      .then((response) => response.data.token)
+      .then((response) => response.config.data)
       .catch(console.error);
   }
   updateUser(id, data) {

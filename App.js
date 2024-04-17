@@ -5,14 +5,20 @@ import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
 import Header from "./components/layout/Header/Header.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/Store";
+import { createContext, useState } from "react";
 
+export const UserContext = createContext();
 export default function App() {
+  const [user, setUser] = useState({});
+
   return (
     //TODO: починить загрузку на айфон
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
-        <Header />
-        <MainNavigator />
+        <UserContext.Provider value={{ user, setUser }}>
+          <Header />
+          <MainNavigator />
+        </UserContext.Provider>
       </SafeAreaView>
     </Provider>
   );

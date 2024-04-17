@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
 import Menu from "../menu/Menu";
@@ -24,7 +24,6 @@ const SindbadScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    // borderWidth: 1,
     height: "100%",
     paddingHorizontal: 10,
     display: "flex",
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
     gap: 10,
     overflow: "hidden",
     fontSize: 10,
-    // marginHorizontal: 10,
   },
   section: {
     display: "flex",
@@ -45,8 +43,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     paddingVertical: 10,
-    // borderWidth: 1,
-    // paddingBottom: 10,
   },
 });
 
