@@ -2,23 +2,28 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {};
 
+export function getKey(food) {
+  return `f${food.id}`;
+}
 export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
     addToBasket: (state, action) => {
       const food = action.payload;
-      if (!state[food.id]) state[food.id] = { data: food, amount: 0 };
-      state[food.id].amount++;
+      const id = getKey(food);
+      if (!state[id]) state[id] = { data: food, amount: 0 };
+      state[id].amount++;
     },
     removeFromBasket: (state, action) => {
       const food = action.payload;
-      if (!state[food.id]) return;
-      if (state[food.id].amount === 1) {
-        delete state[food.id];
+      const id = getKey(food);
+      if (!state[id]) return;
+      if (state[id].amount === 1) {
+        delete state[id];
         return;
       }
-      state[food.id].amount--;
+      state[id].amount--;
     },
   },
 });

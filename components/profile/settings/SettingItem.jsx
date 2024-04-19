@@ -6,7 +6,11 @@ import { COLORS } from "../../../constants";
 const SettingItem = (props) => {
   return (
     <View style={styles.item}>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          if (typeof props.handler === "function") props.handler();
+        }}
+      >
         <Text style={styles.text}>{props.name}</Text>
       </TouchableOpacity>
     </View>

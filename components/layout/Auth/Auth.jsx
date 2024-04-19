@@ -9,14 +9,15 @@ import {
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
-import { UserContext } from "../../../App";
+import { UserContext } from "../../../hooks/useUser";
 
 const Auth = () => {
-  const [isExist, setIsExist] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [phone, setPhoneNumber] = useState("+");
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [error, setError] = useState(undefined);
   const { setUser } = useContext(UserContext);
 
   const userService = new UserService();
@@ -37,7 +38,7 @@ const Auth = () => {
           </Text>
           <View>
             <Text style={{ fontSize: 20 }}>
-              {isExist ? "Авторизация" : "Регистрация"}
+              {isLogin ? "Авторизация" : "Регистрация"}
             </Text>
             <Text style={{ fontSize: 10 }}>
               Введите свой номер телефона и пароль
@@ -54,17 +55,22 @@ const Auth = () => {
             onChangeText={setPassword}
             style={styles.input}
             secureTextEntry={true}
+            value={password}
             placeholder="Пароль"
           />
           <Pressable
             style={styles.button}
             onPress={async () => {
-              const data = isExist
-                ? await userService.authUser({ phone, password })
-                : await userService.createUser({ phone, password });
-              setUser(data);
-              console.log(data);
-              setModalVisible(false);
+              const data = isLogin
+                ? userService.login({ phone, password })
+                : userService.register({ phone, password });
+              data
+
+                .then(() => {
+                  setModalVisible(false);
+                  userService.auth().then(setUser);
+                })
+                .catch(setError);
             }}
           >
             <Text style={{ color: COLORS.white }}>Продолжить</Text>
@@ -72,13 +78,14 @@ const Auth = () => {
           <Pressable
             style={styles.button}
             onPress={() => {
-              setIsExist(!isExist);
+              setIsLogin(!isLogin);
             }}
           >
             <Text style={{ color: COLORS.white }}>
-              {isExist ? "Регистрация" : "Авторизация"}
+              {isLogin ? "Регистрация" : "Авторизация"}
             </Text>
           </Pressable>
+          <Text>{error ? "Неверный пароль или логин" : ""}</Text>
         </View>
       </Modal>
       <View>

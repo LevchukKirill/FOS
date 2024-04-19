@@ -3,13 +3,27 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../error/ApiError");
 
-const generateJwt = (id, name, phone, role) => {
-  return jwt.sign({ id, name, phone, role }, process.env.SECRET_KEY, {
-    expiresIn: "12h",
-  });
-};
-
 class userService {
+  generateJwt(id, name, phone, role) {
+    return jwt.sign({ id, name, phone, role }, process.env.SECRET_KEY, {
+      expiresIn: "12h",
+    });
+  }
+  parseJwt(token) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {
+        if (error) {
+          return reject(ApiError.unauthorized());
+        }
+        this.getOne(decoded.id)
+          .then(resolve)
+          .catch(() => {
+            reject(ApiError.unauthorized());
+          });
+      });
+    });
+  }
+
   async registration(form) {
     console.log(form);
     const { name, password, phone, address, role } = form;
@@ -38,7 +52,7 @@ class userService {
 
     const order = await Order.create({ userId: user.id });
 
-    const token = generateJwt(user.id, user.name, user.phone, user.role);
+    const token = this.generateJwt(user.id, user.name, user.phone, user.role);
     console.log("loh");
     return { token };
   }
@@ -52,9 +66,13 @@ class userService {
     let comparePassword = bcrypt.compareSync(password, user.password);
     if (!comparePassword) throw ApiError.notFound();
 
-    const token = generateJwt(user.id, user.name, user.phone, user.role);
-    console.log("loh");
-    return { token };
+    const token = this.generateJwt(user.id, user.name, user.phone, user.role);
+
+    return token;
+  }
+
+  async getUser(token) {
+    return this.parseJwt(token);
   }
 
   async getAll() {

@@ -6,9 +6,10 @@ import MenuButton from "../menu/MenuButton";
 import { useActions } from "../../hooks/useActions";
 import { useBasket } from "../../hooks/useBasket";
 import { useSelector } from "react-redux";
+import { getKey } from "../../store/basket/BasketSlice";
 
 const OrderItem = ({ food, amount }) => {
-  const { basket } = useSelector((state) => state);
+  const basket = useSelector((state) => state.basket);
   const { addToBasket, removeFromBasket } = useActions();
 
   return (
@@ -20,7 +21,7 @@ const OrderItem = ({ food, amount }) => {
       </View>
       <View>
         <MenuButton
-          count={basket[food.id]?.amount ?? 0}
+          count={basket[getKey(food)]?.amount ?? 0}
           inc={() => addToBasket(food)}
           dec={() => removeFromBasket(food)}
         />

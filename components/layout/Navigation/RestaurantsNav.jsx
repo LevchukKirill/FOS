@@ -31,7 +31,7 @@ function RestaurantsNav() {
       console.log(`${activeType.id} активити тайп айди`);
       foodService.getFoodByType(activeType.id).then((res) => {
         activeType.foods = res;
-        console.log(activeType + "жто тут");
+        // console.log(activeType + "жто тут");
         setActiveFoods(activeType.foods);
       });
     } else {
@@ -42,7 +42,6 @@ function RestaurantsNav() {
   const TopTab = createMaterialTopTabNavigator();
 
   return (
-    //TODO: отображать заказ в порядке добавления
     <ActiveContext.Provider value={[activeType, setActiveType]}>
       <TypesContext.Provider value={types}>
         <TopTab.Navigator

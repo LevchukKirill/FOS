@@ -3,12 +3,12 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import MenuButton from "./MenuButton";
 import { useActions } from "../../hooks/useActions";
-import { useBasket } from "../../hooks/useBasket";
 import { useSelector } from "react-redux";
+import { getKey } from "../../store/basket/BasketSlice";
 
 const MenuItem = ({ food }) => {
   // console.log(food.price);
-  const { basket } = useSelector((state) => state);
+  const basket = useSelector((state) => state.basket);
   console.log(basket);
   const { addToBasket, removeFromBasket } = useActions();
 
@@ -19,7 +19,7 @@ const MenuItem = ({ food }) => {
         <Text>{food.price}</Text>
       </View>
       <MenuButton
-        count={basket[food.id]?.amount ?? 0}
+        count={basket[getKey(food)]?.amount ?? 0}
         inc={() => addToBasket(food)}
         dec={() => removeFromBasket(food)}
       />

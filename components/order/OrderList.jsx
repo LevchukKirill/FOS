@@ -4,14 +4,15 @@ import OrderItem from "./OrderItem";
 import { Text, View, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { useSelector } from "react-redux";
+import { getKey } from "../../store/basket/BasketSlice";
 
 const OrderList = () => {
-  const { basket } = useSelector((state) => state);
+  const basket = useSelector((state) => state.basket);
   return (
     <View style={{ paddingTop: 30 }}>
       <View style={styles.container}>
         {Object.values(basket).map(({ data: food, amount }) => (
-          <OrderItem food={food} amount={amount} key={food.id} />
+          <OrderItem food={food} amount={amount} key={getKey(food)} />
         ))}
       </View>
       <View style={styles.orderText}>

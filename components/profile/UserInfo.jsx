@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/EvilIcons";
 import { COLORS } from "../../constants";
 
 const UserInfo = ({ user }) => {
-  console.log({ user });
   return (
     <View style={styles.container}>
       <View style={styles.block}>
@@ -12,13 +11,13 @@ const UserInfo = ({ user }) => {
         <View style={styles.dataForm}>
           <View style={{ alignContent: "center" }}>
             <Text style={{ fontSize: 18 }}>
-              {user.name ? `${user.name}` : "Имя не найдено"}
+              {user?.name ? `${user.name}` : "Имя не найдено"}
             </Text>
             <Text style={{ fontSize: 18 }}>
-              {user.phone ? `${user.phone}` : "phone не найдено"}
+              {user?.phone ? `${user.phone}` : "phone не найдено"}
             </Text>
             <Text style={{ fontSize: 18 }}>
-              {user.mail ? `${user.mail}` : "mail не найдено"}
+              {user?.mail ? `${user.mail}` : "mail не найдено"}
             </Text>
           </View>
           <TouchableOpacity style={styles.updateBtn}>
@@ -29,7 +28,7 @@ const UserInfo = ({ user }) => {
         </View>
       </View>
       <View style={styles.menuItem}>
-        <Text>{"{Дата рождения}"}</Text>
+        <Text>{user?.bday ? user.bday : "День рождения не указан"}</Text>
       </View>
     </View>
   );

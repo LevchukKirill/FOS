@@ -5,11 +5,17 @@ import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
 import Header from "./components/layout/Header/Header.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/Store";
-import { createContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserService from "./services/UserService";
+import { UserContext } from "./hooks/useUser";
 
-export const UserContext = createContext();
 export default function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
+  const userService = new UserService();
+
+  useEffect(() => {
+    userService.auth().then(setUser);
+  }, []);
 
   return (
     //TODO: починить загрузку на айфон

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import UserInfo from "../../components/profile/UserInfo";
 import Settings from "../../components/profile/Settings";
 import { COLORS } from "../../constants";
-import { UserContext } from "../../App";
+import { UserContext } from "../../hooks/useUser";
 
 const Profile = (props) => {
   const { user } = useContext(UserContext);

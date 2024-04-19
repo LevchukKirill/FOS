@@ -6,14 +6,15 @@ import {
   TouchableHighlight,
   View,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import { COLORS, SIZES } from "../../constants";
 
 const CategoryItem = ({ type, isActive, clickHandler }) => {
   return (
     <View style={styles.container}>
-      <TouchableHighlight
-        underlayColor={COLORS.primary}
+      <Pressable
+        // underlayColor={COLORS.primary}
         onPress={clickHandler}
         style={
           (styles.shadow,
@@ -49,7 +50,7 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
 
           <Text style={{ fontSize: SIZES.h4 }}>{type.name}</Text>
         </View>
-      </TouchableHighlight>
+      </Pressable>
     </View>
   );
 };

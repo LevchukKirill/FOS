@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import SettingItem from "../../components/profile/settings/SettingItem";
 
 import { Text, View, StyleSheet } from "react-native";
+import UserService from "../../services/UserService";
+import { UserContext } from "../../hooks/useUser";
 
 const Settings = () => {
+  const { setUser } = useContext(UserContext);
+  function logout() {
+    new UserService().logout().finally(() => {
+      setUser(undefined);
+    });
+  }
   return (
     <View style={styles.container}>
       <View style={styles.section}>
@@ -15,7 +23,7 @@ const Settings = () => {
         <SettingItem name={"Контакты"} />
       </View>
       <SettingItem name={"Тема"} />
-      <SettingItem name={"Выйти из аккаунта"} />
+      <SettingItem handler={logout} name={"Выйти из аккаунта"} />
       <SettingItem name={"Удалить аккаунт"} />
     </View>
   );

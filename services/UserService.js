@@ -24,21 +24,35 @@ class UserService extends ApiService {
       .catch(console.error);
   }
 
-  authUser({ phone, password }) {
-    return (
-      this.axios
-        .post("/login", { phone, password })
-        .then((response) => response.config.data)
-        //TODO: вывод ошибки
-        .catch(console.error)
-    );
-  }
-  createUser({ phone, password }) {
+  auth() {
     return this.axios
-      .post("/registration", { phone, password })
-      .then((response) => response.config.data)
+      .get("/get-user")
+      .then((response) => {
+        return response.data;
+      })
       .catch(console.error);
   }
+
+  login({ phone, password }) {
+    return this.axios
+      .post("/login", { phone, password })
+      .then((response) => response.data)
+      .catch((error) => {
+        throw new Error(error.status);
+      });
+  }
+  register({ phone, password }) {
+    return this.axios
+      .post("/registration", { phone, password })
+      .then((response) => response.data)
+      .catch((error) => {
+        throw new Error(error.status);
+      });
+  }
+  logout() {
+    return this.axios.get("/logout").catch(console.error);
+  }
+
   updateUser(id, data) {
     return this.axios
       .patch(`${id}`, { data })

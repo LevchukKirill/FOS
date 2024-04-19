@@ -7,13 +7,16 @@ import {
   Pressable,
 } from "react-native";
 import Auth from "../Auth/Auth.jsx";
-import React from "react";
+import React, { useContext } from "react";
 import { COLORS } from "../../../constants";
 import FoodService from "../../../services/UserService";
+import { UserContext } from "../../../hooks/useUser";
 
 const restService = new FoodService();
 
 const Header = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <View style={styles.header}>
       <View>
@@ -27,9 +30,7 @@ const Header = () => {
         </Pressable>
       </View>
 
-      <View>
-        <Auth />
-      </View>
+      <View>{user ? null : <Auth />}</View>
     </View>
   );
 };

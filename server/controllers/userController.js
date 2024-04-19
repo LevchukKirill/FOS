@@ -1,23 +1,38 @@
 const { User } = require("../models/models");
 const userService = require("../providers/userService");
 const ApiError = require("../error/ApiError");
-const { response } = require("express");
+
 class userController {
   async registration(req, res, next) {
     try {
       const newUser = await userService.registration(req.body);
-      return res.json(newUser);
-    } catch (e) {
-      next(ApiError.notFound(e));
+      res.json(newUser);
+    } catch (err) {
+      next(ApiError.notFound(err));
     }
   }
 
   async login(req, res, next) {
     try {
-      const user = await userService.login(req.body);
-      return res.json(user);
-    } catch (e) {
-      next(ApiError.notFound(e));
+      const token = await userService.login(req.body);
+
+      res.cookie("token", token).send();
+    } catch (err) {
+      next(ApiError.notFound(err));
+    }
+  }
+
+  async logout(req, res) {
+    res.cookie("token", undefined).send();
+  }
+
+  async getUser(req, res, next) {
+    try {
+      const user = await userService.getUser(req.cookies.token);
+
+      res.json(user);
+    } catch (err) {
+      next(ApiError.notFound(err));
     }
   }
 
@@ -32,8 +47,8 @@ class userController {
       //куки
       // console.log(req.cookies);
       res.send();
-    } catch (e) {
-      next(ApiError.notFound(e.message));
+    } catch (err) {
+      next(ApiError.notFound(err.message));
     }
   }
 
@@ -41,9 +56,9 @@ class userController {
     try {
       const users = await userService.getAll();
 
-      return res.json(users);
-    } catch (e) {
-      next(ApiError.badRequest(e.message));
+      res.json(users);
+    } catch (err) {
+      next(ApiError.badRequest(err.message));
     }
   }
 
@@ -51,9 +66,9 @@ class userController {
     try {
       const user = await userService.getOne(req.id);
 
-      return res.json(user);
-    } catch (e) {
-      next(ApiError.badRequest(e.message));
+      res.json(user);
+    } catch (err) {
+      next(ApiError.badRequest(err.message));
     }
   }
 }
