@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, ScrollView } from "react-native";
 import MenuItem from "./MenuItem";
 
 const Menu = (props) => {
-  console.log(props.foods);
+  // console.log(props.foods);
   return (
     <ScrollView style={styles.menu}>
       <View>

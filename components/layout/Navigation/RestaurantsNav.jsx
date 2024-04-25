@@ -3,15 +3,14 @@ import ElladaScreen from "../../restaurants/ElladaScreen";
 import SindbadScreen from "../../restaurants/SindbadScreen";
 import ShtolenhofScreen from "../../restaurants/ShtolenhofScreen";
 import { COLORS } from "../../../constants";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FoodService from "../../../services/FoodService";
 import TypeService from "../../../services/TypeService";
+import { TypeContext } from "../../../hooks/useCategories";
+import { ActiveTypeContext } from "../../../hooks/useActiveType";
 
 const foodService = new FoodService();
 const typeService = new TypeService();
-
-export const ActiveContext = createContext();
-export const TypesContext = createContext();
 
 function RestaurantsNav() {
   const [types, setTypes] = useState([]);
@@ -28,7 +27,7 @@ function RestaurantsNav() {
   useEffect(() => {
     if (!activeType) return () => {};
     if (!activeType.foods) {
-      console.log(`${activeType.id} активити тайп айди`);
+      // console.log(`${activeType.id} активити тайп айди`);
       foodService.getFoodByType(activeType.id).then((res) => {
         activeType.foods = res;
         // console.log(activeType + "жто тут");
@@ -42,8 +41,8 @@ function RestaurantsNav() {
   const TopTab = createMaterialTopTabNavigator();
 
   return (
-    <ActiveContext.Provider value={[activeType, setActiveType]}>
-      <TypesContext.Provider value={types}>
+    <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
+      <TypeContext.Provider value={[types, setTypes]}>
         <TopTab.Navigator
           screenOptions={{ tabBarStyle: { borderWidth: 0 } }}
           initialRouteName={"sindbad"}
@@ -60,8 +59,8 @@ function RestaurantsNav() {
           </TopTab.Screen>
           <TopTab.Screen name="shtolenhof" component={ShtolenhofScreen} />
         </TopTab.Navigator>
-      </TypesContext.Provider>
-    </ActiveContext.Provider>
+      </TypeContext.Provider>
+    </ActiveTypeContext.Provider>
   );
 }
 

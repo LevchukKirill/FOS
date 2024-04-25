@@ -71,6 +71,25 @@ class userController {
       next(ApiError.badRequest(err.message));
     }
   }
+  async update(req, res, next) {
+    try {
+      const user = await userService.update(req.body, req.params.id);
+
+      res.json(user);
+    } catch (err) {
+      next(ApiError.badRequest(err.message));
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      const user = await userService.delete(req.params.id);
+
+      res.json(user);
+    } catch (err) {
+      next(ApiError.badRequest(err.message));
+    }
+  }
 }
 
 module.exports = new userController();

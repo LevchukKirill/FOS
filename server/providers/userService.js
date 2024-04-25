@@ -88,6 +88,23 @@ class userService {
 
     return user;
   }
+
+  async update(user, id) {
+    const { name, phone, address } = user;
+    console.log(name, id);
+    const updatedUser = await User.update(
+      { name, phone, address },
+      { where: { id } },
+    );
+
+    return updatedUser;
+  }
+
+  async delete(id) {
+    await User.destroy({ where: { id } });
+
+    console.log(`Удален пользователь с id = ${id}`);
+  }
 }
 
 module.exports = new userService();

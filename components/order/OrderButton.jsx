@@ -1,14 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
+import Payment from "../payment/Payment";
+// import CircleLoad from "../../ui/loading/CircleLoad";
 
 const OrderButton = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.orderButton}>
+      <TouchableOpacity
+        onPress={() => {
+          setModalVisible(true);
+        }}
+        style={styles.orderButton}
+      >
         <Text style={{ fontSize: 18 }}>Оформить заказ</Text>
       </TouchableOpacity>
+      <Modal
+        animationType={"slide"}
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={{ paddingTop: 100 }}>
+          <Payment
+            handler={() => {
+              setModalVisible(false);
+            }}
+          />
+        </View>
+      </Modal>
     </View>
   );
 };

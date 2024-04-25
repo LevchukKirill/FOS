@@ -1,28 +1,60 @@
-import React from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import Icon from "react-native-vector-icons/EvilIcons";
 import { COLORS } from "../../constants";
+import UserService from "../../services/UserService";
+
+const userService = new UserService();
 
 const UserInfo = ({ user }) => {
+  const [isButtonPressed, setIsButtonPressed] = useState(true);
+  const [name, setName] = useState(user?.name);
+  const [phone, setPhone] = useState(user?.phone);
+
   return (
     <View style={styles.container}>
       <View style={styles.block}>
         <Icon style={styles.icon} name={"user"} size={100} />
         <View style={styles.dataForm}>
           <View style={{ alignContent: "center" }}>
-            <Text style={{ fontSize: 18 }}>
-              {user?.name ? `${user.name}` : "Имя не найдено"}
-            </Text>
-            <Text style={{ fontSize: 18 }}>
-              {user?.phone ? `${user.phone}` : "phone не найдено"}
-            </Text>
-            <Text style={{ fontSize: 18 }}>
+            <TextInput
+              // value={name}
+              onChangeText={setName}
+              readOnly={isButtonPressed}
+              style={{ fontSize: 18 }}
+            >
+              {user?.name ? `${name}` : "Имя не найдено"}
+            </TextInput>
+            <TextInput
+              // value={phone}
+              onChangeText={setPhone}
+              readOnly={isButtonPressed}
+              style={{ fontSize: 18 }}
+            >
+              {user?.phone ? `${phone}` : "phone не найдено"}
+            </TextInput>
+            <TextInput readOnly={isButtonPressed} style={{ fontSize: 18 }}>
               {user?.mail ? `${user.mail}` : "mail не найдено"}
-            </Text>
+            </TextInput>
           </View>
-          <TouchableOpacity style={styles.updateBtn}>
+
+          <TouchableOpacity
+            disabled={user ? false : true}
+            onPress={async () => {
+              setIsButtonPressed(!isButtonPressed);
+              await userService.updateUser(user.id, { name, phone });
+              //TODO: хеширование запроса на изм user`а
+            }}
+            style={styles.updateBtn}
+          >
             <View>
-              <Text>+</Text>
+              <Text>{isButtonPressed ? "+" : "-"}</Text>
             </View>
           </TouchableOpacity>
         </View>

@@ -13,8 +13,8 @@ import { UserContext } from "../../../hooks/useUser";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
-  const [phone, setPhoneNumber] = useState("+");
-  const [password, setPassword] = useState("");
+  const [phone, setPhoneNumber] = useState("+79618634799");
+  const [password, setPassword] = useState("qwerty12");
   const [modalVisible, setModalVisible] = useState(false);
 
   const [error, setError] = useState(undefined);
@@ -26,7 +26,7 @@ const Auth = () => {
     <View>
       <Modal
         animationType={"slide"}
-        transparent={true}
+        transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);

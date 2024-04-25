@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import { COLORS } from "./constants/theme";
 import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
 import Header from "./components/layout/Header/Header.jsx";
@@ -19,6 +19,7 @@ export default function App() {
 
   return (
     //TODO: починить загрузку на айфон
+
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <UserContext.Provider value={{ user, setUser }}>

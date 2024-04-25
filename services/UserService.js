@@ -54,12 +54,13 @@ class UserService extends ApiService {
   }
 
   updateUser(id, data) {
+    const { name, phone } = data;
     return this.axios
-      .patch(`${id}`, { data })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(console.error);
+      .put(`${id}`, { name, phone })
+      .then((response) => response)
+      .catch((error) => {
+        throw new Error(error.status);
+      });
   }
   deleteUser(id) {
     return this.axios

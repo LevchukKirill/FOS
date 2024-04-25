@@ -1,17 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Text, Image, View, StyleSheet, ScrollView } from "react-native";
-import { CategoriesData as catData } from "../../data/CategoiresData";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
 import CategoryItem from "./CategoryItem";
-import {
-  ActiveContext,
-  TypesContext,
-} from "../layout/Navigation/RestaurantsNav";
+import { TypeContext } from "../../hooks/useCategories";
+import { ActiveTypeContext } from "../../hooks/useActiveType";
 
 const Categories = ({ type }) => {
-  // const [types, setTypes] = useContext(Context);
-  const [activeType, setActiveType] = useContext(ActiveContext);
-  const types = useContext(TypesContext);
+  const [activeType, setActiveType] = useContext(ActiveTypeContext);
+  const [types, setTypes] = useContext(TypeContext);
 
   return (
     <ScrollView style={styles.main}>

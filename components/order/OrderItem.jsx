@@ -4,7 +4,6 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import FoodCounter from "./FoodCounter";
 import MenuButton from "../menu/MenuButton";
 import { useActions } from "../../hooks/useActions";
-import { useBasket } from "../../hooks/useBasket";
 import { useSelector } from "react-redux";
 import { getKey } from "../../store/basket/BasketSlice";
 

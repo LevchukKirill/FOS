@@ -6,11 +6,18 @@ import UserService from "../../services/UserService";
 import { UserContext } from "../../hooks/useUser";
 
 const Settings = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   function logout() {
-    new UserService().logout().finally(() => {
+    new UserService().logout().then(() => {
       setUser(undefined);
     });
+  }
+
+  function deleteUser() {
+    new UserService().deleteUser(user.id).then(() => {
+      setUser(undefined);
+    });
+    //TODO: Протестировать
   }
   return (
     <View style={styles.container}>
@@ -24,7 +31,7 @@ const Settings = () => {
       </View>
       <SettingItem name={"Тема"} />
       <SettingItem handler={logout} name={"Выйти из аккаунта"} />
-      <SettingItem name={"Удалить аккаунт"} />
+      <SettingItem handler={deleteUser} name={"Удалить аккаунт"} />
     </View>
   );
 };
