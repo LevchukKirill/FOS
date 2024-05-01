@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, LogBox } from "react-native";
 import FoodCounter from "./FoodCounter";
 import MenuButton from "../menu/MenuButton";
 import { useActions } from "../../hooks/useActions";
 import { useSelector } from "react-redux";
 import { getKey } from "../../store/basket/BasketSlice";
+import { COLORS } from "../../constants";
 
 const OrderItem = ({ food, amount }) => {
   const basket = useSelector((state) => state.basket);
@@ -13,10 +14,13 @@ const OrderItem = ({ food, amount }) => {
 
   return (
     <View style={styles.container}>
-      <FoodCounter name={"Я картинка"} />
+      <View style={styles.image}>
+        <Text></Text>
+      </View>
       <View style={styles.productText}>
         <Text>{food.name}</Text>
         <Text>{food.foodInfoId}</Text>
+        <Text>{food.price * amount} руб.</Text>
       </View>
       <View>
         <MenuButton
@@ -42,6 +46,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "100%",
     borderWidth: 1,
+  },
+  image: {
+    aspectRatio: 1,
+    width: 60,
+    backgroundColor: COLORS.white,
   },
 });
 

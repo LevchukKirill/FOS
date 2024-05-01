@@ -13,9 +13,19 @@ class OrderFoodService extends ApiService {
       })
       .catch(console.error);
   }
-  createOrderFood(data) {
+
+  getAllFoodsByOrderId(orderId) {
     return this.axios
-      .post("", { data })
+      .get(`/order/${orderId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(console.error);
+  }
+
+  createOrderFood({ foodId, orderId }) {
+    return this.axios
+      .post("", { id })
       .then((response) => {
         console.log(response);
       })

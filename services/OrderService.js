@@ -13,9 +13,9 @@ class OrderService extends ApiService {
       })
       .catch(console.error);
   }
-  createOrder(data) {
+  createOrder(basket) {
     return this.axios
-      .post("", { data })
+      .post("", basket, { withCredentials: true })
       .then((response) => {
         console.log(response);
       })

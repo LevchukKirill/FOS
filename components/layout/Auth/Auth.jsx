@@ -26,7 +26,7 @@ const Auth = () => {
     <View>
       <Modal
         animationType={"slide"}
-        transparent={false}
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);

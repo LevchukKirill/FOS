@@ -3,7 +3,6 @@ const path = require("path");
 const { Food, Type } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const typeService = require("../providers/typeService");
-const { Op } = require("sequelize");
 
 class foodService {
   async create(food, picture) {

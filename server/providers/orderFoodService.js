@@ -2,14 +2,21 @@ const ApiError = require("../error/ApiError");
 const { OrderFood } = require("../models/models");
 
 class orderFoodService {
-  async create(type) {
-    const newOrderFood = await OrderFood.create(type);
+  async create(food) {
+    const { orderId, foodId } = food;
+    const newOrderFood = await OrderFood.create({ orderId, foodId });
 
     return newOrderFood;
   }
 
   async getAll() {
     const ordersFood = await OrderFood.findAll();
+
+    return ordersFood;
+  }
+
+  async getAllByOrderId(id) {
+    const ordersFood = await OrderFood.findAll({ where: id });
 
     return ordersFood;
   }

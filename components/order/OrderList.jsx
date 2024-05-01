@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import OrderItem from "./OrderItem";
 
 import { Text, View, StyleSheet } from "react-native";
@@ -8,6 +8,8 @@ import { getKey } from "../../store/basket/BasketSlice";
 
 const OrderList = () => {
   const basket = useSelector((state) => state.basket);
+  const [paid, setPaid] = useState(false);
+
   return (
     <View style={{ paddingTop: 30 }}>
       <View style={styles.container}>

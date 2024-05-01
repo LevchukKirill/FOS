@@ -25,6 +25,11 @@ export const basketSlice = createSlice({
       }
       state[id].amount--;
     },
+    clearBasket: (state, action) => {
+      state = undefined;
+
+      return state;
+    },
   },
 });
 

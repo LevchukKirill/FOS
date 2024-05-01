@@ -1,10 +1,17 @@
-const { Order } = require("../models/models");
+const { Order, User, OrderFood } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const { where } = require("sequelize");
+const userService = require("../providers/userService");
 
 class orderService {
-  async create(order) {
-    const newOrder = await Order.create(order);
+  async create(basket, user) {
+    const newOrder = await Order.create({ userId: user.id });
+    await Promise.all(
+      Object.values(basket).map(async (item) => {
+        console.log(item.data.id + " " + user.id);
+        await OrderFood.create({ orderId: newOrder.id, foodId: item.data.id });
+      }),
+    );
 
     return newOrder;
   }
@@ -13,6 +20,12 @@ class orderService {
     const orders = await Order.findAll();
 
     return orders;
+  }
+
+  async getOrderByUserId(userId) {
+    const ordersById = await Order.findAll({ where: userId });
+
+    return ordersById;
   }
 
   async getOne(id) {
