@@ -64,7 +64,7 @@ class userController {
 
   async getOne(req, res, next) {
     try {
-      const user = await userService.getOne(req.id);
+      const user = await userService.getOne(req.params.id);
 
       res.json(user);
     } catch (err) {

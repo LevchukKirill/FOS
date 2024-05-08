@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { getKey } from "../../store/basket/BasketSlice";
 
 const MenuItem = ({ food }) => {
-  const basket = useSelector((state) => state.basket);
+  const basket = useSelector((state) => state.basket.foods);
 
   const { addToBasket, removeFromBasket } = useActions();
 

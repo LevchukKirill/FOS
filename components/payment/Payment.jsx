@@ -5,34 +5,43 @@ import { COLORS } from "../../constants";
 import { useSelector } from "react-redux";
 import OrderFoodService from "../../services/OrderFoodService";
 import OrderService from "../../services/OrderService";
-import { UserContext } from "../../hooks/useUser";
 import { useActions } from "../../hooks/useActions";
 
 const Payment = ({ handler }) => {
   const [visible, setVisible] = useState(false);
   const [payStatus, setPayStatus] = useState(undefined);
   const [notificationText, setNotificationText] = useState("");
+  const [status, setStatus] = useState("CREATED");
 
   const paymentStatus = true;
+  //
 
   const basket = useSelector((state) => state.basket);
-
   const { clearBasket } = useActions();
 
   const orderFoodService = new OrderFoodService();
   const orderService = new OrderService();
-  const { user } = useContext(UserContext);
+
+  const changeStatus = async (id, status) => {
+    setStatus(status);
+    await orderService.updateOrder(id, status);
+    console.log("вы тут");
+  };
 
   const payment = async () => {
-    await orderService.createOrder(basket);
+    const order = await orderService.createOrder(basket);
     if (!paymentStatus) {
-      clearBasket();
       setPayStatus(false);
+      await changeStatus(order.id, { status: "NOT_PAID" });
       setVisible(!visible);
       setTimeout(() => setNotificationText("Оплата не прошла"), 1000);
       setTimeout(handler, 2000);
     } else {
       setPayStatus(true);
+      // console.log(order.id);
+      // await changeStatus(order.id, "PAID");
+      await orderService.updateOrder(order.id, { status: "PAID" });
+      // console.log(order.id);
       clearBasket();
       setVisible(!visible);
       setTimeout(() => setNotificationText("Оплата прошла успешно"), 1000);

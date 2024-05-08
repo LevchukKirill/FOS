@@ -83,17 +83,17 @@ class userService {
   }
 
   async getOne(id) {
-    const user = await User.findOne({ where: id });
+    const user = await User.findOne({ where: { id } });
     if (!user) throw ApiError.notFound();
 
     return user;
   }
 
   async update(user, id) {
-    const { name, phone, address } = user;
+    const { name, phone, role, address } = user;
     console.log(name, id);
     const updatedUser = await User.update(
-      { name, phone, address },
+      { name, phone, role, address },
       { where: { id } },
     );
 

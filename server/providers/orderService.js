@@ -1,15 +1,26 @@
 const { Order, User, OrderFood } = require("../models/models");
 const ApiError = require("../error/ApiError");
-const { where } = require("sequelize");
-const userService = require("../providers/userService");
 
 class orderService {
-  async create(basket, user) {
-    const newOrder = await Order.create({ userId: user.id });
+  async create(data, user) {
+    const cost = Object.values(data.foods).reduce((accum, food) => {
+      return accum + food.data.price * food.amount;
+    }, 0);
+    // console.log(data)
+    const newOrder = await Order.create({
+      userId: user.id,
+      restaurantId: data.restaurantId,
+      cost,
+    });
     await Promise.all(
-      Object.values(basket).map(async (item) => {
-        console.log(item.data.id + " " + user.id);
-        await OrderFood.create({ orderId: newOrder.id, foodId: item.data.id });
+      Object.values(data.foods).map(async (item) => {
+        // console.log((item) + " " + item.data, item.amount);
+        // console.log(basket);
+        await OrderFood.create({
+          orderId: newOrder.id,
+          foodId: item.data.id,
+          amount: item.amount,
+        });
       }),
     );
 
@@ -29,14 +40,17 @@ class orderService {
   }
 
   async getOne(id) {
-    const orders = await Order.findOne({ where: id });
+    const order = await Order.findOne({ where: { id } });
 
-    return orders;
+    return order;
   }
 
   async update(order, id) {
-    const { name } = order;
-    const updatedOrder = await Order.update({ name }, { where: { id } });
+    const { cost, status } = order;
+    const updatedOrder = await Order.update(
+      { cost, status },
+      { where: { id } },
+    );
 
     return updatedOrder;
   }

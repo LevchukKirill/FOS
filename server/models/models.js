@@ -12,12 +12,15 @@ const User = sequelize.define("user", {
 
 const Order = sequelize.define("order", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  status: { type: DataTypes.STRING, defaultValue: "CREATED" },
+  cost: { type: DataTypes.INTEGER },
 });
 
 const Restaurant = sequelize.define("restaurants", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true },
   phone: { type: DataTypes.STRING, unique: true },
+  type: { type: DataTypes.STRING },
   address: { type: DataTypes.STRING },
 });
 
@@ -48,6 +51,9 @@ User.Orders = User.hasMany(Order);
 
 Order.Foods = Order.belongsToMany(Food, { through: OrderFood });
 Food.Orders = Food.belongsToMany(Order, { through: OrderFood });
+
+Restaurant.Orders = Restaurant.hasMany(Order);
+Order.Restaurant = Order.belongsTo(Restaurant);
 
 Restaurant.Foods = Restaurant.hasMany(Food);
 Food.Restaurant = Food.belongsTo(Restaurant);

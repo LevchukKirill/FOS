@@ -9,7 +9,7 @@ import { getKey } from "../../store/basket/BasketSlice";
 import { COLORS } from "../../constants";
 
 const OrderItem = ({ food, amount }) => {
-  const basket = useSelector((state) => state.basket);
+  const basket = useSelector((state) => state.basket.foods);
   const { addToBasket, removeFromBasket } = useActions();
 
   return (

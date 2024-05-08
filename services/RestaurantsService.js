@@ -1,6 +1,6 @@
 import { ApiService } from "./ApiService";
 
-class RestaurantsService extends ApiService {
+export class RestaurantsService extends ApiService {
   constructor() {
     super({ namespace: "restaurant" });
   }
@@ -38,4 +38,3 @@ class RestaurantsService extends ApiService {
       .catch(console.error);
   }
 }
-export default RestaurantsService;

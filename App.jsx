@@ -18,8 +18,6 @@ export default function App() {
   }, []);
 
   return (
-    //TODO: починить загрузку на айфон
-
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <UserContext.Provider value={{ user, setUser }}>

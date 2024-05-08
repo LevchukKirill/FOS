@@ -8,6 +8,7 @@ class orderController {
 
       return res.json(order);
     } catch (e) {
+      console.error(e);
       next(ApiError.badRequest(e.message));
     }
   }
@@ -34,7 +35,7 @@ class orderController {
 
   async getOne(req, res, next) {
     try {
-      const order = await orderService.getOne(req.id);
+      const order = await orderService.getOne(req.params.id);
 
       return res.json(order);
     } catch (e) {
@@ -44,7 +45,7 @@ class orderController {
 
   async update(req, res, next) {
     try {
-      const updatedOrder = await orderService.update(req.body, req.params);
+      const updatedOrder = await orderService.update(req.body, req.params.id);
 
       return res.json(updatedOrder);
     } catch (e) {

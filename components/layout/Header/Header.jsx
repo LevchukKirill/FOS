@@ -9,10 +9,10 @@ import {
 import Auth from "../Auth/Auth.jsx";
 import React, { useContext } from "react";
 import { COLORS } from "../../../constants";
-import FoodService from "../../../services/UserService";
+import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
 
-const restService = new FoodService();
+const userService = new UserService();
 
 const Header = () => {
   const { user } = useContext(UserContext);
@@ -23,7 +23,7 @@ const Header = () => {
         <Pressable
           style={styles.authBtn}
           onPress={async () => {
-            console.log(await restService.getAllUser());
+            console.log(await userService.auth());
           }}
         >
           <Text>Binus</Text>

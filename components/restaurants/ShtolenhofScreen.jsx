@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 // import Table from "../products/Table";
 import Categories from "../categories/Categories";
 
-const ShtolenhofScreen = () => {
+const ShtolenhofScreen = (props) => {
   // return <Categories />;
   return <View></View>;
 };

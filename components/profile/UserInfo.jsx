@@ -16,6 +16,7 @@ const UserInfo = ({ user }) => {
   const [isButtonPressed, setIsButtonPressed] = useState(true);
   const [name, setName] = useState(user?.name);
   const [phone, setPhone] = useState(user?.phone);
+  const [role, setRole] = useState(user?.role);
 
   return (
     <View style={styles.container}>
@@ -39,8 +40,12 @@ const UserInfo = ({ user }) => {
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
-            <TextInput readOnly={isButtonPressed} style={{ fontSize: 18 }}>
-              {user?.mail ? `${user.mail}` : "mail не найдено"}
+            <TextInput
+              readOnly={isButtonPressed}
+              onChangeText={setRole}
+              style={{ fontSize: 18 }}
+            >
+              {user?.role ? `${role}` : "mail не найдено"}
             </TextInput>
           </View>
 
@@ -48,7 +53,7 @@ const UserInfo = ({ user }) => {
             disabled={user ? false : true}
             onPress={async () => {
               setIsButtonPressed(!isButtonPressed);
-              await userService.updateUser(user.id, { name, phone });
+              await userService.updateUser(user.id, { name, phone, role });
               //TODO: хеширование запроса на изм user`а
             }}
             style={styles.updateBtn}

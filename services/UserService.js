@@ -54,9 +54,9 @@ class UserService extends ApiService {
   }
 
   updateUser(id, data) {
-    const { name, phone } = data;
+    const { name, phone, role } = data;
     return this.axios
-      .put(`${id}`, { name, phone })
+      .put(`${id}`, { name, phone, role })
       .then((response) => response)
       .catch((error) => {
         throw new Error(error.status);

@@ -15,15 +15,13 @@ class OrderService extends ApiService {
   }
   createOrder(basket) {
     return this.axios
-      .post("", basket, { withCredentials: true })
-      .then((response) => {
-        console.log(response);
-      })
+      .post("", { ...basket }, { withCredentials: true })
+      .then((response) => response.data)
       .catch(console.error);
   }
   updateOrder(id, data) {
     return this.axios
-      .patch(`${id}`, { data })
+      .put(`${id}`, data)
       .then((response) => {
         console.log(response);
       })

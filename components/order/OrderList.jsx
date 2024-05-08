@@ -7,18 +7,25 @@ import { useSelector } from "react-redux";
 import { getKey } from "../../store/basket/BasketSlice";
 
 const OrderList = () => {
-  const basket = useSelector((state) => state.basket);
-  const [paid, setPaid] = useState(false);
+  const [cost, setCost] = useState(null);
+  const [price, setPrice] = useState(null);
+
+  const basket = useSelector((state) => state.basket.foods);
 
   return (
     <View style={{ paddingTop: 30 }}>
       <View style={styles.container}>
         {Object.values(basket).map(({ data: food, amount }) => (
+          // setPrice(food.price * amount + price)
+          // setCost(amount + price);
+          // console.log(cost);
           <OrderItem food={food} amount={amount} key={getKey(food)} />
+
+          /*<View>{console.log(food.price * amount)}</View>*/
         ))}
       </View>
       <View style={styles.orderText}>
-        <Text style={{ fontSize: 18 }}>{"{кол} товара на {сумма}"}</Text>
+        <Text style={{ fontSize: 18 }}>{`${cost} товара на ${price} руб`}</Text>
       </View>
     </View>
   );
