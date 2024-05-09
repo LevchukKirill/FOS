@@ -13,6 +13,20 @@ class OrderService extends ApiService {
       })
       .catch(console.error);
   }
+
+  getAllOrderById(type, id) {
+    // console.log(this.axios.defaults.baseURL);
+    return (
+      this.axios
+        //type = user || restaurant
+        .get(`${type}/${id}`)
+        .then((response) => {
+          return response.data;
+        })
+        .catch(console.error)
+    );
+  }
+
   createOrder(basket) {
     return this.axios
       .post("", { ...basket }, { withCredentials: true })

@@ -14,7 +14,6 @@ const Payment = ({ handler }) => {
   const [status, setStatus] = useState("CREATED");
 
   const paymentStatus = true;
-  //
 
   const basket = useSelector((state) => state.basket);
   const { clearBasket } = useActions();
@@ -25,7 +24,7 @@ const Payment = ({ handler }) => {
   const changeStatus = async (id, status) => {
     setStatus(status);
     await orderService.updateOrder(id, status);
-    console.log("вы тут");
+    console.log("вы поменяли статус");
   };
 
   const payment = async () => {

@@ -4,27 +4,37 @@ import { Text, View, StyleSheet } from "react-native";
 import UserOrder from "./UserOrder";
 import OrderService from "../../services/OrderService";
 
-const UsersOrders = () => {
+const UsersOrders = (props) => {
   const [orders, setOrders] = useState({});
 
   const orderService = new OrderService();
+  // console.log(props.restaurantId);
+
   useEffect(() => {
-    orderService.getAllOrder().then(setOrders);
+    orderService
+      .getAllOrderById("restaurant", props.restaurantId)
+      .then(setOrders);
   }, []);
 
   return (
     <View style={styles.section}>
       {orders ? (
-        Object.values(orders).map((item) => (
-          <UserOrder
-            id={item.id}
-            cost={item.cost}
-            status={item.status}
-            time={item.createdAt}
-          />
-        ))
+        Object.values(orders).map((item) => {
+          const date = new Date(item.createdAt);
+          // const dateString =
+          // console.log(date, dateString);
+          return (
+            <UserOrder
+              key={item.id}
+              id={item.id}
+              cost={item.cost}
+              status={item.status}
+              time={date.toLocaleString("RU-ru")}
+            />
+          );
+        })
       ) : (
-        <></>
+        <View></View>
       )}
     </View>
   );

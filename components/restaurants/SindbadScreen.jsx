@@ -11,12 +11,13 @@ import UserService from "../../services/UserService";
 const SindbadScreen = (props) => {
   const { user } = useContext(UserContext);
   // const userService = new UserService();
+  // console.log(props);
   if (user?.role === "ADMIN")
     return (
       <ScrollView>
         <Text> Вы важный тип</Text>
         <View style={styles.container}>
-          <UsersOrders />
+          <UsersOrders restaurantId={props.restaurantId} />
         </View>
       </ScrollView>
     );

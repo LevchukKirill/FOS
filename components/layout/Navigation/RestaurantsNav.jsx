@@ -64,14 +64,18 @@ function RestaurantsNav() {
             initialRouteName={"sindbad"}
           >
             {restaurants?.map((item) => {
-              const Component = restaurantComponents[item.type];
-              // console.log(Component);
+              const Tab = restaurantComponents[item.type];
+              // console.log(Tab);
               return (
                 <TopTab.Screen
                   name={item.name}
                   key={item.id}
                   children={() => (
-                    <Component foods={activeFoods} type={types} />
+                    <Tab
+                      foods={activeFoods}
+                      type={types}
+                      restaurantId={item.id}
+                    />
                   )}
                 />
               );
