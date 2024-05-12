@@ -17,6 +17,9 @@ const foodService = new FoodService();
 const typeService = new TypeService();
 
 function RestaurantsNav() {
+  const [isConnected, setIsConnected] = useState(false);
+  const [transport, setTransport] = useState("N/A");
+
   const [types, setTypes] = useState([]);
   const [activeType, setActiveType] = useState(undefined);
   const [activeFoods, setActiveFoods] = useState([]);
@@ -65,13 +68,15 @@ function RestaurantsNav() {
           >
             {restaurants?.map((item) => {
               const Tab = restaurantComponents[item.type];
-              // console.log(Tab);
+              // console.log(Tab, item.type);
               return (
                 <TopTab.Screen
                   name={item.name}
                   key={item.id}
                   children={() => (
                     <Tab
+                      transport={transport}
+                      connected={isConnected}
                       foods={activeFoods}
                       type={types}
                       restaurantId={item.id}

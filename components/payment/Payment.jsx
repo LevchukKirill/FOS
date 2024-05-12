@@ -39,7 +39,9 @@ const Payment = ({ handler }) => {
       setPayStatus(true);
       // console.log(order.id);
       // await changeStatus(order.id, "PAID");
-      await orderService.updateOrder(order.id, { status: "PAID" });
+      // await orderService.updateOrder(order.id, { status: "PAID" });
+      await orderService.pay(order.id, true);
+
       // console.log(order.id);
       clearBasket();
       setVisible(!visible);

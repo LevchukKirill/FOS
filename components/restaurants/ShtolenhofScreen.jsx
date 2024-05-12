@@ -22,7 +22,7 @@ const ShtolenhofScreen = (props) => {
   // if (user?.role === "USER")
   else
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: COLORS.black }}>
+      <ScrollView style={{ flex: 1 }}>
         {/*<Categories />*/}
         {/*<Categories />*/}
       </ScrollView>

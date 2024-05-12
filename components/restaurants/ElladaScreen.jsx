@@ -22,8 +22,12 @@ const ElladaScreen = (props) => {
   // if (user?.role === "USER")
   else
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: COLORS.black }}>
+      <ScrollView style={{ flex: 1 }}>
         {/*<Categories />*/}
+        <Text>{props.transport}</Text>
+        <Text>
+          {props.connected ? "Ура че то конектед" : "Балин ниче не конектед"}
+        </Text>
         {/*<Categories />*/}
       </ScrollView>
     );
