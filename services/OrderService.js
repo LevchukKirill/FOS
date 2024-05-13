@@ -19,8 +19,8 @@ class OrderService extends ApiService {
     return this.axios
       .get(`${id}`)
       .then((response) => {
-        // return response.data.food
-        return console.log(response.data.food);
+        return response.data.food;
+        // return console.log(response.data.food);
       })
       .catch(console.error);
   }

@@ -65,7 +65,6 @@ const Auth = () => {
                 ? userService.login({ phone, password })
                 : userService.register({ phone, password });
               data
-
                 .then(() => {
                   setModalVisible(false);
                   userService.auth().then(setUser);
