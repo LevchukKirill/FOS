@@ -27,7 +27,7 @@ const ModalOrder = (props) => {
             </Pressable>
             <View>
               {Object.values(props?.info ?? {}).map((i) => (
-                <View>
+                <View key={i.foodInfoId}>
                   {/*<Text>{i.name}</Text>*/}
                   {/*<Text>{i.order_food.amount}</Text>*/}
                   {/*<Text>{i.price}</Text>*/}
