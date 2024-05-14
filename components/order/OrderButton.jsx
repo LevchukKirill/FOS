@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS } from "../../constants";
 import Payment from "../payment/Payment";
@@ -26,7 +25,7 @@ const OrderButton = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={{ paddingTop: 100 }}>
+        <View style={{ paddingTop: 60 }}>
           <Payment
             handler={() => {
               setModalVisible(false);

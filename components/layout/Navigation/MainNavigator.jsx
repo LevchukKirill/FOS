@@ -4,7 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import Home from "../../../screens/Home/Home.jsx";
 import Basket from "../../../screens/Basket/Basket.jsx";
 import Profile from "../../../screens/Profile/Profile.jsx";
-import Icon from "react-native-vector-icons/Feather";
+import { Feather } from "@expo/vector-icons";
+//import Icon from "react-native-vector-icons/Feather";
 import { COLORS } from "../../../constants";
 import { StyleSheet } from "react-native";
 import RestaurantsNav from "./RestaurantsNav";
@@ -35,7 +36,7 @@ const MainNavigator = () => {
               iconName = "user";
             }
 
-            return <Icon name={iconName} size={28} color={color} />;
+            return <Feather name={iconName} size={28} color={color} />; //Icon
           },
         })}
       >

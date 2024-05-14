@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import OrderFoodService from "../../services/OrderFoodService";
 import OrderService from "../../services/OrderService";
 import { useActions } from "../../hooks/useActions";
+import { MaterialIcons } from "@expo/vector-icons";
+import { gStyle } from "../../styles/style";
 
 const Payment = ({ handler }) => {
   const [visible, setVisible] = useState(false);
@@ -51,10 +53,11 @@ const Payment = ({ handler }) => {
 
   return (
     <View style={styles.modalBox}>
+      <MaterialIcons name="keyboard-arrow-down" size={30} color="black" />
       <Text>Оплата за заказ: {"{сумма заказа}"}</Text>
       <TouchableOpacity onPress={payment}>
         <View style={styles.button}>
-          <Text>Оплатить</Text>
+          <Text>Заказать</Text>
         </View>
       </TouchableOpacity>
       <Text>{visible ? "Происходит оплата. Подождите.." : ""}</Text>
@@ -69,10 +72,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    shadowRadius: 8,
+    shadowColor: "gray",
+    shadowOpacity: 0.3,
+
+    //backgroundColor: "black",
   },
   button: {
+    marginTop: "175%",
     borderRadius: 10,
     padding: 5,
+    width: "100%",
     backgroundColor: COLORS.primary,
   },
 });

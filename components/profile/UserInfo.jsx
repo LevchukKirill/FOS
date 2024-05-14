@@ -5,10 +5,17 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image,
 } from "react-native";
 import Icon from "react-native-vector-icons/EvilIcons";
 import { COLORS } from "../../constants";
 import UserService from "../../services/UserService";
+// import { Octicons } from '@expo/vector-icons';
+// <Octicons name="pencil" size={24} color="black" />
+import { FontAwesome6 } from '@expo/vector-icons';
+import IconUser from "./user.svg";
+//import iconUser from '../assets/icons/user.svg'
+// import {ReactComponent as IconUser} from "./user.svg"
 
 const userService = new UserService();
 
@@ -21,32 +28,38 @@ const UserInfo = ({ user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.block}>
-        <Icon style={styles.icon} name={"user"} size={100} />
+        {/* <IconUser /> */}
+        {/* <Image scr={IconUser} /> */}
+        <FontAwesome6 name="circle-user" size={24} color="black" />
+        {/* <Icon style={styles.icon} name={"user"} size={100} /> */}
         <View style={styles.dataForm}>
           <View style={{ alignContent: "center" }}>
+            <Text style={styles.minitext}>Имя</Text>
             <TextInput
               // value={name}
               onChangeText={setName}
               readOnly={isButtonPressed}
-              style={{ fontSize: 18 }}
+              style={[{ fontSize: "17%" }]}
             >
               {user?.name ? `${name}` : "Имя не найдено"}
             </TextInput>
+            <Text style={styles.minitext}>Телефон</Text>
             <TextInput
               // value={phone}
               onChangeText={setPhone}
               readOnly={isButtonPressed}
-              style={{ fontSize: 18 }}
+              style={[{ fontSize: "17%" }]}
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
+            {/* <Text style={styles.minitext}>Почта</Text>
             <TextInput
               readOnly={isButtonPressed}
               onChangeText={setRole}
-              style={{ fontSize: 18 }}
+              style={[ { fontSize: 18 }]}
             >
               {user?.role ? `${role}` : "mail не найдено"}
-            </TextInput>
+            </TextInput> */}
           </View>
 
           <TouchableOpacity
@@ -65,7 +78,10 @@ const UserInfo = ({ user }) => {
         </View>
       </View>
       <View style={styles.menuItem}>
-        <Text>{user?.bday ? user.bday : "День рождения не указан"}</Text>
+        <Text style={styles.minitext}>Дата рождения</Text>
+        <Text style={{ fontSize: "17%" }}>
+          {user?.bday ? user.bday : "Дата рождения не указана"}
+        </Text>
       </View>
     </View>
   );
@@ -82,32 +98,34 @@ const styles = StyleSheet.create({
   block: {
     display: "flex",
     flexDirection: "row",
-    columnGap: 10,
+    columnGap: "140%",
   },
-  icon: { borderWidth: 1, borderColor: COLORS.primary, borderRadius: 10 },
+  icon: {
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    borderRadius: 10,
+  },
   dataForm: {
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-between",
-    borderWidth: 1,
-    borderColor: COLORS.primary,
-    borderRadius: 10,
     padding: 5,
   },
   menuItem: {
     width: "100%",
-    borderWidth: 1,
-    padding: 5,
-    borderColor: COLORS.primary,
-    borderRadius: 10,
+    padding: 15,
+  },
+  minitext: {
+    color: "rgba(128, 128, 128, 0.9)",
+    fontSize: "14%",
   },
   updateBtn: {
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: COLORS.primary,
+    //borderWidth: 1,
+    //borderColor: COLORS.primary,
     width: 25,
     height: 25,
-    borderRadius: 50,
+    //borderRadius: 50,
   },
 });
 

@@ -21,32 +21,85 @@ const Settings = () => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
-        <SettingItem name={"История заказов"} />
-        <SettingItem name={"Адреса"} />
+      <View style={styles.lineBig} />
+      <View style={styles.sect1}>
+        <SettingItem style={{ marginLeft: "10%" }} name={"История заказов"} />
       </View>
-      <View style={styles.section}>
-        <SettingItem name={"Поддержка"} />
+      <View style={styles.lineLittle} />
+      <View style={styles.sect1}>
+        <SettingItem style={styles.left} name={"Адреса доставки"} />
+      </View>
+      <View style={styles.lineBig} />
+      <View style={styles.sect2}>
+        <SettingItem name={"Служба поддержки"} />
+      </View>
+      <View style={styles.lineLittle} />
+      <View style={styles.sect2}>
         <SettingItem name={"Контакты"} />
       </View>
-      <SettingItem name={"Тема"} />
-      <SettingItem handler={logout} name={"Выйти из аккаунта"} />
-      <SettingItem handler={deleteUser} name={"Удалить аккаунт"} />
+      <View style={styles.lineBig} />
+      <View style={[styles.section, styles.sect2]}>
+        <SettingItem name={"Темная тема"} />
+      </View>
+      <View style={styles.lineBig} />
+      <View style={[styles.section, styles.sect2]}>
+        <SettingItem handler={logout} name={"Выйти из профиля"} />
+      </View>
+      <View style={styles.lineBig} />
+      <View style={styles.delete}>
+        <SettingItem red={true} handler={deleteUser} name={"Удалить аккаунт"} />
+      </View>
+
+      {/* <SettingItem handler={deleteUser}  >
+        <Text style={styles.delete}>Удалить аккаунт</Text>
+        
+        </SettingItem> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    // marginTop: "3%",
     height: "100%",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    // paddingHorizontal: 20,
+    //paddingVertical: 5,
     display: "flex",
     flexDirection: "column",
     rowGap: 5,
   },
   section: {
     rowGap: 1,
+    marginLeft: "5%",
+    marginRight: "5%",
+  },
+  sect1: {
+    marginTop: "%",
+    marginLeft: "5%",
+  },
+  sect2: {
+    marginTop: "%",
+    marginLeft: "5%",
+  },
+  delete: {
+    marginTop: "8%",
+    marginLeft: "30%",
+    color: "red",
+
+    //alignContent: 'center'
+    //borderWidth: 1
+  },
+  lineBig: {
+    // marginTop: "%",
+    width: "100%",
+    height: "4%",
+    backgroundColor: "rgba(220, 220, 220, 0.3)",
+  },
+  lineLittle: {
+    // marginTop: "%",
+    width: "100%",
+    height: "0.3%",
+    backgroundColor: "rgba(220, 220, 220, 0.3)",
   },
 });
 

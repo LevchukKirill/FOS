@@ -11,6 +11,9 @@ import React, { useContext } from "react";
 import { COLORS } from "../../../constants";
 import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
+import { gStyle } from "../../../styles/style.js";
+
+// import { FontAwesome5 } from '@expo/vector-icons';
 
 const userService = new UserService();
 
@@ -21,12 +24,14 @@ const Header = () => {
     <View style={styles.header}>
       <View>
         <Pressable
-          style={styles.authBtn}
+          style={gStyle.button}
+         
           onPress={async () => {
             console.log(await userService.auth());
           }}
         >
-          <Text>Binus</Text>
+          <Text style={gStyle.textBtn}> 70 Б </Text>
+          {/* <FontAwesome5 name="coins" size={15} color="black" /> */}
         </Pressable>
       </View>
 
@@ -42,14 +47,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  authBtn: {
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 30,
-    backgroundColor: COLORS.primary,
-  },
+  // authBtn: {
+  //   paddingVertical: 4,
+  //   paddingHorizontal: 12,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   borderRadius: 30,
+  //   backgroundColor: COLORS.primary,
+  // },
 });
 
 export default Header;

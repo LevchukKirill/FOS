@@ -11,7 +11,14 @@ const SettingItem = (props) => {
           if (typeof props.handler === "function") props.handler();
         }}
       >
-        <Text style={styles.text}>{props.name}</Text>
+        <Text
+          style={[
+            styles.text,
+            { color: props.red ? "rgba(210, 34, 34, 1.0)" : "" },
+          ]}
+        >
+          {props.name}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -20,13 +27,10 @@ const SettingItem = (props) => {
 const styles = StyleSheet.create({
   item: {
     width: "100%",
-    borderWidth: 1,
     padding: 5,
-    borderColor: COLORS.primary,
-    borderRadius: 10,
   },
   text: {
-    fontSize: 14,
+    fontSize: "16%",
   },
 });
 
