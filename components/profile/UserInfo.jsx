@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -21,10 +21,17 @@ const userService = new UserService();
 
 const UserInfo = ({ user }) => {
   const [isButtonPressed, setIsButtonPressed] = useState(true);
-  const [name, setName] = useState(user?.name);
-  const [phone, setPhone] = useState(user?.phone);
-  const [role, setRole] = useState(user?.role);
+  const [name, setName] = useState(undefined);
+  const [phone, setPhone] = useState(undefined);
+  const [role, setRole] = useState(undefined);
 
+  useEffect(() => {
+    setName(user?.name);
+    setPhone(user?.phone);
+    setRole(user?.role);
+  }, [user]);
+
+  // console.log(user, user.name, phone, role);
   return (
     <View style={styles.container}>
       <View style={styles.block}>

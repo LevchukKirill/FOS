@@ -57,6 +57,16 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
 
 const styles = StyleSheet.create({
   // container: { borderWidth: 1 },
+  // container: {
+  //   borderWidth: 1,
+  //   alignItems: "center",
+  //   paddingTop: 5,
+  //   height: "100%",
+  //   maxWidth: "70%",
+  // display: "flex",
+  // flexDirection: "column",
+  // borderRadius: SIZES.radius,
+  // },
   shadow: {
     shadowColor: COLORS.black,
     shadowOffset: {

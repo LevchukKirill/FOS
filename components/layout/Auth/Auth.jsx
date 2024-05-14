@@ -76,7 +76,6 @@ const Auth = () => {
                 ? userService.login({ phone, password })
                 : userService.register({ phone, password });
               data
-
                 .then(() => {
                   setModalVisible(false);
                   userService.auth().then(setUser);
@@ -126,11 +125,10 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "100%",
-    //position: "absolute",
-    bottom: 0,
-    marginBottom: 0,
-    marginTop: "120%",
-    //marginEnd: 100,
+
+    position: "absolute",
+    bottom: 200,
+    marginBottom: 100,
     borderRadius: 30,
 
     //paddingVertical: 30,

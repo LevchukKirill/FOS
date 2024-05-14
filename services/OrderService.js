@@ -14,6 +14,17 @@ class OrderService extends ApiService {
       .catch(console.error);
   }
 
+  getOneOrder(id) {
+    // console.log(this.axios.defaults.baseURL);
+    return this.axios
+      .get(`${id}`)
+      .then((response) => {
+        return response.data.food;
+        // return console.log(response.data.food);
+      })
+      .catch(console.error);
+  }
+
   getAllOrderById(type, id) {
     // console.log(this.axios.defaults.baseURL);
     return (
@@ -41,6 +52,11 @@ class OrderService extends ApiService {
       })
       .catch(console.error);
   }
+
+  pay(id, status) {
+    return this.axios.post("/paymentCallback", { orderId: id, paid: status });
+  }
+
   deleteOrder(id) {
     return this.axios
       .delete(`${id}`)
