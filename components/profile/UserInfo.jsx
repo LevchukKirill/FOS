@@ -10,12 +10,8 @@ import {
 import Icon from "react-native-vector-icons/EvilIcons";
 import { COLORS } from "../../constants";
 import UserService from "../../services/UserService";
-// import { Octicons } from '@expo/vector-icons';
-// <Octicons name="pencil" size={24} color="black" />
-import { FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome6 } from "@expo/vector-icons";
 import IconUser from "./user.svg";
-//import iconUser from '../assets/icons/user.svg'
-// import {ReactComponent as IconUser} from "./user.svg"
 
 const userService = new UserService();
 
@@ -35,27 +31,29 @@ const UserInfo = ({ user }) => {
   return (
     <View style={styles.container}>
       <View style={styles.block}>
-        {/* <IconUser /> */}
-        {/* <Image scr={IconUser} /> */}
-        <FontAwesome6 name="circle-user" size={24} color="black" />
-        {/* <Icon style={styles.icon} name={"user"} size={100} /> */}
         <View style={styles.dataForm}>
+          <FontAwesome6
+            name="user-circle"
+            size={70}
+            color="black"
+            style={{ marginLeft: "7%" }}
+          />
           <View style={{ alignContent: "center" }}>
             <Text style={styles.minitext}>Имя</Text>
             <TextInput
               // value={name}
               onChangeText={setName}
               readOnly={isButtonPressed}
-              style={[{ fontSize: "17%" }]}
+              style={[{ fontSize: "16", marginTop: '1%' }]}
             >
               {user?.name ? `${name}` : "Имя не найдено"}
             </TextInput>
-            <Text style={styles.minitext}>Телефон</Text>
+            <Text style={[styles.minitext, { marginTop: "6%" }]}>Телефон</Text>
             <TextInput
               // value={phone}
               onChangeText={setPhone}
               readOnly={isButtonPressed}
-              style={[{ fontSize: "17%" }]}
+              style={[{ fontSize: "16", marginTop: '1%' }]}
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
@@ -86,7 +84,7 @@ const UserInfo = ({ user }) => {
       </View>
       <View style={styles.menuItem}>
         <Text style={styles.minitext}>Дата рождения</Text>
-        <Text style={{ fontSize: "17%" }}>
+        <Text style={{ fontSize: "16", marginTop: '1%' }}>
           {user?.bday ? user.bday : "Дата рождения не указана"}
         </Text>
       </View>
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
   block: {
     display: "flex",
     flexDirection: "row",
-    columnGap: "140%",
+    columnGap: "140",
   },
   icon: {
     borderWidth: 1,
@@ -113,6 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   dataForm: {
+    marginTop: "5%",
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-between",
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
   },
   minitext: {
     color: "rgba(128, 128, 128, 0.9)",
-    fontSize: "14%",
+    fontSize: "14",
   },
   updateBtn: {
     alignItems: "center",

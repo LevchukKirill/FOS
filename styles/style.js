@@ -23,7 +23,7 @@ export const gStyle = StyleSheet.create({
   text: {
     //fontFamily: "gothic",
     fontFamily: '',
-    fontSize: '16%',
+    fontSize: '16',
     marginBottom: 3,
     fontWeight: '400'
   },

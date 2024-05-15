@@ -9,10 +9,10 @@ const Profile = (props) => {
   const { user } = useContext(UserContext);
   return (
     <View style={styles.container}>
-      <View style={[styles.section, { height: "27%" }]}>
+      <View style={[styles.section, { height: "30%" }]}>
         <UserInfo user={user} />
       </View>
-      <View style={[styles.section, { height: "73%" }]}>
+      <View style={[styles.section, { height: "70%" }]}>
         <Settings />
       </View>
     </View>

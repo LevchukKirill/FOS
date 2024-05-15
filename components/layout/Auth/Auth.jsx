@@ -83,9 +83,7 @@ const Auth = () => {
                 .catch(setError);
             }}
           >
-            <Text style={[gStyle.textBtn, { fontSize: "15%" }]}>
-              Продолжить
-            </Text>
+            <Text style={[gStyle.textBtn, { fontSize: "15" }]}>Продолжить</Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -125,10 +123,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "100%",
-
+    //height: "45%",
+    height: "90%",
     position: "absolute",
-    bottom: 200,
-    marginBottom: 100,
+    bottom: 0,
+    marginBottom: 0,
     borderRadius: 30,
 
     //paddingVertical: 30,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     height: "12%",
     marginTop: "1%",
-    fontSize: "14%",
+    fontSize: "14",
     fontStyle: "italic",
     color: "rgba(105, 105, 105, 1.0)",
   },
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
     textDecorationColor: "#696969",
     textAlign: "center",
     opacity: 0.8,
-    fontSize: "15%",
+    fontSize: "15",
   },
 });
 
