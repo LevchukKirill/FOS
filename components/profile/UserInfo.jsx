@@ -44,7 +44,7 @@ const UserInfo = ({ user }) => {
               // value={name}
               onChangeText={setName}
               readOnly={isButtonPressed}
-              style={[{ fontSize: "16", marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: '1%' }]}
             >
               {user?.name ? `${name}` : "Имя не найдено"}
             </TextInput>
@@ -53,7 +53,7 @@ const UserInfo = ({ user }) => {
               // value={phone}
               onChangeText={setPhone}
               readOnly={isButtonPressed}
-              style={[{ fontSize: "16", marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: '1%' }]}
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
@@ -84,7 +84,7 @@ const UserInfo = ({ user }) => {
       </View>
       <View style={styles.menuItem}>
         <Text style={styles.minitext}>Дата рождения</Text>
-        <Text style={{ fontSize: "16", marginTop: '1%' }}>
+        <Text style={{ fontSize: 16, marginTop: '1%' }}>
           {user?.bday ? user.bday : "Дата рождения не указана"}
         </Text>
       </View>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   minitext: {
     color: "rgba(128, 128, 128, 0.9)",
-    fontSize: "14",
+    fontSize: 14,
   },
   updateBtn: {
     alignItems: "center",

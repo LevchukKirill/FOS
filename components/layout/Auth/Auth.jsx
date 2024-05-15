@@ -83,7 +83,7 @@ const Auth = () => {
                 .catch(setError);
             }}
           >
-            <Text style={[gStyle.textBtn, { fontSize: "15" }]}>Продолжить</Text>
+            <Text style={[gStyle.textBtn, { fontSize: 15 }]}>Продолжить</Text>
           </Pressable>
           <Pressable
             onPress={() => {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     height: "12%",
     marginTop: "1%",
-    fontSize: "14",
+    fontSize: 14,
     fontStyle: "italic",
     color: "rgba(105, 105, 105, 1.0)",
   },
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     textDecorationColor: "#696969",
     textAlign: "center",
     opacity: 0.8,
-    fontSize: "15",
+    fontSize: 15,
   },
 });
 

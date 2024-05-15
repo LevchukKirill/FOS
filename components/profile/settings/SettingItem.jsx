@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   text: {
-    fontSize: "16",
+    fontSize: 16,
   },
 });
 
