@@ -14,6 +14,7 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
   return (
     <View style={styles.container}>
       <Pressable
+      
         // underlayColor={COLORS.primary}
         onPress={clickHandler}
         style={
@@ -27,13 +28,19 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
             backgroundColor: isActive ? COLORS.primary : COLORS.white,
             alignItems: "center",
             paddingTop: 5,
-            height: "100%",
-            // maxWidth: "70%",
+            height: "97%",
+            maxWidth: "90%",
             display: "flex",
             flexDirection: "column",
             borderRadius: SIZES.radius,
+            shadowRadius: 4,
+            shadowOpacity: 0.1,
+            shadowColor: 'gray',
+            shadowOffset: {width:0, height:0}
+
           }}
         >
+          <Image source={require("../../assets/pizza2.png")} style={{width: "56%", height: "55%"}} />
           {/*<Image*/}
           {/*  source={{ uri: cat.image }}*/}
           {/*  style={{*/}
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
   // borderRadius: SIZES.radius,
   // },
   shadow: {
+    // borderWidth: 1,
     shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,

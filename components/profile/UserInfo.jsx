@@ -10,8 +10,12 @@ import {
 import Icon from "react-native-vector-icons/EvilIcons";
 import { COLORS } from "../../constants";
 import UserService from "../../services/UserService";
+import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
-import IconUser from "./user.svg";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+// import { HandySvg } from "handy-svg";
+// import iconUser from "./user.svg";
 
 const userService = new UserService();
 
@@ -32,28 +36,29 @@ const UserInfo = ({ user }) => {
     <View style={styles.container}>
       <View style={styles.block}>
         <View style={styles.dataForm}>
-          <FontAwesome6
+          {/* <HandySvg src={iconUser}  width="32" height="32" /> */}
+          <FontAwesome
             name="user-circle"
             size={70}
             color="black"
-            style={{ marginLeft: "7%" }}
+            style={{ marginLeft: "7%", marginTop: "3%" }}
           />
-          <View style={{ alignContent: "center" }}>
+          <View style={{ marginLeft: -30 }}>
             <Text style={styles.minitext}>Имя</Text>
             <TextInput
               // value={name}
               onChangeText={setName}
               readOnly={isButtonPressed}
-              style={[{ fontSize: 16, marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: "2%" }]}
             >
               {user?.name ? `${name}` : "Имя не найдено"}
             </TextInput>
-            <Text style={[styles.minitext, { marginTop: "6%" }]}>Телефон</Text>
+            <Text style={[styles.minitext, { marginTop: "7%" }]}>Телефон</Text>
             <TextInput
               // value={phone}
               onChangeText={setPhone}
               readOnly={isButtonPressed}
-              style={[{ fontSize: 16, marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: "2%" }]}
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
@@ -77,14 +82,24 @@ const UserInfo = ({ user }) => {
             style={styles.updateBtn}
           >
             <View>
-              <Text>{isButtonPressed ? "+" : "-"}</Text>
+              <Text>
+                {isButtonPressed ? (
+                  <FontAwesome6 name="pen-to-square" size={18} color="black" />
+                ) : (
+                  <MaterialCommunityIcons
+                    name="pencil-off-outline"
+                    size={21}
+                    color="black"
+                  />
+                )}
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.menuItem}>
         <Text style={styles.minitext}>Дата рождения</Text>
-        <Text style={{ fontSize: 16, marginTop: '1%' }}>
+        <Text style={{ fontSize: 16, marginTop: "0.5%" }}>
           {user?.bday ? user.bday : "Дата рождения не указана"}
         </Text>
       </View>
@@ -105,14 +120,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     columnGap: "140",
   },
-  icon: {
-    borderWidth: 1,
-    borderColor: COLORS.primary,
-    borderRadius: 10,
-  },
   dataForm: {
     marginTop: "5%",
     flexDirection: "row",
+    // borderWidth: 1,
     flex: 1,
     justifyContent: "space-between",
     padding: 5,

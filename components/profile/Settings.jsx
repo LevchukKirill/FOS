@@ -74,16 +74,14 @@ const styles = StyleSheet.create({
     marginRight: "5%",
   },
   sect1: {
-    marginTop: "%",
     marginLeft: "5%",
   },
   sect2: {
-    marginTop: "%",
     marginLeft: "5%",
   },
   delete: {
-    marginTop: "8%",
-    marginLeft: "30%",
+    marginTop: "4%",
+    margin: "auto",
     color: "red",
 
     //alignContent: 'center'

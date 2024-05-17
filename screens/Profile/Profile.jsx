@@ -4,15 +4,26 @@ import UserInfo from "../../components/profile/UserInfo";
 import Settings from "../../components/profile/Settings";
 import { COLORS } from "../../constants";
 import { UserContext } from "../../hooks/useUser";
+import { Platform } from "react-native";
 
 const Profile = (props) => {
   const { user } = useContext(UserContext);
   return (
     <View style={styles.container}>
-      <View style={[styles.section, { height: "30%" }]}>
+      <View
+        style={[
+          styles.section,
+          { height: Platform.OS === "ios" ? "30%" : "31%" },
+        ]}
+      >
         <UserInfo user={user} />
       </View>
-      <View style={[styles.section, { height: "70%" }]}>
+      <View
+        style={[
+          styles.section,
+          { height: Platform.OS === "ios" ? "70%" : "69%" },
+        ]}
+      >
         <Settings />
       </View>
     </View>

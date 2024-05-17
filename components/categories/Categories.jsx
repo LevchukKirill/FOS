@@ -37,10 +37,11 @@ const styles = StyleSheet.create({
     // marginVertical: 10,
   },
   container: {
+    // borderWidth: 1,
     display: "flex",
     height: "100%",
     borderRadius: 20,
-    backgroundColor: COLORS.lightGray1,
+    //backgroundColor: COLORS.lightGray1,
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     // display: "flex",
 
     // minWidth: "25%",
-    // padding: 5,
+    padding: 2,
 
     maxWidth: "50%",
     borderRadius: SIZES.radius,

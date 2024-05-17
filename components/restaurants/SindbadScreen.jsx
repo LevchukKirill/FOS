@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView, Image } from "react-native";
 import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
 import Menu from "../menu/Menu";
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   section: {
+    // borderWidth: 1,
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
