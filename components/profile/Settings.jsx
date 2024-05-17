@@ -60,6 +60,7 @@ const Settings = () => {
 
 const styles = StyleSheet.create({
   container: {
+    // alignItems: "center",
     // marginTop: "3%",
     height: "100%",
     // paddingHorizontal: 20,
@@ -69,21 +70,23 @@ const styles = StyleSheet.create({
     rowGap: 5,
   },
   section: {
-    rowGap: 1,
-    marginLeft: "5%",
-    marginRight: "5%",
+    // rowGap: 1,
+    // marginLeft: "5%",
+    // marginRight: "5%",
   },
   sect1: {
-    marginTop: "%",
+    // marginTop: "%",
     marginLeft: "5%",
   },
   sect2: {
-    marginTop: "%",
+    // marginTop: "%",
     marginLeft: "5%",
   },
   delete: {
-    marginTop: "8%",
-    marginLeft: "30%",
+    margin: "auto",
+    marginTop: "4%",
+    // justifyContent: "center",
+    // marginLeft: "35%",
     color: "red",
 
     //alignContent: 'center'

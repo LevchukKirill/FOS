@@ -44,7 +44,7 @@ const UserInfo = ({ user }) => {
               // value={name}
               onChangeText={setName}
               readOnly={isButtonPressed}
-              style={[{ fontSize: 16, marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: "1%" }]}
             >
               {user?.name ? `${name}` : "Имя не найдено"}
             </TextInput>
@@ -53,18 +53,18 @@ const UserInfo = ({ user }) => {
               // value={phone}
               onChangeText={setPhone}
               readOnly={isButtonPressed}
-              style={[{ fontSize: 16, marginTop: '1%' }]}
+              style={[{ fontSize: 16, marginTop: "1%" }]}
             >
               {user?.phone ? `${phone}` : "phone не найдено"}
             </TextInput>
-            {/* <Text style={styles.minitext}>Почта</Text>
+            <Text style={styles.minitext}>Почта</Text>
             <TextInput
               readOnly={isButtonPressed}
               onChangeText={setRole}
-              style={[ { fontSize: 18 }]}
+              style={[{ fontSize: 18 }]}
             >
               {user?.role ? `${role}` : "mail не найдено"}
-            </TextInput> */}
+            </TextInput>
           </View>
 
           <TouchableOpacity
@@ -84,7 +84,7 @@ const UserInfo = ({ user }) => {
       </View>
       <View style={styles.menuItem}>
         <Text style={styles.minitext}>Дата рождения</Text>
-        <Text style={{ fontSize: 16, marginTop: '1%' }}>
+        <Text style={{ fontSize: 16, marginTop: "1%" }}>
           {user?.bday ? user.bday : "Дата рождения не указана"}
         </Text>
       </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   block: {
     display: "flex",
     flexDirection: "row",
-    columnGap: "140",
+    columnGap: 140,
   },
   icon: {
     borderWidth: 1,
@@ -115,11 +115,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-between",
-    padding: 5,
+    // borderWidth: 1,
+    // padding: 5,
   },
   menuItem: {
     width: "100%",
-    padding: 15,
+    padding: 5,
+    paddingLeft: 15,
+    // padding: 15,
   },
   minitext: {
     color: "rgba(128, 128, 128, 0.9)",

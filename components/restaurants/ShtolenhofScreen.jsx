@@ -4,6 +4,7 @@ import { ScrollView, Text, View, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { UserContext } from "../../hooks/useUser";
 import UsersOrders from "../admin/UsersOrder";
+import OrdersForDelivery from "../courier/OrdersForDelivery";
 
 const ShtolenhofScreen = (props) => {
   const { user } = useContext(UserContext);
@@ -11,10 +12,19 @@ const ShtolenhofScreen = (props) => {
   // console.log(props);
   if (user?.role === "ADMIN")
     return (
-      <ScrollView>
+      <ScrollView style={styles.main}>
         <Text> Вы важный тип</Text>
         <View style={styles.container}>
           <UsersOrders restaurantId={props.restaurantId} />
+        </View>
+      </ScrollView>
+    );
+  if (user?.role === "COURIER")
+    return (
+      <ScrollView style={styles.main}>
+        <Text> Вы доставщик</Text>
+        <View style={styles.container}>
+          <OrdersForDelivery restaurantId={props.restaurantId} />
         </View>
       </ScrollView>
     );
@@ -22,7 +32,7 @@ const ShtolenhofScreen = (props) => {
   // if (user?.role === "USER")
   else
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={styles.main}>
         {/*<Categories />*/}
         {/*<Categories />*/}
       </ScrollView>
@@ -30,6 +40,9 @@ const ShtolenhofScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: COLORS.white,
+  },
   container: {
     height: "100%",
     paddingHorizontal: 10,

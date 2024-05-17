@@ -8,11 +8,15 @@ import { store } from "./store/Store";
 import { useContext, useEffect, useState } from "react";
 import UserService from "./services/UserService";
 import { UserContext } from "./hooks/useUser";
+// import YaMap from "react-native-yamap";
 
+// YaMap.init(process.env.API_MAP).then((r) => console.log(r));
 export default function App() {
+  // YaMap.init("38ff0263-06f0-4d0e-89c3-4faeb7168554").then((r) =>
+  //   console.log(r),
+  // );
   const [user, setUser] = useState(undefined);
   const userService = new UserService();
-
   useEffect(() => {
     userService.auth().then(setUser);
   }, []);

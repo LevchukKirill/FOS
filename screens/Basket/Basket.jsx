@@ -5,6 +5,8 @@ import DiscountList from "../../components/discount/DiscountList";
 import OrderButton from "../../components/order/OrderButton";
 import { useSelector } from "react-redux";
 import { OrderContext } from "../../hooks/useOrder";
+import { COLORS } from "../../constants";
+import Map from "../../components/map/Map";
 
 const Basket = () => {
   const basket = useSelector((state) => state.basket);
@@ -13,7 +15,9 @@ const Basket = () => {
   // console.log(basket);
   return (
     //TODO: оборазить картинки в заказе
-    <ScrollView style={{ paddingHorizontal: 10 }}>
+    <ScrollView
+      style={{ paddingHorizontal: 10, backgroundColor: COLORS.white }}
+    >
       {Object.keys(basket.foods).length !== 0 ? (
         <View style={{ paddingBottom: 10 }}>
           <OrderContext.Provider value={{ order, setOrder }}>
@@ -26,6 +30,7 @@ const Basket = () => {
         <View>
           <Text>Тут ничего нет :( </Text>
           <Text>Закажи что нибудь</Text>
+          {/*<Map />*/}
         </View>
       )}
     </ScrollView>
