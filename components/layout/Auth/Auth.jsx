@@ -6,11 +6,16 @@ import {
   Modal,
   StyleSheet,
   Pressable,
+  TouchableWithoutFeedback,
+  BackHandler,
+  presentationStyle,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style";
+import { BlurView } from "expo-blur";
+import { Keyboard } from "react-native";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -22,20 +27,38 @@ const Auth = () => {
   const { setUser } = useContext(UserContext);
 
   const userService = new UserService();
+  // const modalClose = () => {
+  //   setModalVisible(false);
+  // };
 
   return (
     <View>
       <Modal
+        presentationStyle={(pageSheet = 1)}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}
+        // onClose={onModalClose}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
+          //presentationStyle='pageSheet'
         }}
       >
-        {/* <Button onPress{() => setModalVisible(false)}/> */}
+        {/* <Pressable
+              style={{marginHorizontal: '100%', marginVertical: '70%'}}
+              onPress={() => setModalVisible(!modalVisible)}>
+              
+              </Pressable> */}
+        <BlurView
+          intensity={5}
+          tint="light"
+          style={styles.blurContainer}
+        ></BlurView>
+        {/* <Input
+          onBlur={modalClose}
 
-        <View style={[styles.modalView, styles.shadow]}>
+         /> */}
+        <View style={[styles.modalView, styles.shadow, styles.blur]}>
           <View style={gStyle.line}></View>
 
           <Text style={[gStyle.text, styles.text1, {}]}>
@@ -51,9 +74,6 @@ const Auth = () => {
             >
               {isLogin ? "Авторизация" : "Регистрация"}
             </Text>
-            {/* <Text style={[gStyle.text, {fontSize: 14}]}>
-              Введите свой номер телефона и пароль
-            </Text> */}
           </View>
           <TextInput
             onChangeText={setPhoneNumber}
@@ -61,6 +81,7 @@ const Auth = () => {
             keyboardType="numeric"
             value={phone}
             placeholder="+7(9__)___-__-__"
+            // onBlur={() => Keyboard.dismiss()}
           />
           <TextInput
             onChangeText={setPassword}
@@ -69,6 +90,7 @@ const Auth = () => {
             value={password}
             placeholder="Пароль"
           />
+
           <Pressable
             style={[gStyle.button, styles.button, { marginTop: "5%" }]}
             onPress={async () => {
@@ -105,6 +127,9 @@ const Auth = () => {
         >
           <Text style={gStyle.textBtn}>Войти</Text>
         </Pressable>
+        {/* <Pressable onPress={onClose}>
+            
+        </Pressable> */}
       </View>
     </View>
   );
@@ -122,9 +147,10 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    // borderWidth: 1,
     width: "100%",
-    //height: "45%",
-    height: "100%",
+    height: "45%",
+    //height: "100%",
     position: "absolute",
     bottom: 0,
     marginBottom: 0,
@@ -146,9 +172,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
   },
+  blurContainer: {
+    flex: 1,
+    padding: 20,
+    //margin: 16,
+    textAlign: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 20,
+  },
   input: {
     paddingHorizontal: "5%",
-    backgroundColor: "rgba(211, 211, 211, 0.3)",
+    backgroundColor: "rgba(211, 211, 211, 0.2)",
     borderRadius: 13,
     height: "12%",
     marginTop: "1%",

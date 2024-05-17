@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     width: "auto",
     height: "100%",
     // paddingTop: 10,
-    // marginVertical: 10,
+    marginVertical: 10,
   },
   container: {
     // borderWidth: 1,

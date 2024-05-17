@@ -14,7 +14,6 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
   return (
     <View style={styles.container}>
       <Pressable
-      
         // underlayColor={COLORS.primary}
         onPress={clickHandler}
         style={
@@ -34,13 +33,16 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
             flexDirection: "column",
             borderRadius: SIZES.radius,
             shadowRadius: 4,
-            shadowOpacity: 0.1,
-            shadowColor: 'gray',
-            shadowOffset: {width:0, height:0}
-
+            shadowOpacity: 0.2,
+            shadowColor: "gray",
+            shadowOffset: { width: 0, height: 0 },
+            elevation: 5,
           }}
         >
-          <Image source={require("../../assets/pizza2.png")} style={{width: "56%", height: "55%"}} />
+          <Image
+            source={require("../../assets/pizza2.png")}
+            style={{ width: "56%", height: "55%" }}
+          />
           {/*<Image*/}
           {/*  source={{ uri: cat.image }}*/}
           {/*  style={{*/}

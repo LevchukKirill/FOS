@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 10,
     overflow: "hidden",
+    
   },
   section: {
     // borderWidth: 1,
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     flexDirection: "row",
     paddingVertical: 10,
+    marginLeft: '2%',
   },
 });
 
