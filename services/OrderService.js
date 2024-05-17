@@ -38,6 +38,15 @@ class OrderService extends ApiService {
     );
   }
 
+  getAllOrderForCourier(id) {
+    return this.axios
+      .get(`restaurant/fc/${id}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(console.error);
+  }
+
   createOrder(basket) {
     return this.axios
       .post("", { ...basket }, { withCredentials: true })
@@ -55,6 +64,13 @@ class OrderService extends ApiService {
 
   pay(id, status) {
     return this.axios.post("/paymentCallback", { orderId: id, paid: status });
+  }
+
+  ready(id, status) {
+    return this.axios.post("/acceptOrderCallback", {
+      orderId: id,
+      accepted: status,
+    });
   }
 
   deleteOrder(id) {

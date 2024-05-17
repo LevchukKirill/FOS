@@ -20,6 +20,7 @@ const UserOrder = (props) => {
       style={styles.orderBox}
     >
       <ModalOrder
+        orderId={props.id}
         info={orderInfo}
         visible={modalVisible}
         handler={() => setModalVisible(!modalVisible)}

@@ -7,6 +7,8 @@ import Menu from "../menu/Menu";
 import { UserContext } from "../../hooks/useUser";
 import UsersOrders from "../admin/UsersOrder";
 import UserService from "../../services/UserService";
+import { COLORS } from "../../constants";
+import OrdersForDelivery from "../courier/OrdersForDelivery";
 
 const SindbadScreen = (props) => {
   const { user } = useContext(UserContext);
@@ -14,8 +16,8 @@ const SindbadScreen = (props) => {
   // console.log(props);
   if (user?.role === "ADMIN")
     return (
-      <ScrollView>
-        <Text> Вы важный тип</Text>
+      <ScrollView style={styles.main}>
+        <Text> Вы важный тип 1</Text>
         <View style={styles.container}>
           <UsersOrders restaurantId={props.restaurantId} />
         </View>
@@ -23,9 +25,18 @@ const SindbadScreen = (props) => {
     );
   // userService.auth();
   // if (user?.role === "USER")
+  if (user?.role === "COURIER")
+    return (
+      <ScrollView style={styles.main}>
+        <Text> Вы доставщик</Text>
+        <View style={styles.container}>
+          <OrdersForDelivery restaurantId={props.restaurantId} />
+        </View>
+      </ScrollView>
+    );
   else
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.main]}>
         <View style={styles.section}>
           {props.type ? (
             <Categories types={props.type} />
@@ -40,7 +51,11 @@ const SindbadScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: COLORS.white,
+  },
   container: {
+    // backgroundColor: COLORS.white,
     height: "100%",
     paddingHorizontal: 10,
     display: "flex",

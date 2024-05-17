@@ -13,7 +13,7 @@ const AdminOrderItem = (props) => {
       <View style={styles.productText}>
         {/*<View>*/}
         <Text>{props.food.name}</Text>
-        <Text>{props.food.foodInfoId}</Text>
+        <Text>{props.amount} шт</Text>
         <Text>{props.food.price * props.amount} руб.</Text>
       </View>
     </View>
