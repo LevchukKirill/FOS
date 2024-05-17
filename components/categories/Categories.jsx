@@ -63,11 +63,11 @@ const styles = StyleSheet.create({
   },
   catItem: {
     // borderWidth: 1,
-
     // display: "flex",
-
     // minWidth: "25%",
-    padding: 2,
+    padding: 1,
+    paddingBottom: 5,
+    //paddingVertical: 3,
 
     maxWidth: "50%",
     borderRadius: SIZES.radius,

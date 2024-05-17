@@ -48,7 +48,7 @@ export const gStyle = StyleSheet.create({
   line: {
     marginTop: "8%",
     width: "40%",
-    height: "1.5%",
+    //height: "1.5%",
     backgroundColor: "rgba(211, 211, 211, 0.5)",
     borderRadius: 20,
     marginLeft: '30%'

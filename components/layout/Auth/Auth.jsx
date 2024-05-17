@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,16 +6,13 @@ import {
   Modal,
   StyleSheet,
   Pressable,
-  TouchableWithoutFeedback,
-  BackHandler,
-  presentationStyle,
+  Keyboard,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style";
 import { BlurView } from "expo-blur";
-import { Keyboard } from "react-native";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -27,41 +24,59 @@ const Auth = () => {
   const { setUser } = useContext(UserContext);
 
   const userService = new UserService();
-  // const modalClose = () => {
-  //   setModalVisible(false);
-  // };
+  const [keyboardStatus, setKeyboardStatus] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardStatus(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardStatus(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   return (
     <View>
       <Modal
-        presentationStyle={(pageSheet = 1)}
+        presentationStyle={"pageSheet"}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}
-        // onClose={onModalClose}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
-          //presentationStyle='pageSheet'
         }}
       >
-        {/* <Pressable
-              style={{marginHorizontal: '100%', marginVertical: '70%'}}
-              onPress={() => setModalVisible(!modalVisible)}>
-              
-              </Pressable> */}
         <BlurView
           intensity={5}
           tint="light"
           style={styles.blurContainer}
         ></BlurView>
-        {/* <Input
-          onBlur={modalClose}
 
-         /> */}
-        <View style={[styles.modalView, styles.shadow, styles.blur]}>
-          <View style={gStyle.line}></View>
+        <View
+          style={[
+            styles.modalView,
+            styles.shadow,
+            styles.blur,
+            { justifyContent: keyboardStatus ? "flex-start" : "flex-start" },
+            { height: keyboardStatus ? "85%" : "52%" },
+          ]}
+        >
+          <View
+            style={[gStyle.line, { height: keyboardStatus ? "0.9%" : "1.5%" }]}
+          ></View>
 
-          <Text style={[gStyle.text, styles.text1, {}]}>
+          <Text
+            style={[
+              gStyle.text,
+              styles.text1,
+              { marginTop: keyboardStatus ? "3%" : "4%" },
+            ]}
+          >
             Вход в систему ресторанов
           </Text>
 
@@ -69,7 +84,11 @@ const Auth = () => {
             <Text
               style={[
                 gStyle.title,
-                { marginLeft: "3%", marginTop: "10%", marginBottom: "1%" },
+                {
+                  marginLeft: "3%",
+                  marginBottom: "1%",
+                  marginTop: keyboardStatus ? "3%" : "7%",
+                },
               ]}
             >
               {isLogin ? "Авторизация" : "Регистрация"}
@@ -77,22 +96,47 @@ const Auth = () => {
           </View>
           <TextInput
             onChangeText={setPhoneNumber}
-            style={styles.input}
+            style={[
+              styles.input,
+              { height: keyboardStatus ? "6.5%" : "11.5%" },
+            ]}
             keyboardType="numeric"
             value={phone}
             placeholder="+7(9__)___-__-__"
-            // onBlur={() => Keyboard.dismiss()}
+            onBlur={() => Keyboard.dismiss()} ////////////////////////////////////////////////
+            //static dismiss();
           />
           <TextInput
             onChangeText={setPassword}
-            style={styles.input}
+            style={[
+              styles.input,
+              { height: keyboardStatus ? "6.5%" : "11.5%" },
+            ]}
             secureTextEntry={true}
             value={password}
             placeholder="Пароль"
+            onBlur={() => Keyboard.dismiss()}
           />
 
+          <Text
+            style={{
+              marginTop: "1%",
+              fontSize: 14,
+              fontWeight: "300",
+              marginLeft: "3%",
+            }}
+          >
+            {error ? "Неверный пароль или логин" : ""}
+          </Text>
           <Pressable
-            style={[gStyle.button, styles.button, { marginTop: "5%" }]}
+            style={[
+              gStyle.button,
+              styles.button,
+              {
+                marginTop: keyboardStatus ? 0 : "1%",
+                height: keyboardStatus ? "7%" : "12%",
+              },
+            ]}
             onPress={async () => {
               const data = isLogin
                 ? userService.login({ phone, password })
@@ -112,11 +156,15 @@ const Auth = () => {
               setIsLogin(!isLogin);
             }}
           >
-            <Text style={styles.anotherBtn}>
+            <Text
+              style={[
+                styles.anotherBtn,
+                { marginTop: keyboardStatus ? "5%" : "3%" },
+              ]}
+            >
               {isLogin ? "Зарегистрироваться" : "Войти в аккаунт"}
             </Text>
           </Pressable>
-          <Text>{error ? "Неверный пароль или логин" : ""}</Text>
         </View>
       </Modal>
       <View>
@@ -137,7 +185,7 @@ const Auth = () => {
 
 const styles = StyleSheet.create({
   text1: {
-    marginTop: "5%",
+    // marginTop: "4%",
     textAlign: "center",
   },
   centeredView: {
@@ -148,20 +196,14 @@ const styles = StyleSheet.create({
   },
   modalView: {
     // borderWidth: 1,
-    width: "100%",
-    height: "45%",
-    //height: "100%",
-    position: "absolute",
     bottom: 0,
-    marginBottom: 0,
+    width: "100%",
+    position: "absolute",
     borderRadius: 30,
-
-    //paddingVertical: 30,
     paddingHorizontal: 30,
     backgroundColor: COLORS.white,
     flex: 1,
     rowGap: 5,
-    //justifyContent: 'center',
   },
   shadow: {
     shadowColor: COLORS.black,
@@ -185,7 +227,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     backgroundColor: "rgba(211, 211, 211, 0.2)",
     borderRadius: 13,
-    height: "12%",
     marginTop: "1%",
     fontSize: 14,
     fontStyle: "italic",
@@ -193,12 +234,11 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
-    height: "13%",
     justifyContent: "center",
   },
   anotherBtn: {
     //bottom: 0,
-    marginTop: "3%",
+    //marginTop: "3%",
     marginBottom: "0%",
     textDecorationLine: "underline",
     textDecorationColor: "#696969",
