@@ -12,6 +12,7 @@ import { COLORS } from "../../../constants";
 import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style.js";
+import UserCard from "../UserCard/UserCard";
 
 // import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -25,7 +26,6 @@ const Header = () => {
       <View>
         <Pressable
           style={gStyle.button}
-         
           onPress={async () => {
             console.log(await userService.auth());
           }}
@@ -35,7 +35,7 @@ const Header = () => {
         </Pressable>
       </View>
 
-      <View>{user ? null : <Auth />}</View>
+      <View>{user ? <UserCard /> : <Auth />}</View>
     </View>
   );
 };

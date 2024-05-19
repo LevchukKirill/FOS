@@ -31,8 +31,21 @@ const UsersOrders = (props) => {
       setOrders((orders) => [...orders, order]);
     }
 
+    function onChangeOrder(order) {
+      console.log("change order status", order);
+      setOrders((orders) => {
+        const localOrder = orders.find((item) => item.id === order.id);
+        if (!localOrder) {
+          return [...orders, localOrder];
+        }
+        Object.assign(localOrder, order);
+
+        return orders.slice();
+      });
+    }
     orderGateway.socket.on("connect", onConnect);
     orderGateway.socket.on("disconnect", onDisconnected);
+    orderGateway.socket.on("change:order", onChangeOrder);
     orderGateway.socket.on("paid:order", onPaidOrder);
 
     return () => {

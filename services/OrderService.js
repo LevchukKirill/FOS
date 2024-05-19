@@ -55,7 +55,7 @@ class OrderService extends ApiService {
   }
   updateOrder(id, data) {
     return this.axios
-      .put(`${id}`, data)
+      .patch(`${id}`, data)
       .then((response) => {
         console.log(response);
       })
@@ -64,13 +64,6 @@ class OrderService extends ApiService {
 
   pay(id, status) {
     return this.axios.post("/paymentCallback", { orderId: id, paid: status });
-  }
-
-  ready(id, status) {
-    return this.axios.post("/acceptOrderCallback", {
-      orderId: id,
-      accepted: status,
-    });
   }
 
   deleteOrder(id) {

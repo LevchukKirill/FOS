@@ -1,14 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { ScrollView, Text, View, StyleSheet } from "react-native";
+import { ScrollView, Text, View, StyleSheet, Image } from "react-native";
 import { COLORS } from "../../constants";
 import { UserContext } from "../../hooks/useUser";
 import UsersOrders from "../admin/UsersOrder";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
+// import Barcode from "react-barcode";
+import JsBarcode from "jsbarcode";
+import UserService from "../../services/UserService";
+import Svg, { SvgUri, SvgXml } from "react-native-svg";
 
 const ElladaScreen = (props) => {
+  const [barcodeURL, setBarcodeURL] = useState(undefined);
+
   const { user } = useContext(UserContext);
-  // const userService = new UserService();
+  const userService = new UserService();
+
+  useEffect(() => {
+    (async () => {
+      const url = await userService.getBarcode();
+      setBarcodeURL(url);
+      // console.log(url);
+    })();
+  }, []);
+
   // console.log(props);
   if (user?.role === "ADMIN")
     return (
@@ -35,9 +50,14 @@ const ElladaScreen = (props) => {
       <ScrollView style={styles.main}>
         {/*<Categories />*/}
         <Text>{props.transport}</Text>
-        <Text>
-          {props.connected ? "Ура че то конектед" : "Балин ниче не конектед"}
-        </Text>
+        {barcodeURL ? (
+          <View style={{ paddingHorizontal: 10 }}>
+            <SvgXml width="100%" xml={barcodeURL} />
+          </View>
+        ) : (
+          <Text>Loading..</Text>
+        )}
+        {/*</View>*/}
         {/*<Categories />*/}
       </ScrollView>
     );

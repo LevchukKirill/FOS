@@ -25,19 +25,27 @@ const OrdersForDelivery = (props) => {
     function onDisconnected() {
       console.log("disconnected");
     }
-    function onReadyOrder(order) {
-      console.log("order is ready", order, orders.length);
-      setOrders((orders) => [...orders, order]);
+    function onChangeOrder(order) {
+      console.log("change order status", order);
+      setOrders((orders) => {
+        const localOrder = orders.find((item) => item.id === order.id);
+        if (!localOrder) {
+          return [...orders, order];
+        }
+        Object.assign(localOrder, order);
+
+        return orders.slice();
+      });
     }
 
     orderGateway.socket.on("connect", onConnect);
     orderGateway.socket.on("disconnect", onDisconnected);
-    orderGateway.socket.on("ready:order", onReadyOrder);
+    orderGateway.socket.on("change:order", onChangeOrder);
 
     return () => {
       orderGateway.socket.off("disconnect", onDisconnected);
       orderGateway.socket.off("connect", onConnect);
-      orderGateway.socket.off("ready:order", onReadyOrder);
+      orderGateway.socket.off("ready:order", onChangeOrder);
     };
   }, []);
 
@@ -54,8 +62,7 @@ const OrdersForDelivery = (props) => {
       {orders ? (
         orders.map((item) => {
           const date = new Date(item.updatedAt);
-          // const dateString =
-          // console.log(date, dateString);
+          // const dateString = console.log(date, dateString);
           return (
             <UserOrder
               key={item.id}

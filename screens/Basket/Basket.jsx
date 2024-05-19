@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { OrderContext } from "../../hooks/useOrder";
 import { COLORS } from "../../constants";
 import Map from "../../components/map/Map";
+import YaMap from "react-native-yamap";
 
 const Basket = () => {
   const basket = useSelector((state) => state.basket);
@@ -30,7 +31,7 @@ const Basket = () => {
         <View>
           <Text>Тут ничего нет :( </Text>
           <Text>Закажи что нибудь</Text>
-          {/*<Map />*/}
+          <Map />
         </View>
       )}
     </ScrollView>

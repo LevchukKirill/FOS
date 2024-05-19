@@ -1,22 +1,21 @@
-// import React from "react";
-// import YaMap from "react-native-yamap";
-//
-// const Map = () => {
-//   return (
-// <YaMap
-//   userLocationIcon={{
-//     uri: "https://www.clipartmax.com/png/middle/180-1801760_pin-png.png",
-//   }}
-//   initialRegion={{
-//     lat: 50,
-//     lon: 50,
-//     zoom: 10,
-//     azimuth: 80,
-//     tilt: 100,
-//   }}
-//   style={{ flex: 1 }}
-// />
-// );
-// };
+import React from "react";
+import MapView from "react-native-maps";
+import { View } from "react-native";
 
-// export default Map;
+const Map = () => {
+  return (
+    <View style={{ width: "100%", height: "100%", aspectRatio: "1/1" }}>
+      <MapView
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        style={{ width: "100%", height: "100%" }}
+      />
+    </View>
+  );
+};
+
+export default Map;

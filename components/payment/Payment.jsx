@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Button,
+} from "react-native";
 import { COLORS } from "../../constants";
 import { useSelector } from "react-redux";
 import OrderFoodService from "../../services/OrderFoodService";
@@ -8,6 +15,7 @@ import OrderService from "../../services/OrderService";
 import { useActions } from "../../hooks/useActions";
 import { MaterialIcons } from "@expo/vector-icons";
 import { gStyle } from "../../styles/style";
+import { WebView } from "react-native-webview";
 
 const Payment = ({ handler }) => {
   const [visible, setVisible] = useState(false);
@@ -57,11 +65,22 @@ const Payment = ({ handler }) => {
     <View style={styles.modalBox}>
       <MaterialIcons name="keyboard-arrow-down" size={30} color="black" />
       <Text>Оплата за заказ: {"{сумма заказа}"}</Text>
-      <TouchableOpacity onPress={payment}>
-        <View style={styles.button}>
-          <Text>Заказать</Text>
-        </View>
-      </TouchableOpacity>
+      {/*<Button onPress={payment}>*/}
+      {/*<View style={styles.button}>*/}
+      <View style={{ width: "100%", height: "100%" }}>
+        <WebView
+          source={{ uri: "http://176.57.208.33:5000/tinkoffPayment.html" }}
+          // onLoad={(event) => {
+          //   console.log(event);
+          // }}
+          // style={{ width: "90%", borderWidth: 100 }}
+          // onError={(event) => console.log(event)}
+          // originWhitelist={["*"]}
+          // source={{ html: "<h1>Hello world</h1>" }}
+        />
+      </View>
+      {/*</View>*/}
+      {/*</Button>*/}
       <Text>{visible ? "Происходит оплата. Подождите.." : ""}</Text>
       <Text>{notificationText}</Text>
     </View>
@@ -83,11 +102,12 @@ const styles = StyleSheet.create({
     //backgroundColor: "black",
   },
   button: {
-    marginTop: "175%",
-    borderRadius: 10,
-    padding: 5,
-    width: "100%",
-    backgroundColor: COLORS.primary,
+    // marginTop: "175%",
+    // borderRadius: 10,
+    // padding: 5,
+    // width: "100%",
+    // borderWidth: 1,
+    // backgroundColor: COLORS.primary,
   },
 });
 export default Payment;

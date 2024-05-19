@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "FOS",
-    "slug": "FOS",
+    "slug": "fos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,8 +23,18 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth"
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2faae0e5-81b9-4b25-a97e-ddf6dd290762"
+      }
+    },
+    "owner": "velikiyurod"
   }
 }

@@ -70,5 +70,18 @@ class UserService extends ApiService {
       })
       .catch(console.error);
   }
+
+  getBarcode() {
+    console.log(this.axios.defaults.baseURL);
+    return this.axios
+      .get(`/barcode/`, { responseType: "text" })
+      .then((response) => response.data)
+      .catch(console.error)
+      .finally(() => console.log("Barcode generated"));
+  }
+
+  getBarcodeURL() {
+    return this.axios.defaults.baseURL + "/barcode/";
+  }
 }
 export default UserService;

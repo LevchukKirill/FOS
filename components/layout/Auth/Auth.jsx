@@ -6,9 +6,6 @@ import {
   Modal,
   StyleSheet,
   Pressable,
-  TouchableWithoutFeedback,
-  BackHandler,
-  presentationStyle,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
@@ -16,6 +13,7 @@ import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style";
 import { BlurView } from "expo-blur";
 import { Keyboard } from "react-native";
+// import PhoneSignIn from "./PhoneSignIn";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -34,7 +32,8 @@ const Auth = () => {
   return (
     <View>
       <Modal
-        presentationStyle={(pageSheet = 1)}
+        // presentationStyle={(pageSheet = 1)}
+        presentationStyle={"pageSheet"}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}
@@ -90,7 +89,7 @@ const Auth = () => {
             value={password}
             placeholder="Пароль"
           />
-
+          {/*<PhoneSignIn />*/}
           <Pressable
             style={[gStyle.button, styles.button, { marginTop: "5%" }]}
             onPress={async () => {

@@ -1,13 +1,17 @@
-import React from 'react';
-import {
-    View,
-} from 'react-native';
+import * as Notifications from "expo-notifications";
 
-const Notification = () => {
-    return (
-        <View>
-        </View>
-    )
-}
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
-export default Notification;
+Notifications.scheduleNotificationAsync({
+  content: {
+    title: "Look at that notification",
+    body: "I'm so proud of myself!",
+  },
+  trigger: null,
+});

@@ -50,7 +50,9 @@ const ModalOrder = (props) => {
             >
               <TouchableOpacity
                 onPress={() => {
-                  orderService.ready(props.orderId, true);
+                  orderService.updateOrder(props.orderId, {
+                    status: "COOKING",
+                  });
                   props.handler();
                   // console.log(props);
                 }}
@@ -61,7 +63,9 @@ const ModalOrder = (props) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  orderService.ready(props.orderId, false);
+                  orderService.updateOrder(props.orderId, {
+                    status: "CANCELED",
+                  });
                   props.handler();
                 }}
               >

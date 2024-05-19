@@ -59,8 +59,8 @@ function RestaurantsNav() {
   };
 
   return (
-    <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
-      <TypeContext.Provider value={[types, setTypes]}>
+    <TypeContext.Provider value={[types, setTypes]}>
+      <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
         {restaurants ? (
           <TopTab.Navigator
             screenOptions={{ tabBarStyle: { borderWidth: 0 } }}
@@ -89,8 +89,8 @@ function RestaurantsNav() {
         ) : (
           <Text>Загрузка...</Text>
         )}
-      </TypeContext.Provider>
-    </ActiveTypeContext.Provider>
+      </ActiveTypeContext.Provider>
+    </TypeContext.Provider>
   );
 }
 

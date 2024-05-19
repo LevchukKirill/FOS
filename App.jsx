@@ -1,20 +1,21 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 import { COLORS } from "./constants/theme";
 import MainNavigator from "./components/layout/Navigation/MainNavigator.jsx";
 import Header from "./components/layout/Header/Header.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/Store";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserService from "./services/UserService";
 import { UserContext } from "./hooks/useUser";
-// import YaMap from "react-native-yamap";
+import { WebView } from "react-native-webview";
+import { usePushNotifications } from "./hooks/useNotifications";
 
-// YaMap.init(process.env.API_MAP).then((r) => console.log(r));
 export default function App() {
-  // YaMap.init("38ff0263-06f0-4d0e-89c3-4faeb7168554").then((r) =>
-  //   console.log(r),
-  // );
+  const { expoPushToken, notification } = usePushNotifications();
+
+  const data = JSON.stringify(notification, undefined, 2);
+
   const [user, setUser] = useState(undefined);
   const userService = new UserService();
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function App() {
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <UserContext.Provider value={{ user, setUser }}>
-          <Header />
-          <MainNavigator />
+          {/*<Header />*/}
+          {/*<MainNavigator />*/}
         </UserContext.Provider>
       </SafeAreaView>
     </Provider>
@@ -56,5 +57,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.primary,
   },
-  asda: {},
 });
