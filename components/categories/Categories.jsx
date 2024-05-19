@@ -5,7 +5,7 @@ import CategoryItem from "./CategoryItem";
 import { TypeContext } from "../../hooks/useCategories";
 import { ActiveTypeContext } from "../../hooks/useActiveType";
 
-const Categories = () => {
+const Categories = ({ type }) => {
   const [activeType, setActiveType] = useContext(ActiveTypeContext);
   const [types, setTypes] = useContext(TypeContext);
 
@@ -29,7 +29,6 @@ const Categories = () => {
 const styles = StyleSheet.create({
   main: {
     // borderWidth: 1,
-
     display: "flex",
     maxWidth: "64%",
     width: "auto",
@@ -59,16 +58,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+
     borderRadius: SIZES.radius,
   },
   catItem: {
     // borderWidth: 1,
-
     // display: "flex",
-
     // minWidth: "25%",
-    // padding: 1,
+    padding: 1,
     paddingBottom: 5,
+    //paddingVertical: 3,
+
     maxWidth: "50%",
     borderRadius: SIZES.radius,
   },
