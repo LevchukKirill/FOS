@@ -77,7 +77,6 @@ const UserInfo = ({ user }) => {
             onPress={async () => {
               setIsButtonPressed(!isButtonPressed);
               await userService.updateUser(user.id, { name, phone, role });
-              //TODO: хеширование запроса на изм user`а
             }}
             style={styles.updateBtn}
           >

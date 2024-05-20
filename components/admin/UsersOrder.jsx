@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     width: "100%",
+    paddingHorizontal: 10,
     // height: "100%",
     overflow: "hidden",
     flexDirection: "row",

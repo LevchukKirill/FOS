@@ -68,8 +68,8 @@ const OrdersForDelivery = (props) => {
               key={item.id}
               id={item.id}
               cost={item.cost}
-              status={item.status}
               time={date.toLocaleString("RU-ru")}
+              status={item.status}
             />
           );
         })
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     // height: "100%",
+    paddingHorizontal: 10,
     overflow: "hidden",
     flexDirection: "row",
     gap: 10,

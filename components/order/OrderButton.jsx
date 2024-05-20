@@ -18,6 +18,7 @@ const OrderButton = () => {
         <Text style={{ fontSize: 18 }}>Оформить заказ</Text>
       </TouchableOpacity>
       <Modal
+        presentationStyle={"pageSheet"}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}

@@ -7,6 +7,8 @@ import ModalOrder from "./ModalOrder";
 
 const UserOrder = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
+  // const [status, setStatus] = useState(undefined);
+
   const [orderInfo, setOrderInfo] = useState({});
 
   const orderService = new OrderService();
@@ -21,6 +23,10 @@ const UserOrder = (props) => {
     >
       <ModalOrder
         orderId={props.id}
+        status={props.status}
+        // setStatus={() => {
+        //   setStatus(props.status);
+        // }}
         info={orderInfo}
         visible={modalVisible}
         handler={() => setModalVisible(!modalVisible)}

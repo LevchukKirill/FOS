@@ -8,15 +8,19 @@ import OrdersForDelivery from "../courier/OrdersForDelivery";
 // import Barcode from "react-barcode";
 import JsBarcode from "jsbarcode";
 import UserService from "../../services/UserService";
+import TableMenu from "../products/TableMenu";
 import Svg, { SvgUri, SvgXml } from "react-native-svg";
+import Categories from "../categories/Categories";
+import OrderType from "../order/OrderType";
 
 const ElladaScreen = (props) => {
   const [barcodeURL, setBarcodeURL] = useState(undefined);
+  const [menuShown, setMenuShown] = useState(false);
 
   const { user } = useContext(UserContext);
   const userService = new UserService();
 
-  useEffect(() => {
+  useEffect((props) => {
     (async () => {
       const url = await userService.getBarcode();
       setBarcodeURL(url);
@@ -47,19 +51,31 @@ const ElladaScreen = (props) => {
   // if (user?.role === "USER")
   else
     return (
-      <ScrollView style={styles.main}>
-        {/*<Categories />*/}
-        <Text>{props.transport}</Text>
-        {barcodeURL ? (
-          <View style={{ paddingHorizontal: 10 }}>
-            <SvgXml width="100%" xml={barcodeURL} />
+      <View style={[styles.container, styles.main]}>
+        <View style={styles.section}>
+          {props.type ? (
+            <Categories types={props.type} />
+          ) : (
+            <Text style={{ width: "64%" }}>Loading...</Text>
+          )}
+          <OrderType />
+          <View
+            style={{
+              position: "absolute",
+              // borderWidth: 1,
+              width: "100%",
+              height: "100%",
+              bottom: 0,
+            }}
+          >
+            <TableMenu
+              reversed={true}
+              enabled={menuShown}
+              handler={setMenuShown}
+            />
           </View>
-        ) : (
-          <Text>Loading..</Text>
-        )}
-        {/*</View>*/}
-        {/*<Categories />*/}
-      </ScrollView>
+        </View>
+      </View>
     );
 };
 
@@ -69,11 +85,28 @@ const styles = StyleSheet.create({
   },
   container: {
     height: "100%",
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     display: "flex",
     flexDirection: "column",
-    gap: 10,
+    // columnGap: 50,
+    // rowGap: 50,
     overflow: "hidden",
+  },
+  section: {
+    // borderWidth: 1,
+    display: "flex",
+    flexWrap: "wrap-reverse",
+    justifyContent: "space-between",
+    width: "100%",
+    height: "100%",
+    // maxHeight: "82%",
+    flexBasis: "auto",
+    flexGrow: 1,
+    flexShrink: 1,
+    overflow: "hidden",
+    flexDirection: "column",
+    // paddingVertical: 10,
+    // marginRight: "2%",
   },
 });
 

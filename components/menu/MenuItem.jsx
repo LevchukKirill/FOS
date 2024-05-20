@@ -14,14 +14,14 @@ const MenuItem = ({ food }) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{food.name}</Text>
-        <Text>{food.price}</Text>
+        <Text>{food?.name}</Text>
+        <Text>{food?.price}</Text>
+        <MenuButton
+          count={basket[getKey(food)]?.amount ?? 0}
+          inc={() => addToBasket(food)}
+          dec={() => removeFromBasket(food)}
+        />
       </View>
-      <MenuButton
-        count={basket[getKey(food)]?.amount ?? 0}
-        inc={() => addToBasket(food)}
-        dec={() => removeFromBasket(food)}
-      />
     </View>
   );
 };
@@ -31,9 +31,10 @@ const styles = StyleSheet.create({
     display: "flex",
     // justifyContent: "center",
     // alignContent: "center",
-    width: "100%",
-    // height: ,
-    // borderWidth: 1,
+    // width: "100%",
+    aspectRatio: "3/2",
+    // height: "100%",
+    borderWidth: 1,
     marginBottom: 5,
     // borderWidth: 1,
     paddingHorizontal: 20,

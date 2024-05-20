@@ -17,7 +17,7 @@ const MenuButton = ({ count, inc, dec }) => {
         <AddFoodButton
           clickHandler={dec}
           count={count}
-          name={"--"}
+          name={"-"}
           plus={false}
         />
       )}
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    width: 90,
+    // justifyContent: "space-between",
+    // width: 90,
     // margin: "auto",
     // height: ,
     // borderWidth: 1,

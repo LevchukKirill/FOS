@@ -43,7 +43,7 @@ export const usePushNotifications = () => {
         })
       ).data;
 
-      console.log(pushTokenString);
+      // console.log(pushTokenString);
       // token = await Notifications.getExpoPushTokenAsync({
       //   projectId: projectId,
       // });

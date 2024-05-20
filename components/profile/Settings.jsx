@@ -17,7 +17,6 @@ const Settings = () => {
     new UserService().deleteUser(user.id).then(() => {
       setUser(undefined);
     });
-    //TODO: Протестировать
   }
   return (
     <View style={styles.container}>

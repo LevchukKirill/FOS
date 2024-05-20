@@ -13,10 +13,12 @@ import UserService from "../../../services/UserService";
 import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style.js";
 import UserCard from "../UserCard/UserCard";
+import FoodService from "../../../services/FoodService";
 
 // import { FontAwesome5 } from '@expo/vector-icons';
 
 const userService = new UserService();
+const foodService = new FoodService();
 
 const Header = () => {
   const { user } = useContext(UserContext);
@@ -27,7 +29,7 @@ const Header = () => {
         <Pressable
           style={gStyle.button}
           onPress={async () => {
-            console.log(await userService.auth());
+            console.log(await foodService.getAllFood());
           }}
         >
           <Text style={gStyle.textBtn}> 70 Б </Text>

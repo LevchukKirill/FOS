@@ -45,6 +45,15 @@ function RestaurantsNav() {
         // console.log(activeType + "жто тут");
         setActiveFoods(activeType.foods);
       });
+      // TODO: Запрос разделяющий еду по ресторанам
+      // TODO: Разделение заказов по категориям
+      // TODO: Чат поддержки
+      // TODO: Запрос на получение адресов доставки
+      // TODO: Получение своего месторасположения
+      // TODO: Отслеживание локации курьеров
+      // TODO: Настроить сервис оплаты
+      // TODO: Настроить отправку уведомлений определенным пользователям
+      // TODO: СМС-оповещения (auth through sms-code)
     } else {
       setActiveFoods(activeType.foods);
     }

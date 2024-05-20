@@ -69,7 +69,9 @@ const Payment = ({ handler }) => {
       {/*<View style={styles.button}>*/}
       <View style={{ width: "100%", height: "100%" }}>
         <WebView
-          source={{ uri: "http://176.57.208.33:5000/tinkoffPayment.html" }}
+          source={{
+            uri: `${process.env.EXPO_PUBLIC_API_URL}/tinkoffPayment.html`,
+          }}
           // onLoad={(event) => {
           //   console.log(event);
           // }}

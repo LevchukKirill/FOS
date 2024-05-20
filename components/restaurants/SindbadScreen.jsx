@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { Text, View, StyleSheet, ScrollView, Image } from "react-native";
 import Categories from "../categories/Categories";
@@ -9,11 +9,14 @@ import UsersOrders from "../admin/UsersOrder";
 import UserService from "../../services/UserService";
 import { COLORS } from "../../constants";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
+import TableMenu from "../products/TableMenu";
 
 const SindbadScreen = (props) => {
+  const [menuShown, setMenuShown] = useState(false);
+
   const { user } = useContext(UserContext);
   // const userService = new UserService();
-  // console.log(props);
+
   if (user?.role === "ADMIN")
     return (
       <ScrollView style={styles.main}>
@@ -38,14 +41,30 @@ const SindbadScreen = (props) => {
     return (
       <View style={[styles.container, styles.main]}>
         <View style={styles.section}>
+          <View
+            style={{
+              position: "absolute",
+              // borderWidth: 1,
+              width: "100%",
+              height: "100%",
+              bottom: 0,
+            }}
+          >
+            <TableMenu
+              reversed={false}
+              enabled={menuShown}
+              handler={setMenuShown}
+              foods={props.foods}
+            />
+          </View>
           {props.type ? (
             <Categories types={props.type} />
           ) : (
             <Text style={{ width: "64%" }}>Loading...</Text>
           )}
-          {props.foods ? <Menu foods={props.foods} /> : <Text>Loading...</Text>}
+          <OrderType />
+          {/*{props.foods ? <Menu foods={props.foods} /> : <Text>Loading...</Text>}*/}
         </View>
-        <OrderType />
       </View>
     );
 };
@@ -57,26 +76,27 @@ const styles = StyleSheet.create({
   container: {
     // backgroundColor: COLORS.white,
     height: "100%",
-    paddingHorizontal: 10,
+    // borderWidth: 1,
+    // paddingHorizontal: 10,
     display: "flex",
     flexDirection: "column",
     gap: 10,
     overflow: "hidden",
-    
   },
   section: {
     // borderWidth: 1,
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
-    maxHeight: "82%",
+    height: "100%",
+    // maxHeight: "82%",
     flexBasis: "auto",
     flexGrow: 1,
     flexShrink: 1,
     overflow: "hidden",
-    flexDirection: "row",
-    paddingVertical: 10,
-    marginLeft: '2%',
+    flexDirection: "column",
+    // paddingVertical: 10,
+    // marginLeft: "2%",
   },
 });
 

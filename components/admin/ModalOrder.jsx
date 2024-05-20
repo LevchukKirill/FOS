@@ -12,9 +12,28 @@ import AdminOrderItem from "./AdminOrderItem";
 import OrderService from "../../services/OrderService";
 
 const ModalOrder = (props) => {
+  const [orderStatus, setOrderStatus] = useState(undefined);
+  const status = [
+    "CANCELED",
+    "PAID",
+    "COOKING",
+    "READY",
+    "DELIVERY",
+    "DONE",
+    "",
+  ];
   const orderService = new OrderService();
+  const [arrayIndex, setArrayIndex] = useState(undefined);
 
-  // console.log(props);
+  useEffect(() => {
+    // props.setStatus();
+    let index = status.indexOf(props?.status);
+    setArrayIndex(index + 1);
+    setOrderStatus(status[index + 1]);
+    // console.log(arrayIndex);
+    return () => {};
+  }, []);
+
   return (
     <View>
       <Modal
@@ -26,11 +45,14 @@ const ModalOrder = (props) => {
         <ScrollView style={styles.modalView}>
           <View>
             <TouchableOpacity onPress={props.handler}>
-              <Text>НАЖМИ ЧТОБЫ ЗАКРЫТЬ</Text>
+              <View style={styles.btn}>
+                <Text>НАЖМИ ЧТОБЫ ЗАКРЫТЬ</Text>
+              </View>
             </TouchableOpacity>
             <View>
               {Object.values(props?.info ?? {}).map((i) => (
                 <View key={i.foodInfoId}>
+                  {/*{console.log(i)}*/}
                   {/*<Text>{i.name}</Text>*/}
                   {/*<Text>{i.order_food.amount}</Text>*/}
                   {/*<Text>{i.price}</Text>*/}
@@ -50,27 +72,32 @@ const ModalOrder = (props) => {
             >
               <TouchableOpacity
                 onPress={() => {
+                  setOrderStatus(status[arrayIndex + 1]);
+                  setArrayIndex(arrayIndex + 1);
                   orderService.updateOrder(props.orderId, {
-                    status: "COOKING",
+                    status: orderStatus,
                   });
+                  console.log(arrayIndex);
                   props.handler();
                   // console.log(props);
                 }}
               >
                 <View style={styles.btn}>
-                  <Text>Сменить стаус +</Text>
+                  <Text>{`Сменить статус на ${status[arrayIndex]}`}</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
+                  setArrayIndex(1);
+                  setOrderStatus(status[1]);
                   orderService.updateOrder(props.orderId, {
-                    status: "CANCELED",
+                    status: status[0],
                   });
                   props.handler();
                 }}
               >
                 <View style={styles.btn}>
-                  <Text>Сменить стаус -</Text>
+                  <Text>{`Отменить заказ`}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -92,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     padding: 10,
-    width: 150,
+    width: "100%",
     backgroundColor: COLORS.green,
     // width: "40%",
   },

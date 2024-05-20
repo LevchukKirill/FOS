@@ -38,6 +38,15 @@ class OrderService extends ApiService {
     );
   }
 
+  getCurrentOrderById(id) {
+    return this.axios
+      .get(`user/current/${id}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(console.error);
+  }
+
   getAllOrderForCourier(id) {
     return this.axios
       .get(`restaurant/fc/${id}`)
