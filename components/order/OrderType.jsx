@@ -21,7 +21,11 @@ const OrderType = () => {
               setIsActive(true);
             }}
             style={[
-              { backgroundColor: isActive ? COLORS.gray2 : COLORS.gray },
+              {
+                backgroundColor: isActive
+                  ? "rgba(250, 250, 250, 0.8)"
+                  : "rgba(211, 211, 211, 0.0)",
+              },
               styles.button,
             ]}
           >
@@ -30,7 +34,11 @@ const OrderType = () => {
           <TouchableOpacity
             onPress={() => setIsActive(false)}
             style={[
-              { backgroundColor: isActive ? COLORS.gray : COLORS.gray2 },
+              {
+                backgroundColor: isActive
+                  ? "rgba(211, 211, 211, 0.0)"
+                  : "rgba(250, 250, 250, 0.8)",
+              },
               styles.button,
             ]}
           >
@@ -50,13 +58,12 @@ const OrderType = () => {
 const styles = StyleSheet.create({
   main: {
     // borderWidth: 1,
-    width: "100%",
+    width: "93%",
     height: "18%",
-    // position: "absolute",
-    // height: "30%",
-    paddingHorizontal: 10,
-    // marginHorizontal: 10,
-    // bottom: 0,
+    position: "absolute",
+    // height: "30%",b
+    marginHorizontal: "6%",
+    bottom: 0,
     // display: "flex",
     // justifyContent: "space-around",
     // left: "50%",
@@ -65,13 +72,14 @@ const styles = StyleSheet.create({
   },
   form: {
     width: "100%",
-    height: "90%",
-    backgroundColor: COLORS.lightGray1,
+    height: "85%",
+    backgroundColor: "rgba(211, 211, 211, 0.3)",
     // borderWidth: 1,
     borderRadius: 20,
     alignItems: "center",
   },
   buttonHolder: {
+    // borderWidth: 1,
     marginTop: 10,
     display: "flex",
     alignItems: "center",
@@ -82,15 +90,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     // columnGap: 20,
-    backgroundColor: COLORS.gray,
+    backgroundColor: "rgba(211, 211, 211, 0.8)", //'rgba(112, 128, 144, 0.7)'
     borderRadius: 9,
     justifyContent: "center",
   },
   button: {
+    // borderWidth: 1,
     borderRadius: 5,
     width: "48%",
+    height: "75%",
     alignItems: "center",
     marginHorizontal: 2,
+    justifyContent: "center",
   },
   textBox: {
     // borderWidth: 1,

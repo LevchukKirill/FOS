@@ -63,7 +63,7 @@ const Auth = () => {
             styles.shadow,
             styles.blur,
             { justifyContent: keyboardStatus ? "flex-start" : "flex-start" },
-            { height: keyboardStatus ? "85%" : "52%" },
+            { height: keyboardStatus ? "83%" : "52%" },
           ]}
         >
           <View
@@ -159,7 +159,7 @@ const Auth = () => {
             <Text
               style={[
                 styles.anotherBtn,
-                { marginTop: keyboardStatus ? "5%" : "3%" },
+                { marginTop: keyboardStatus ? "2%" : "3%" },
               ]}
             >
               {isLogin ? "Зарегистрироваться" : "Войти в аккаунт"}

@@ -12,9 +12,9 @@ import RestaurantsNav from "./RestaurantsNav";
 
 const Tab = createBottomTabNavigator();
 
-const homeName = "Home";
-const basketName = "Basket";
-const profileName = "Profile";
+const homeName = "Меню";
+const basketName = "Корзина";
+const profileName = "Профиль";
 
 const MainNavigator = () => {
   return (

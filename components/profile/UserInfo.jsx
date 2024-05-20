@@ -51,7 +51,7 @@ const UserInfo = ({ user }) => {
               readOnly={isButtonPressed}
               style={[{ fontSize: 16, marginTop: "2%" }]}
             >
-              {user?.name ? `${name}` : "Имя не найдено"}
+              {user?.name ? `${name}` : "Имя не указано"}
             </TextInput>
             <Text style={[styles.minitext, { marginTop: "7%" }]}>Телефон</Text>
             <TextInput
@@ -60,16 +60,16 @@ const UserInfo = ({ user }) => {
               readOnly={isButtonPressed}
               style={[{ fontSize: 16, marginTop: "2%" }]}
             >
-              {user?.phone ? `${phone}` : "phone не найдено"}
+              {user?.phone ? `${phone}` : "Телефон не указан"}
             </TextInput>
-            <Text style={styles.minitext}>Почта</Text>
-            <TextInput
+            {/* <Text style={styles.minitext}>Почта</Text> */}
+            {/* <TextInput
               readOnly={isButtonPressed}
               onChangeText={setRole}
               style={[{ fontSize: 18 }]}
             >
               {user?.role ? `${role}` : "mail не найдено"}
-            </TextInput>
+            </TextInput> */}
           </View>
 
           <TouchableOpacity

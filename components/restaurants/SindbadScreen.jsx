@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   container: {
+    // borderWidth: 1,
     // backgroundColor: COLORS.white,
     height: "100%",
     // borderWidth: 1,
