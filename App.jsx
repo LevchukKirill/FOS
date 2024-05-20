@@ -55,38 +55,38 @@ export default function App() {
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <UserContext.Provider value={{ user, setUser }}>
-          {/*<Header />*/}
-          {/*<MainNavigator />*/}
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "space-around",
-            }}
-          >
-            <Text>Your expo push token: {expoPushToken}</Text>
-            <View style={{ alignItems: "center", justifyContent: "center" }}>
-              <Text>
-                Notification Title:{" "}
-                {notification && notification.request.content.title}{" "}
-              </Text>
-              <Text>
-                Notification Body:{" "}
-                {notification && notification.request.content.body}
-              </Text>
-              <Text>
-                Notification Data:{" "}
-                {notification &&
-                  JSON.stringify(notification.request.content.data)}
-              </Text>
-            </View>
-            <Button
-              title="Press to Send Notification"
-              onPress={async () => {
-                await sendPushNotification(expoPushToken);
-              }}
-            />
-          </View>
+          <Header />
+          <MainNavigator />
+          {/*<View*/}
+          {/*  style={{*/}
+          {/*    flex: 1,*/}
+          {/*    alignItems: "center",*/}
+          {/*    justifyContent: "space-around",*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  <Text>Your expo push token: {expoPushToken}</Text>*/}
+          {/*  <View style={{ alignItems: "center", justifyContent: "center" }}>*/}
+          {/*    <Text>*/}
+          {/*      Notification Title:{" "}*/}
+          {/*      {notification && notification.request.content.title}{" "}*/}
+          {/*    </Text>*/}
+          {/*    <Text>*/}
+          {/*      Notification Body:{" "}*/}
+          {/*      {notification && notification.request.content.body}*/}
+          {/*    </Text>*/}
+          {/*    <Text>*/}
+          {/*      Notification Data:{" "}*/}
+          {/*      {notification &&*/}
+          {/*        JSON.stringify(notification.request.content.data)}*/}
+          {/*    </Text>*/}
+          {/*  </View>*/}
+          {/*  <Button*/}
+          {/*    title="Press to Send Notification"*/}
+          {/*    onPress={async () => {*/}
+          {/*      await sendPushNotification(expoPushToken);*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*</View>*/}
         </UserContext.Provider>
       </SafeAreaView>
     </Provider>

@@ -58,12 +58,13 @@ const OrderType = () => {
 const styles = StyleSheet.create({
   main: {
     // borderWidth: 1,
-    width: "93%",
-    height: "18%",
-    position: "absolute",
+    width: "100%",
+    height: "20%",
+    // position: "absolute",
     // height: "30%",b
-    marginHorizontal: "6%",
-    bottom: 0,
+    // marginHorizontal: "6%",
+    paddingHorizontal: 20,
+    // bottom: 0,
     // display: "flex",
     // justifyContent: "space-around",
     // left: "50%",
