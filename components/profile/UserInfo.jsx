@@ -62,14 +62,14 @@ const UserInfo = ({ user }) => {
             >
               {user?.phone ? `${phone}` : "Телефон не указан"}
             </TextInput>
-            {/* <Text style={styles.minitext}>Почта</Text> */}
-            {/* <TextInput
+            <Text style={styles.minitext}>Почта</Text>
+            <TextInput
               readOnly={isButtonPressed}
               onChangeText={setRole}
               style={[{ fontSize: 18 }]}
             >
               {user?.role ? `${role}` : "mail не найдено"}
-            </TextInput> */}
+            </TextInput>
           </View>
 
           <TouchableOpacity

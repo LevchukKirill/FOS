@@ -5,17 +5,20 @@ import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
 import Menu from "../menu/Menu";
 import { UserContext } from "../../hooks/useUser";
+import { SwipeEnabledContext } from "../../hooks/useNavigation";
 import UsersOrders from "../admin/UsersOrder";
 import UserService from "../../services/UserService";
 import { COLORS } from "../../constants";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
 import TableMenu from "../products/TableMenu";
+import { BlurView } from "expo-blur";
 
 const SindbadScreen = (props) => {
-  const [menuShown, setMenuShown] = useState(false);
-
+  const { setSwipeEnabled } = useContext(SwipeEnabledContext);
   const { user } = useContext(UserContext);
+
   // const userService = new UserService();
+  const [menuShown, setMenuShown] = useState(false);
 
   if (user?.role === "ADMIN")
     return (
@@ -44,14 +47,35 @@ const SindbadScreen = (props) => {
           <View
             style={{
               position: "absolute",
+              zIndex: menuShown ? 1 : 0,
               // borderWidth: 1,
               width: "100%",
               height: "100%",
-              bottom: 0,
+              // backgroundColor: "transparent",
+              top: 0,
             }}
           >
+            <BlurView
+              intensity={menuShown ? 15 : 0}
+              tint="light"
+              experimentalBlurMethod={"dimezisBlurView"}
+              blurReductionFactor={100}
+              style={{
+                flex: 1,
+                // top: 0,
+                // borderWidth: 1,
+                position: "absolute",
+                // backgroundColor: "transparent",
+                width: "100%",
+                height: "100%",
+              }}
+            />
             <TableMenu
               reversed={false}
+              setEnabled={() => {
+                setMenuShown(!menuShown);
+                setSwipeEnabled(menuShown);
+              }}
               enabled={menuShown}
               handler={setMenuShown}
               foods={props.foods}

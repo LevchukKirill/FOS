@@ -9,6 +9,7 @@ import FoodService from "../../../services/FoodService";
 import TypeService from "../../../services/TypeService";
 import { TypeContext } from "../../../hooks/useCategories";
 import { ActiveTypeContext } from "../../../hooks/useActiveType";
+import { SwipeEnabledContext } from "../../../hooks/useNavigation";
 import { RestaurantsService } from "../../../services/RestaurantsService";
 
 const restaurantsService = new RestaurantsService();
@@ -24,6 +25,8 @@ function RestaurantsNav() {
   const [activeType, setActiveType] = useState(undefined);
   const [activeFoods, setActiveFoods] = useState([]);
   const [restaurants, setRestaurants] = useState(undefined);
+
+  const [swipeEnabled, setSwipeEnabled] = useState(true);
 
   useEffect(() => {
     typeService.getAllTypes().then((r) => {
@@ -45,15 +48,17 @@ function RestaurantsNav() {
         // console.log(activeType + "жто тут");
         setActiveFoods(activeType.foods);
       });
-      // TODO: Запрос разделяющий еду по ресторанам
-      // TODO: Разделение заказов по категориям
-      // TODO: Чат поддержки
-      // TODO: Запрос на получение адресов доставки
-      // TODO: Получение своего месторасположения
-      // TODO: Отслеживание локации курьеров
-      // TODO: Настроить сервис оплаты
-      // TODO: Настроить отправку уведомлений определенным пользователям
       // TODO: СМС-оповещения (auth through sms-code)
+      // TODO: Настроить отправку уведомлений определенным пользователям
+      // TODO: Настроить сервис оплаты
+      // TODO: Пагинация (генерация позиций меню (максимум 6 позиций в столе))
+      // TODO: Чат поддержки
+      // TODO: Стили
+      // TODO: Запрос на получение адресов доставки
+      // TODO: Разделение заказов по категориям
+      // TODO: Запрос разделяющий еду по ресторанам
+      // TODO: Обнуление состояния стола(после смены ресторана) и корзины(после смены пользователя)
+      // TODO: Красивые поля редактирования пользователя
     } else {
       setActiveFoods(activeType.foods);
     }
@@ -70,34 +75,39 @@ function RestaurantsNav() {
   return (
     <TypeContext.Provider value={[types, setTypes]}>
       <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
-        {restaurants ? (
-          <TopTab.Navigator
-            screenOptions={{ tabBarStyle: { borderWidth: 0 } }}
-            initialRouteName={"sindbad"}
-          >
-            {restaurants?.map((item) => {
-              const Tab = restaurantComponents[item.type];
-              // console.log(Tab, item.type);
-              return (
-                <TopTab.Screen
-                  name={item.name}
-                  key={item.id}
-                  children={() => (
-                    <Tab
-                      transport={transport}
-                      connected={isConnected}
-                      foods={activeFoods}
-                      type={types}
-                      restaurantId={item.id}
-                    />
-                  )}
-                />
-              );
-            })}
-          </TopTab.Navigator>
-        ) : (
-          <Text>Загрузка...</Text>
-        )}
+        <SwipeEnabledContext.Provider value={{ swipeEnabled, setSwipeEnabled }}>
+          {restaurants ? (
+            <TopTab.Navigator
+              screenOptions={{
+                tabBarStyle: { borderWidth: 0 },
+                swipeEnabled,
+              }}
+              initialRouteName={"sindbad"}
+            >
+              {restaurants?.map((item) => {
+                const Tab = restaurantComponents[item.type];
+                // console.log(Tab, item.type);
+                return (
+                  <TopTab.Screen
+                    name={item.name}
+                    key={item.id}
+                    children={() => (
+                      <Tab
+                        transport={transport}
+                        connected={isConnected}
+                        foods={activeFoods}
+                        type={types}
+                        restaurantId={item.id}
+                      />
+                    )}
+                  />
+                );
+              })}
+            </TopTab.Navigator>
+          ) : (
+            <Text>Загрузка...</Text>
+          )}
+        </SwipeEnabledContext.Provider>
       </ActiveTypeContext.Provider>
     </TypeContext.Provider>
   );

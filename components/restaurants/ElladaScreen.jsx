@@ -15,7 +15,7 @@ import OrderType from "../order/OrderType";
 
 const ElladaScreen = (props) => {
   const [barcodeURL, setBarcodeURL] = useState(undefined);
-  const [menuShown, setMenuShown] = useState(false);
+  const [menuShown, setMenuShown] = useState(true);
 
   const { user } = useContext(UserContext);
   const userService = new UserService();
@@ -52,6 +52,22 @@ const ElladaScreen = (props) => {
   else
     return (
       <View style={[styles.container, styles.main]}>
+        <View
+          style={{
+            position: "absolute",
+            zIndex: menuShown ? 1 : 0,
+            // borderWidth: 1,
+            width: "100%",
+            height: "100%",
+            bottom: 0,
+          }}
+        >
+          <TableMenu
+            reversed={true}
+            enabled={menuShown}
+            handler={setMenuShown}
+          />
+        </View>
         <View style={styles.section}>
           {props.type ? (
             <Categories types={props.type} />
@@ -59,21 +75,6 @@ const ElladaScreen = (props) => {
             <Text style={{ width: "64%" }}>Loading...</Text>
           )}
           <OrderType />
-          <View
-            style={{
-              position: "absolute",
-              // borderWidth: 1,
-              width: "100%",
-              height: "100%",
-              bottom: 0,
-            }}
-          >
-            <TableMenu
-              reversed={true}
-              enabled={menuShown}
-              handler={setMenuShown}
-            />
-          </View>
         </View>
       </View>
     );

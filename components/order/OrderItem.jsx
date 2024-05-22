@@ -14,15 +14,34 @@ const OrderItem = ({ food, amount }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.image}>
-        <Text></Text>
+      <View style={{ aspectRatio: "1/1", flex: 0.5 }}>
+        <Image
+          style={styles.image}
+          source={{ uri: process.env.EXPO_PUBLIC_API_URL + food.img }}
+        />
       </View>
+
       <View style={styles.productText}>
-        <Text>{food.name}</Text>
-        <Text>{food.foodInfoId}</Text>
-        <Text>{food.price * amount} руб.</Text>
+        <Text style={{ fontWeight: 600, fontSize: 16 }}>{food.name}</Text>
+        <Text style={{ fontSize: 12, color: COLORS.gray }}>
+          {food.foodInfoId}
+        </Text>
+        {/*<Text>{food.price * amount} руб.</Text>*/}
       </View>
-      <View>
+      <View
+        style={{
+          width: "20%",
+          // paddingRight: 10,
+          // borderWidth: 1,
+          // height: "100%",
+          //   justifyContent:
+          flex: 0.5,
+          justifyContent: "space-around",
+          alignItems: "center",
+          alignContent: "center",
+        }}
+      >
+        <Text>{food.price * amount} руб.</Text>
         <MenuButton
           count={basket[getKey(food)]?.amount ?? 0}
           inc={() => addToBasket(food)}
@@ -35,22 +54,24 @@ const OrderItem = ({ food, amount }) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    alignItems: "center",
+    flex: 1,
+    // justifyContent: "space-around",
     width: "100%",
+    // height: "10%",
     flexDirection: "row",
     columnGap: 10,
     // borderWidth: 1,
   },
   productText: {
     flex: 1,
+    padding: 5,
+    // minWidth: "70%",
     height: "100%",
-    borderWidth: 1,
+    // borderWidth: 1,
   },
   image: {
-    aspectRatio: 1,
-    width: 60,
-    backgroundColor: COLORS.white,
+    width: "100%",
+    height: "100%",
   },
 });
 

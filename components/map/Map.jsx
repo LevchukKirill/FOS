@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,18 +6,15 @@ import {
   Animated,
   Image,
   Dimensions,
+  ScrollView,
 } from "react-native";
 
 import MapView, { Marker } from "react-native-maps";
 // import Geolocation from "@react-native-community/geolocation";
 import * as Location from "expo-location";
-
-const Images = [
-  { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-  { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-  { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-  { uri: "https://i.imgur.com/Ka8kNST.jpg" },
-];
+import SearchAddress from "./SearchAddress";
+import { UserGateway } from "../../services/UserGateway";
+import { UserContext } from "../../hooks/useUser";
 
 const { height } = Dimensions.get("window");
 
@@ -25,8 +22,11 @@ const CARD_HEIGHT = height / 6 - 100;
 const CARD_WIDTH = CARD_HEIGHT + 50;
 
 const Map = () => {
-  const [location, setLocation] = useState(undefined);
+  const [courierLocations, setCourierLocations] = useState({});
+  const [userInfo, setUserInfo] = useState(undefined);
 
+  const userGateway = new UserGateway();
+  const { user } = useContext(UserContext);
   // Location.getCurrentPositionAsync((position) => {
   //   let lat = parseFloat(position.coords.latitude);
   //   let long = parseFloat(position.coords.longitude);
@@ -34,13 +34,48 @@ const Map = () => {
   // });
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+    //join room (user id)
+    console.log(userGateway.socket.connected);
+    if (userGateway.socket.connected) {
+      console.log("Подключился в комнату карты");
+    }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
-      console.log(location, "Я");
-    })();
+    function onConnect() {
+      console.log("connected location");
+    }
+    function onDisconnected() {
+      console.log("disconnected");
+    }
+    function onUpdateLocation(location, userId) {
+      console.log("new location", userId, location);
+      setCourierLocations((locations) => ({
+        ...locations,
+        [userId]: location,
+      }));
+    }
+
+    // function onChangeOrder(order) {
+    //   console.log("change order status", order);
+    //   setOrders((orders) => {
+    //     const localOrder = orders.find((item) => item.id === order.id);
+    //     if (!localOrder) {
+    //       return [...orders, localOrder];
+    //     }
+    //     Object.assign(localOrder, order);
+    //
+    //     return orders.slice();
+    //   });
+    // }
+
+    userGateway.socket.on("connect", onConnect);
+    userGateway.socket.on("disconnect", onDisconnected);
+    userGateway.socket.on("update:location", onUpdateLocation);
+
+    return () => {
+      userGateway.socket.off("disconnect", onDisconnected);
+      userGateway.socket.off("connect", onConnect);
+      userGateway.socket.off("update:location", onUpdateLocation);
+    };
   }, []);
 
   const state = {
@@ -75,15 +110,6 @@ const Map = () => {
         description: "Кофейня",
         // image: Images[2],
       },
-      {
-        coordinate: {
-          // latitude: location?.coords.latitude,
-          // longitude: location?.coords.longitude,
-        },
-        title: "Я",
-        description: "урод",
-        // image: Images[2],
-      },
     ],
     region: {
       //54.630706, 21.819503
@@ -110,22 +136,22 @@ const Map = () => {
     if (index <= 0) {
       index = 0;
     }
-    const regionTimeout = setTimeout(() => {
-      if (currentIndex !== index) {
-        currentIndex = index;
-        console.log(currentIndex);
-        const { coordinate } = state.markers[index];
-        state.region.setValue(
-          {
-            ...coordinate,
-            latitudeDelta: state.region.latitudeDelta,
-            longitudeDelta: state.region.longitudeDelta,
-          },
-          350,
-        );
-      }
-    }, 10);
-    clearTimeout(regionTimeout);
+    // const regionTimeout = setTimeout(() => {
+    //   if (currentIndex !== index) {
+    //     currentIndex = index;
+    //     console.log(currentIndex);
+    //     const { coordinate } = state.markers[index];
+    //     state.region.setValue(
+    //       {
+    //         ...coordinate,
+    //         latitudeDelta: state.region.latitudeDelta,
+    //         longitudeDelta: state.region.longitudeDelta,
+    //       },
+    //       350,
+    //     );
+    //   }
+    // }, 10);
+    // clearTimeout(regionTimeout);
   });
 
   const interpolations = state.markers.map((marker, index) => {
@@ -147,18 +173,19 @@ const Map = () => {
     return { scale, opacity };
   });
 
-  function onRegionChange(region) {
-    setLocation(region);
-    return region;
-  }
+  // function onRegionChange(region) {
+  //   setLocation(region);
+  //   return region;
+  // }
 
   return (
     <View style={styles.container}>
+      <SearchAddress />
       <MapView
-        onRegionChange={onRegionChange}
-        region={location}
-        ref={(map) => (state.region = map)}
-        initialRegion={state.region}
+        // onRegionChange={onRegionChange}
+        // region={location?.coords}
+        // ref={(map) => (state.region = map)}
+        // initialRegion={state.region}
         style={styles.container}
       >
         {state.markers.map((marker, index) => {
@@ -181,7 +208,34 @@ const Map = () => {
             </Marker>
           );
         })}
+        {Object.entries(courierLocations)
+          .filter(([_, location]) => location)
+          .map(([userId, location]) => (
+            <Marker coordinate={location.coords} key={userId}>
+              <Animated.View style={[styles.markerWrap]}>
+                <Animated.View style={[styles.ring]} />
+                <View style={styles.marker} />
+              </Animated.View>
+            </Marker>
+          ))}
       </MapView>
+      {/*<ScrollView>*/}
+      {/*{Object.entries(courierLocations)*/}
+      {/*  .filter(([_, location]) => location)*/}
+      {/*  .map(([userId, location]) => (*/}
+      {/*    <View>*/}
+      {/*      <Text>*/}
+      {/*        {userId}: {JSON.stringify(location)}*/}
+      {/*      </Text>*/}
+      {/*    </View>*/}
+      {/*    // <Marker coordinate={location.coords} key={userId}>*/}
+      {/*    //   <Animated.View style={[styles.markerWrap]}>*/}
+      {/*    //     <Animated.View style={[styles.ring]} />*/}
+      {/*    //     <View style={styles.marker} />*/}
+      {/*    //   </Animated.View>*/}
+      {/*    // </Marker>*/}
+      {/*  ))}*/}
+      {/*</ScrollView>*/}
       <Animated.ScrollView
         horizontal
         scrollEventThrottle={1}

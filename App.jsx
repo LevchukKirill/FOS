@@ -19,6 +19,8 @@ import { usePushNotifications } from "./hooks/useNotifications";
 import { Circle } from "./components/products/Table";
 import { Card } from "./components/products/TableItem";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as Location from "expo-location";
+import { BlurView } from "expo-blur";
 
 export default function App() {
   const { expoPushToken, notification } = usePushNotifications();
@@ -26,11 +28,43 @@ export default function App() {
   const data = JSON.stringify(notification, undefined, 2);
 
   const [user, setUser] = useState(undefined);
+  const [blur, setBlur] = useState(true);
+
   const userService = new UserService();
 
   useEffect(() => {
     userService.auth().then(setUser);
   }, []);
+
+  useEffect(() => {
+    // console.log("user updated");
+    if (!user) return;
+    if (user?.role !== "COURIER") return;
+    const dispose = (async () => {
+      console.log(user?.role, 1);
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (!status) return console.log("Нет прав");
+      // console.log(status, 2);
+      const watcher = await Location.watchPositionAsync(
+        {},
+        (currentLocation) => {
+          console.log("Получил локацию", currentLocation, user.id);
+          // POST /user/location
+          userService.updateUserLocation(currentLocation);
+          // .then((res) => console.log(res, "Курьер ", user?.id));
+          // console.log(currentLocation, "Курьер ", user?.id);
+        },
+      );
+      // console.log(9);
+      return () => {
+        watcher.remove();
+      };
+    })();
+    return () => {
+      dispose.then((func) => func());
+    };
+    // dispose().then((r) => console.log(r));
+  }, [user]);
 
   async function sendPushNotification(expoPushToken) {
     const message = {
@@ -55,8 +89,26 @@ export default function App() {
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <UserContext.Provider value={{ user, setUser }}>
+          {/*<BlurView*/}
+          {/*  pointerEvents="none"*/}
+          {/*  intensity={blur ? 20 : 0}*/}
+          {/*  experimentalBlurMethod={"dimezisBlurView"}*/}
+          {/*  blurReductionFactor={1000}*/}
+          {/*  tint="light"*/}
+          {/*  style={{*/}
+          {/*    flex: 1,*/}
+
+          {/*    position: "absolute",*/}
+          {/*    left: 0,*/}
+          {/*    right: 0,*/}
+          {/*    bottom: 0,*/}
+          {/*    top: 0,*/}
+          {/*    zIndex: blur ? 1 : 0,*/}
+          {/*  }}*/}
+          {/*/>*/}
           <Header />
           <MainNavigator />
+
           {/*<View*/}
           {/*  style={{*/}
           {/*    flex: 1,*/}
