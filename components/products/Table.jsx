@@ -6,6 +6,7 @@ import {
   ViewStyle,
   StyleSheet,
   Text,
+  Image,
   TouchableOpacity,
 } from "react-native";
 import {
@@ -45,6 +46,11 @@ export const Circle = ({
   const iconPosition = useMemo(() => radius + iconSize, [radius, iconSize]);
   const iconOffset = useMemo(() => radius - iconSize / 2, [radius, iconSize]);
   const iconsDegree = useMemo(() => 360 / items?.length, [items]);
+
+  const arrows = [
+    require("../../assets/Vector.png"),
+    require("../../assets/Vector2.png"),
+  ];
 
   useEffect(() => {
     animatedAngle.addListener(({ value }) => {
@@ -255,7 +261,17 @@ export const Circle = ({
           }}
         >
           <View>
-            <Text style={{ fontSize: 50 }}>{enabled ? `>` : `<`}</Text>
+            {enabled ? (
+              <Image
+                source={arrows[1]}
+                style={{ width: 35, height: 35, objectFit: "scale-down" }}
+              />
+            ) : (
+              <Image
+                source={arrows[0]}
+                style={{ width: 35, height: 35, objectFit: "scale-down" }}
+              />
+            )}
           </View>
         </TouchableOpacity>
       </View>

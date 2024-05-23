@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Image,
@@ -7,59 +7,72 @@ import {
   View,
   StyleSheet,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { COLORS, SIZES } from "../../constants";
 
 const CategoryItem = ({ type, isActive, clickHandler }) => {
+  const [idx, setIdx] = useState("");
+
+  const images = [
+    require("../../assets/pizza2.png"),
+    require("../../assets/chicken.png"),
+    require("../../assets/burger.png"),
+    require("../../assets/soup.png"),
+    require("../../assets/salad.png"),
+    require("../../assets/pancake.png"),
+    require("../../assets/cola.png"),
+    require("../../assets/cake.png"),
+  ];
+
+  useEffect(() => {
+    setIdx(images[type.id - 1]);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Pressable
+    <View>
+      <TouchableOpacity
         // underlayColor={COLORS.primary}
         onPress={clickHandler}
-        style={
-          (styles.shadow,
-          { height: 100, width: 100, borderRadius: SIZES.radius })
-        }
+        style={[styles.shadow, { height: 96, width: 90 }]}
       >
         <View
           style={{
             // borderWidth: 1,
-            backgroundColor: isActive ? COLORS.primary : COLORS.white,
+            backgroundColor: isActive ? "#ff8800" : COLORS.white,
             alignItems: "center",
             paddingTop: 5,
-            height: "97%",
-            maxWidth: "90%",
+            height: "100%",
+            maxWidth: "100%",
             display: "flex",
-            flexDirection: "column",
+            // flexDirection: "column",
             borderRadius: SIZES.radius,
-            shadowRadius: 4,
-            shadowOpacity: 0.2,
-            shadowColor: "gray",
-            shadowOffset: { width: 0, height: 0 },
-            elevation: 5,
+
+            // elevation: 2,
+            // borderWidth: 1,
+            justifyContent: "space-around",
           }}
         >
-          <Image
-            source={require("../../assets/pizza2.png")}
-            style={{ width: "56%", height: "55%" }}
-          />
-          {/*<Image*/}
-          {/*  source={{ uri: cat.image }}*/}
-          {/*  style={{*/}
-          {/*    display: "flex",*/}
-          {/*    padding: 10,*/}
-          {/*    width: "100%",*/}
-          {/*    flexBasis: "auto",*/}
-          {/*    flexGrow: 1,*/}
-          {/*    flexShrink: 1,*/}
-          {/*    maxHeight: "100%",*/}
-          {/*    objectFit: "contain",*/}
-          {/*  }}*/}
-          {/*/>*/}
-
-          <Text style={{ fontSize: SIZES.h4 }}>{type.name}</Text>
+          {/*{console.log(images[idx - 1])}*/}
+          {/*{console.log(images)}*/}
+          {/*{console.log(idx, type.id)}*/}
+          {idx ? (
+            <Image
+              source={idx}
+              style={{
+                // width: "100%",
+                aspectRatio: "1/1",
+                height: "55%",
+                objectFit: "scale-down",
+                // borderWidth: 1,
+              }}
+            />
+          ) : (
+            <></>
+          )}
+          <Text style={{ fontSize: SIZES.h4, padding: 0 }}>{type.name}</Text>
         </View>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -81,11 +94,11 @@ const styles = StyleSheet.create({
     shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowRadius: 2,
+    elevation: 3,
 
     borderRadius: SIZES.radius,
   },

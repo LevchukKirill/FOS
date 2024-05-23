@@ -86,7 +86,8 @@ const SindbadScreen = (props) => {
           ) : (
             <Text style={{ width: "64%" }}>Loading...</Text>
           )}
-          <OrderType />
+          {console.log(props?.address)}
+          <OrderType userAddress={user?.address} restAddress={props?.address} />
           {/*{props.foods ? <Menu foods={props.foods} /> : <Text>Loading...</Text>}*/}
         </View>
       </View>

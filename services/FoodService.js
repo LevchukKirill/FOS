@@ -9,7 +9,7 @@ class FoodService extends ApiService {
     return this.axios
       .get("")
       .then((response) => {
-        return response.data.rows;
+        return response.data;
       })
       .catch(console.error);
   }

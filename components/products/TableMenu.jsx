@@ -29,7 +29,7 @@ const TableMenu = ({ reversed, enabled, handler, foods, setEnabled }) => {
           }}
           blurredView={{
             // backgroundColor: "rgba(225, 225, 225, 1)",
-            backgroundColor: COLORS.darkGray2,
+            backgroundColor: "#2E3044",
             tint: "light",
             intensity: 100,
           }}

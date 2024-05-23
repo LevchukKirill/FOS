@@ -58,7 +58,7 @@ const Auth = () => {
               styles.shadow,
               styles.blur,
               { justifyContent: keyboardStatus ? "flex-start" : "flex-start" },
-              { height: keyboardStatus ? "83%" : "52%" },
+              { height: keyboardStatus ? "73%" : "52%" },
             ]}
           >
             <View
@@ -198,7 +198,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     position: "absolute",
-    borderRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingHorizontal: 30,
     backgroundColor: COLORS.white,
     flex: 1,

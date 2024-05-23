@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { COLORS } from "../../constants";
 
-const OrderType = () => {
+const OrderType = (props) => {
   const [isActive, setIsActive] = useState(false);
   return (
     <View style={styles.main}>
@@ -47,7 +47,8 @@ const OrderType = () => {
         </View>
         <View style={styles.textBox}>
           <Text style={{ fontSize: 16 }}>
-            {isActive ? "{адрес пользователя}" : "{адрес заведения}"}
+            {/*{console.log(props)}*/}
+            {/*{isActive ? {} : { props }}*/}
           </Text>
         </View>
       </View>

@@ -23,6 +23,9 @@ const MenuButton = ({ count, inc, dec }) => {
               minWidth: "30%",
               alignItems: "center",
               justifyContent: "center",
+              // borderTopWidth: 1,
+              // borderBottomWidth: 1,
+              backgroundColor: COLORS.white,
             }}
           >
             <Text>{count}</Text>
@@ -42,20 +45,21 @@ const MenuButton = ({ count, inc, dec }) => {
 const styles = StyleSheet.create({
   box: {
     // borderWidth: 1,
-    backgroundColor: COLORS.white,
+    // backgroundColor: COLORS.white,
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
     // height: "20%",
     minHeight: "20%",
-    maxHeight: "40%",
+    maxHeight: "25%",
+    flexGrow: 1,
     // height: "100%",
     // justifyContent: "space-between",
     // width: 90,
     // margin: "auto",
     // height: ,
     // borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 15,
     overflow: "hidden",
   },
   buttonInc: {

@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
+    columnGap: 20,
     padding: 10,
     alignItems: "stretch",
     justifyContent: "center",

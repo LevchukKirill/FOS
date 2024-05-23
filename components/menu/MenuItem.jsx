@@ -55,7 +55,9 @@ const MenuItem = ({ food, isActive, isEnabled }) => {
         >
           <View
             style={{
-              padding: 10,
+              padding: 5,
+              marginLeft: -5,
+              marginRight: 5,
               alignItems: "center",
               // borderWidth: 1,
               height: "100%",
@@ -65,8 +67,10 @@ const MenuItem = ({ food, isActive, isEnabled }) => {
               rowGap: 10,
             }}
           >
-            <Text>{food?.name}</Text>
-            <Text>{food?.price} Р</Text>
+            <View style={{ alignItems: "center" }}>
+              <Text style={{ color: "#E0E0E0" }}>{food?.name}</Text>
+              <Text style={{ color: "#E0E0E0" }}>{food?.price} ₽</Text>
+            </View>
             <MenuButton
               count={basket[getKey(food)]?.amount ?? 0}
               inc={() => addToBasket(food)}

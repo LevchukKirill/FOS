@@ -24,7 +24,7 @@ const OrderItem = ({ food, amount }) => {
       <View style={styles.productText}>
         <Text style={{ fontWeight: 600, fontSize: 16 }}>{food.name}</Text>
         <Text style={{ fontSize: 12, color: COLORS.gray }}>
-          {food.foodInfoId}
+          {food.food_info.description}
         </Text>
         {/*<Text>{food.price * amount} руб.</Text>*/}
       </View>

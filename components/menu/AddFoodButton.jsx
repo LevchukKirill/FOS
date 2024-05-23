@@ -9,11 +9,21 @@ const AddFoodButton = (props) => {
       onPress={props.clickHandler}
       style={[
         styles.button,
-        { backgroundColor: props.plus ? COLORS.primary : COLORS.red },
+        {
+          backgroundColor: props.plus
+            ? "rgba(255, 140, 0, 0.2)"
+            : COLORS.primary,
+        },
       ]}
     >
       <View>
-        <Text>{props.name}</Text>
+        <Text
+          style={{
+            color: props.plus ? COLORS.primary : COLORS.white,
+          }}
+        >
+          {props.name}
+        </Text>
       </View>
     </Pressable>
   );

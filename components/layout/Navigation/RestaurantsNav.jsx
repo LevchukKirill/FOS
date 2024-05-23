@@ -81,12 +81,21 @@ function RestaurantsNav() {
               screenOptions={{
                 tabBarStyle: { borderWidth: 0 },
                 swipeEnabled,
+                tabBarActiveTintColor: "#000",
+                tabBarLabelStyle: {
+                  textTransform: "capitalize",
+                },
+                // tabBarGap: 10,
+                tabBarIndicatorStyle: {
+                  backgroundColor: COLORS.black,
+                  height: 2,
+                  // width: "20%",
+                },
               }}
               initialRouteName={"sindbad"}
             >
               {restaurants?.map((item) => {
                 const Tab = restaurantComponents[item.type];
-                // console.log(Tab, item.type);
                 return (
                   <TopTab.Screen
                     name={item.name}
@@ -98,6 +107,7 @@ function RestaurantsNav() {
                         foods={activeFoods}
                         type={types}
                         restaurantId={item.id}
+                        address={item.address}
                       />
                     )}
                   />

@@ -18,18 +18,39 @@ const Basket = () => {
   const { user } = useContext(UserContext);
   // console.log(basket);
   return (
-    <ScrollView
-      style={{ paddingHorizontal: 10, backgroundColor: COLORS.white }}
+    <View
+      style={{
+        paddingHorizontal: 10,
+        backgroundColor: COLORS.white,
+        // backgroundColor: "transparent",
+        // opacity: 0.3,
+        // borderWidth: 3,
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        // position: "relative",
+      }}
     >
       {Object.keys(basket.foods).length !== 0 ? (
-        <View style={{ paddingVertical: 10 }}>
+        <ScrollView
+          style={{
+            // alignItems: "flex-start",
+            flex: 1,
+            paddingVertical: 10,
+            // position: "relative",
+            // : 10,
+            height: "100%",
+            // flex: 1,
+            // width: "100%",
+            // borderWidth: 1,
+          }}
+        >
           <OrderContext.Provider value={{ order, setOrder }}>
+            {/*<Text>В корзине {Object.keys(basket.foods).length} товаров</Text>*/}
             <OrderList />
-            {/*<DiscountList />*/}
-            <CurrentOrder id={user?.id} />
-            <OrderButton />
+            {/*<CurrentOrder id={user?.id} />*/}
           </OrderContext.Provider>
-        </View>
+        </ScrollView>
       ) : (
         <View style={{ paddingBottom: 10 }}>
           <Text>Тут ничего нет :( </Text>
@@ -38,7 +59,8 @@ const Basket = () => {
           <CurrentOrder id={user?.id} />
         </View>
       )}
-    </ScrollView>
+      <OrderButton />
+    </View>
   );
 };
 const styles = StyleSheet.create({
