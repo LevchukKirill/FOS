@@ -1,25 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Text, View, StyleSheet, ScrollView, Image } from "react-native";
+import { BlurView } from "expo-blur";
 import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
-import Menu from "../menu/Menu";
-import { UserContext } from "../../hooks/useUser";
-import { SwipeEnabledContext } from "../../hooks/useNavigation";
 import UsersOrders from "../admin/UsersOrder";
-import UserService from "../../services/UserService";
-import { COLORS } from "../../constants";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
 import TableMenu from "../products/TableMenu";
-import { BlurView } from "expo-blur";
+import { COLORS } from "../../constants";
+import { UserContext } from "../../hooks/useUser";
+import { ActiveRestaurantContext } from "../../hooks/useActiveRestaurant";
+import { SwipeEnabledContext } from "../../hooks/useNavigation";
+import UserService from "../../services/UserService";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SindbadScreen = (props) => {
   const { setSwipeEnabled } = useContext(SwipeEnabledContext);
   const { user } = useContext(UserContext);
-
-  // const userService = new UserService();
+  const [activeRestaurant, setActiveRestaurant] = useContext(
+    ActiveRestaurantContext,
+  );
   const [menuShown, setMenuShown] = useState(false);
+  // console.log(props?.restaurantId);
 
+  useFocusEffect(() => {
+    setActiveRestaurant(props.restaurant);
+    // console.log(props.restaurant);
+  });
   if (user?.role === "ADMIN")
     return (
       <ScrollView style={styles.main}>
@@ -44,49 +51,53 @@ const SindbadScreen = (props) => {
     return (
       <View style={[styles.container, styles.main]}>
         <View style={styles.section}>
-          <View
-            style={{
-              position: "absolute",
-              zIndex: menuShown ? 1 : 0,
-              // borderWidth: 1,
-              width: "100%",
-              height: "100%",
-              // backgroundColor: "transparent",
-              top: 0,
-            }}
-          >
-            <BlurView
-              intensity={menuShown ? 15 : 0}
-              tint="light"
-              experimentalBlurMethod={"dimezisBlurView"}
-              blurReductionFactor={100}
+          {props.foods?.length ? (
+            <View
               style={{
-                flex: 1,
-                // top: 0,
-                // borderWidth: 1,
                 position: "absolute",
-                // backgroundColor: "transparent",
+                zIndex: menuShown ? 1 : 0,
+                // borderWidth: 1,
                 width: "100%",
                 height: "100%",
+                // backgroundColor: "transparent",
+                top: 0,
               }}
-            />
-            <TableMenu
-              reversed={false}
-              setEnabled={() => {
-                setMenuShown(!menuShown);
-                setSwipeEnabled(menuShown);
-              }}
-              enabled={menuShown}
-              handler={setMenuShown}
-              foods={props.foods}
-            />
-          </View>
+            >
+              <BlurView
+                intensity={menuShown ? 15 : 0}
+                tint="light"
+                experimentalBlurMethod={"dimezisBlurView"}
+                blurReductionFactor={100}
+                style={{
+                  flex: 1,
+                  // top: 0,
+                  // borderWidth: 1,
+                  position: "absolute",
+                  // backgroundColor: "transparent",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+              <TableMenu
+                reversed={false}
+                setEnabled={() => {
+                  setMenuShown(!menuShown);
+                  setSwipeEnabled(menuShown);
+                }}
+                category={props.activeType}
+                enabled={menuShown}
+                handler={setMenuShown}
+                foods={props.foods}
+              />
+            </View>
+          ) : (
+            <Text>Loading...</Text>
+          )}
           {props.type ? (
             <Categories types={props.type} />
           ) : (
             <Text style={{ width: "64%" }}>Loading...</Text>
           )}
-          {console.log(props?.address)}
           <OrderType userAddress={user?.address} restAddress={props?.address} />
           {/*{props.foods ? <Menu foods={props.foods} /> : <Text>Loading...</Text>}*/}
         </View>

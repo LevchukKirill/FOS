@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Text,
@@ -9,9 +9,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../../constants";
+import SearchAddress from "../map/SearchAddress";
 
 const OrderType = (props) => {
   const [isActive, setIsActive] = useState(false);
+  const [restAddress, setRestAddress] = useState("");
+  const [userAddress, setUserAddress] = useState("");
+  const [shownSearch, setShownSearch] = useState(false);
+  useEffect(() => {
+    setRestAddress(props.restAddress);
+  }, []);
+
   return (
     <View style={styles.main}>
       <View style={styles.form}>
@@ -46,10 +54,11 @@ const OrderType = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.textBox}>
-          <Text style={{ fontSize: 16 }}>
-            {/*{console.log(props)}*/}
-            {/*{isActive ? {} : { props }}*/}
-          </Text>
+          <SearchAddress
+            isActive={isActive}
+            restAddress={restAddress}
+            userAddress={userAddress}
+          />
         </View>
       </View>
     </View>
@@ -58,46 +67,31 @@ const OrderType = (props) => {
 
 const styles = StyleSheet.create({
   main: {
-    // borderWidth: 1,
     width: "100%",
     height: "20%",
-    // position: "absolute",
-    // height: "30%",b
-    // marginHorizontal: "6%",
     paddingHorizontal: 20,
-    // bottom: 0,
-    // display: "flex",
-    // justifyContent: "space-around",
-    // left: "50%",
-    // transform: ,
-    // translate: "50%",
   },
   form: {
     width: "100%",
     height: "85%",
     backgroundColor: "rgba(211, 211, 211, 0.3)",
-    // borderWidth: 1,
     borderRadius: 20,
     alignItems: "center",
   },
   buttonHolder: {
-    // borderWidth: 1,
     marginTop: 10,
     display: "flex",
     alignItems: "center",
     alignContent: "center",
     width: "94%",
     height: 30,
-    // height: "30%",
     flexDirection: "row",
     flexWrap: "wrap",
-    // columnGap: 20,
     backgroundColor: "rgba(211, 211, 211, 0.8)", //'rgba(112, 128, 144, 0.7)'
     borderRadius: 9,
     justifyContent: "center",
   },
   button: {
-    // borderWidth: 1,
     borderRadius: 5,
     width: "48%",
     height: "75%",
@@ -106,7 +100,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textBox: {
-    // borderWidth: 1,
     width: "90%",
     alignItems: "center",
     marginTop: 15,

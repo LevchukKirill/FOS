@@ -1,20 +1,19 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 
-import { ScrollView, Text, View } from "react-native";
+import { View } from "react-native";
 import { Circle } from "./Table";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Card } from "./TableItem";
-import { COLORS } from "../../constants";
+import { COLORS } from "../../../../smth/FOS/constants";
 
-const TableMenu = ({ reversed, enabled, handler, foods, setEnabled }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [menuShown, setMenuShown] = useState(true);
-
-  const handleAction = useCallback((index) => {
-    setCurrentIndex(index);
-    // console.log(index);
-  }, []);
-
+const TableMenu = ({
+  reversed,
+  enabled,
+  handler,
+  foods,
+  setEnabled,
+  stop,
+  category,
+}) => {
   return (
     <GestureHandlerRootView
       onTouchMove={(event) => {
@@ -33,12 +32,13 @@ const TableMenu = ({ reversed, enabled, handler, foods, setEnabled }) => {
             tint: "light",
             intensity: 100,
           }}
+          stop={stop}
           setEnabled={setEnabled}
           enabled={enabled}
           reversed={reversed}
           handler={handler}
           items={foods}
-          onAction={handleAction}
+          category={category}
         />
       </View>
     </GestureHandlerRootView>

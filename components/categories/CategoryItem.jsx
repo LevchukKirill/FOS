@@ -53,9 +53,6 @@ const CategoryItem = ({ type, isActive, clickHandler }) => {
             justifyContent: "space-around",
           }}
         >
-          {/*{console.log(images[idx - 1])}*/}
-          {/*{console.log(images)}*/}
-          {/*{console.log(idx, type.id)}*/}
           {idx ? (
             <Image
               source={idx}

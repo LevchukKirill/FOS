@@ -14,6 +14,7 @@ import { UserContext } from "../../../hooks/useUser";
 import { gStyle } from "../../../styles/style.js";
 import UserCard from "../UserCard/UserCard";
 import FoodService from "../../../services/FoodService";
+import ModalSheet from "../Auth/BottomSheet";
 
 // import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -37,7 +38,10 @@ const Header = () => {
         </Pressable>
       </View>
 
-      <View>{user ? <UserCard /> : <Auth />}</View>
+      <View>
+        <ModalSheet />
+      </View>
+      {/*<View>{user ? <UserCard /> : <Auth />}</View>*/}
     </View>
   );
 };
@@ -45,9 +49,10 @@ const Header = () => {
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 10,
-    paddingBottom: 5,
+    // paddingBottom: 5,
     flexDirection: "row",
     justifyContent: "space-between",
+    // borderWidth: 1,
   },
   // authBtn: {
   //   paddingVertical: 4,

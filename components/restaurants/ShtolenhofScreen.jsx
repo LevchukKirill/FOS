@@ -1,13 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { ScrollView, Text, View, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { UserContext } from "../../hooks/useUser";
 import UsersOrders from "../admin/UsersOrder";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
+import { ActiveRestaurantContext } from "../../hooks/useActiveRestaurant";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ShtolenhofScreen = (props) => {
+  const [activeRestaurant, setActiveRestaurant] = useContext(
+    ActiveRestaurantContext,
+  );
   const { user } = useContext(UserContext);
+  // console.log(props?.restaurantId);
+
+  useFocusEffect(() => {
+    // setActiveRestaurant(props?.restaurantId);
+    // console.log(props?.restaurantId);
+  });
   // const userService = new UserService();
   // console.log(props);
   if (user?.role === "ADMIN")

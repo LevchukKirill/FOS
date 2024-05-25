@@ -59,6 +59,8 @@ const Basket = () => {
           <CurrentOrder id={user?.id} />
         </View>
       )}
+      <Map />
+
       <OrderButton />
     </View>
   );

@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SettingItem from "../../components/profile/settings/SettingItem";
 
 import { Text, View, StyleSheet } from "react-native";
 import UserService from "../../services/UserService";
 import { UserContext } from "../../hooks/useUser";
+import OrderService from "../../services/OrderService";
 
 const Settings = () => {
   const { user, setUser } = useContext(UserContext);
+  const [addresses, setAddresses] = useState(undefined);
   function logout() {
     new UserService().logout().then(() => {
       setUser(undefined);
@@ -18,6 +20,13 @@ const Settings = () => {
       setUser(undefined);
     });
   }
+
+  function getUserOrdersDelivery() {
+    new OrderService()
+      .getAllOrderById("user", user.id)
+      .then((response) => setAddresses(response.map((i) => i.address)));
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.lineBig} />
@@ -26,7 +35,11 @@ const Settings = () => {
       </View>
       <View style={styles.lineLittle} />
       <View style={styles.sect1}>
-        <SettingItem style={styles.left} name={"Адреса доставки"} />
+        <SettingItem
+          style={styles.left}
+          handler={getUserOrdersDelivery}
+          name={"Адреса доставки"}
+        />
       </View>
       <View style={styles.lineBig} />
       <View style={styles.sect2}>

@@ -108,16 +108,20 @@ const UserInfo = ({ user }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    rowGap: 5,
     height: "100%",
-    padding: 10,
+    // paddingTop: 10,
+    // marginBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    marginTop: 10,
     justifyContent: "space-between",
   },
   block: {
+    // borderWidth: 1,
     display: "flex",
     flexDirection: "row",
-    columnGap: 140,
+    // columnGap: 140,
   },
   dataForm: {
     marginTop: "5%",

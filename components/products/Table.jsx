@@ -1,24 +1,23 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Animated,
-  StyleProp,
   View,
-  ViewStyle,
   StyleSheet,
   Text,
   Image,
   TouchableOpacity,
 } from "react-native";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-  PanGestureHandlerStateChangeEvent,
-  State,
-} from "react-native-gesture-handler";
-import { FontAwesome } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
+import { PanGestureHandler, State } from "react-native-gesture-handler";
 import MenuItem from "../menu/MenuItem";
+
+const tableSize = 8;
+
+function getCycledIdx(arr, idx) {
+  idx %= arr.length;
+  if (idx < 0) idx += arr.length;
+
+  return idx;
+}
 
 export const Circle = ({
   size = 470,
@@ -27,9 +26,10 @@ export const Circle = ({
   contentContainerStyle,
   circleStyle,
   blurredView,
-  items,
+  items: foods,
   enabled,
   setEnabled,
+  category,
   handler,
   reversed,
   onAction,
@@ -37,25 +37,61 @@ export const Circle = ({
   const [rotation, setRotation] = useState(0);
   const [angleValue, setAngleValue] = useState(0);
   const [changeState, setChangeState] = useState(State.UNDETERMINED);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  // const [isEnabled, setIsEnabled] = useState(enabled);
 
   const animatedAngle = useMemo(() => new Animated.Value(0), []);
-
   const radius = useMemo(() => size / 2, [size]);
   const iconPosition = useMemo(() => radius + iconSize, [radius, iconSize]);
   const iconOffset = useMemo(() => radius - iconSize / 2, [radius, iconSize]);
-  const iconsDegree = useMemo(() => 360 / items?.length, [items]);
+  const padding = useMemo(() => 360 / 8, [foods]);
+  const activeCycledIdx = useMemo(() => {
+    const shift = reversed ? 270 : 90;
+    const angle = reversed
+      ? ((angleValue + shift) % 360) + 90
+      : (angleValue + shift) % 360;
+    const idx = (tableSize - Math.round(angle / 45)) % tableSize;
+
+    return idx;
+  }, [angleValue, reversed]);
 
   const arrows = [
     require("../../assets/Vector.png"),
     require("../../assets/Vector2.png"),
   ];
 
+  const [itemsCycle, setItemsCycle] = useState(() => {
+    const arr = [
+      ...foods.slice(foods.length - activeCycledIdx),
+      ...foods.slice(0, foods.length - activeCycledIdx),
+    ];
+
+    while (arr.length < tableSize) {
+      arr.push(...arr);
+    }
+
+    return arr.slice(0, tableSize);
+  });
+
+  useEffect(() => {
+    setItemsCycle((itemsCycle) => {
+      const activeFood = itemsCycle[activeCycledIdx];
+      if (!activeFood) return itemsCycle;
+      const activeFoodsIdx = foods.findIndex((f) => f.id === activeFood.id);
+      const copy = itemsCycle.slice();
+
+      const posToChange = [-2, -1, 1, 2];
+      posToChange.forEach((pos) => {
+        const cycledIdx = getCycledIdx(itemsCycle, activeCycledIdx + pos);
+        const foodsIdx = getCycledIdx(foods, activeFoodsIdx + pos);
+        copy[cycledIdx] = foods[foodsIdx];
+      });
+
+      return copy;
+    });
+  }, [activeCycledIdx, foods, category]);
+
   useEffect(() => {
     animatedAngle.addListener(({ value }) => {
       setAngleValue(value);
-      // console.log(items);
     });
 
     return () => animatedAngle.removeAllListeners();
@@ -63,54 +99,37 @@ export const Circle = ({
 
   const handleGestureEvent = useCallback(
     (event) => {
-      event.stopPropagation();
-      console.log("gesture event");
       let modify = [0.5, 1];
-      // console.log(enabled, "handler");w
       if (!enabled) return;
-      const angle = rotation + event.nativeEvent.translationY * dragSpeed;
+      let angle = (rotation + event.nativeEvent.translationY * dragSpeed) % 360;
 
-      const combined =
-        angle > 360 ? angle - 360 : angle <= 0 ? 360 + angle : angle;
+      angle %= 360;
+      angle = angle <= 0 ? 360 + angle : angle;
 
-      // const combined =
-      //     angle >= 360 ? angle - 360 : angle <= 0 ? 360 + angle : angle;
-
-      const animateAngle =
-        (combined % iconsDegree) - iconsDegree / 2 > 0
-          ? combined - ((combined % iconsDegree) - iconsDegree)
-          : combined - (combined % iconsDegree);
-
-      const index = Math.floor((animateAngle / 360) * items?.length);
-      const itemIndex = items?.length - index;
-      // console.log((combined * itemIndex) / 360);
-      setCurrentIndex(itemIndex >= items?.length ? 0 : itemIndex);
-
-      animatedAngle.setValue(combined);
+      animatedAngle.setValue(angle);
     },
     [animatedAngle, rotation, enabled],
   );
 
   const handleHandlerStateChange = useCallback(
     (event) => {
-      // console.log(enabled, "callback");
       if (!enabled) return;
 
       setChangeState(event.nativeEvent.state);
 
       switch (event.nativeEvent.state) {
         case State.END: {
+          // canOverRotate = true;
           const angle = rotation + event.nativeEvent.translationY * dragSpeed;
-          console.log(angle);
           const combined =
             angle >= 360 ? angle - 360 : angle <= 0 ? 360 + angle : angle;
 
           animatedAngle.setValue(combined);
 
           const animateAngle =
-            (combined % iconsDegree) - iconsDegree / 2 > 0
-              ? combined - ((combined % iconsDegree) - iconsDegree)
-              : combined - (combined % iconsDegree);
+            (combined % padding) - padding / 2 > 0
+              ? combined - ((combined % padding) - padding)
+              : combined - (combined % padding);
 
           Animated.spring(animatedAngle, {
             delay: 8,
@@ -118,85 +137,63 @@ export const Circle = ({
             bounciness: 10,
             toValue: animateAngle,
           }).start(() => setRotation(animateAngle));
-          console.log(animateAngle);
 
-          // const index = Math.floor((animateAngle / 360) * items?.length);
-          // const itemIndex = items?.length - index;
-          //
-          // setCurrentIndex(itemIndex >= items?.length ? 0 : itemIndex);
-          // setCurrentIndex(itemIndex);
           break;
         }
       }
     },
-    [animatedAngle, rotation, iconsDegree, enabled],
+    [animatedAngle, rotation, padding, enabled],
   );
 
   const foodList = useMemo(
     () =>
-      // new Array(8).map((item, idx) => {
-      items?.map((item, idx) => {
-        const angle = reversed
-          ? idx * iconsDegree + angleValue
-          : idx * iconsDegree + angleValue - 90;
+      itemsCycle.map((item, idx) => {
+        const isActive = idx === activeCycledIdx;
+
+        const itemAngle = (idx * padding + angleValue) % 360;
         const x = reversed
-          ? iconPosition * Math.cos((Math.PI * 2 * angle) / 360) + iconOffset
-          : iconPosition * Math.sin((Math.PI * 2 * angle) / 360) + iconOffset;
+          ? iconPosition * Math.cos((Math.PI * 2 * itemAngle) / 360) +
+            iconOffset
+          : iconPosition * Math.sin((Math.PI * 2 * itemAngle) / 360) +
+            iconOffset;
         const y = reversed
-          ? iconPosition * Math.sin((Math.PI * 2 * angle) / 360) + iconOffset
-          : iconPosition * Math.cos((Math.PI * 2 * angle) / 360) + iconOffset;
-        console.log({
-          angle,
-          x,
-          y,
-          idx,
-          iconsDegree,
-          angleValue,
-          iconPosition,
-          iconOffset,
-        });
+          ? iconPosition * Math.sin((Math.PI * 2 * itemAngle) / 360) +
+            iconOffset
+          : iconPosition * Math.cos((Math.PI * 2 * itemAngle) / 360) +
+            iconOffset;
+
         return (
-          // <View style={{ borderWidth: 1 }}>
           <View
             key={idx}
             style={{
-              // borderWidth: 1,
               position: "absolute",
               left:
-                currentIndex === idx && enabled
+                isActive && enabled
                   ? x - 45
                   : enabled
                     ? x - 15
-                    : currentIndex !== idx
+                    : !isActive
                       ? x - 25
                       : x - 10,
-              // top: y - 25,
               top:
-                currentIndex === idx && enabled
+                isActive && enabled
                   ? y - 25
                   : enabled
                     ? y - 15
-                    : currentIndex !== idx
+                    : !isActive
                       ? y - 25
                       : y - 35,
-              width: currentIndex === idx ? "50%" : 100,
-              height: currentIndex === idx ? 100 : 70,
-              // width: 100,
+              width: isActive ? "50%" : 100,
+              height: isActive ? 100 : 70,
               justifyContent: "center",
               alignItems: "center",
-              // backgroundColor: "yellow",
             }}
           >
-            <MenuItem
-              isActive={currentIndex === idx}
-              isEnabled={enabled}
-              food={item}
-            />
+            <MenuItem isActive={isActive} isEnabled={enabled} food={item} />
           </View>
-          // </View>
         );
       }),
-    [items, iconPosition, angleValue, enabled],
+    [iconPosition, angleValue, enabled, reversed],
   );
 
   // const background = animatedAngle.interpolate({
@@ -215,19 +212,11 @@ export const Circle = ({
       onHandlerStateChange={handleHandlerStateChange}
     >
       <View
-        onTouchMove={(event) => {
-          console.log("touch event");
-          event.stopPropagation();
-        }}
         style={[
           contentContainerStyle,
           {
-            // borderWidth: 1,
-            // flex: 1,
-            // position: "relative",
             alignItems: "center",
             justifyContent: "center",
-            // position: "absolute",
           },
         ]}
       >
@@ -237,8 +226,6 @@ export const Circle = ({
               width: size,
               height: size,
               borderRadius: size / 2,
-              // overflow: "hidden",
-              // borderWidth: 1,
             },
             circleStyle,
           ]}
@@ -253,14 +240,30 @@ export const Circle = ({
         </Animated.View>
         <TouchableOpacity
           style={{
-            position: "absolute",
-            left: enabled ? -size / 3 : -size / 4,
+            // borderWidth: 3,
+            // position: "relative",
+            left: reversed
+              ? enabled
+                ? size / 2 + size / 6
+                : size / 2 + size / 8
+              : enabled
+                ? -size / 2 - size / 4
+                : -size / 2 - size / 6,
+            top: -size / 2,
           }}
           onPress={() => {
             setEnabled(!enabled);
           }}
         >
-          <View>
+          <View
+            style={{
+              position: "absolute",
+              top: -10,
+              // right: reversed ? -622 : -40,
+              // zIndex: 3,
+              borderWidth: 1,
+            }}
+          >
             {enabled ? (
               <Image
                 source={arrows[1]}

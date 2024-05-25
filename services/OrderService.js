@@ -4,10 +4,10 @@ class OrderService extends ApiService {
   constructor() {
     super({ namespace: "order" });
   }
-  getAllOrder() {
+  getAllOrder(id) {
     console.log(this.axios.defaults.baseURL);
     return this.axios
-      .get("")
+      .get(`${id}`)
       .then((response) => {
         return response.data;
       })

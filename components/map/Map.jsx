@@ -12,7 +12,7 @@ import {
 import MapView, { Marker } from "react-native-maps";
 // import Geolocation from "@react-native-community/geolocation";
 import * as Location from "expo-location";
-import SearchAddress from "./SearchAddress";
+// import SearchAddress from "./SearchAddress";
 import { UserGateway } from "../../services/UserGateway";
 import { UserContext } from "../../hooks/useUser";
 
@@ -180,7 +180,6 @@ const Map = () => {
 
   return (
     <View style={styles.container}>
-      <SearchAddress />
       <MapView
         // onRegionChange={onRegionChange}
         // region={location?.coords}

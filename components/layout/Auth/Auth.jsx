@@ -4,9 +4,9 @@ import {
   Text,
   TextInput,
   Modal,
-  StyleSheet,
   Pressable,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
@@ -26,20 +26,6 @@ const Auth = () => {
   const userService = new UserService();
   const [keyboardStatus, setKeyboardStatus] = useState(false);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      setKeyboardStatus(true);
-    });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardStatus(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
   return (
     <View>
       <Modal
@@ -57,24 +43,12 @@ const Auth = () => {
               styles.modalView,
               styles.shadow,
               styles.blur,
-              { justifyContent: keyboardStatus ? "flex-start" : "flex-start" },
-              { height: keyboardStatus ? "73%" : "52%" },
+              { height: "52%" },
             ]}
           >
-            <View
-              style={[
-                gStyle.line,
-                { height: keyboardStatus ? "0.9%" : "1.5%" },
-              ]}
-            ></View>
+            <View style={[gStyle.line, { height: "1.5%" }]}></View>
 
-            <Text
-              style={[
-                gStyle.text,
-                styles.text1,
-                { marginTop: keyboardStatus ? "3%" : "4%" },
-              ]}
-            >
+            <Text style={[gStyle.text, styles.text1, { marginTop: "4%" }]}>
               Вход в систему ресторанов
             </Text>
 
@@ -85,7 +59,7 @@ const Auth = () => {
                   {
                     marginLeft: "3%",
                     marginBottom: "1%",
-                    marginTop: keyboardStatus ? "3%" : "7%",
+                    marginTop: "7%",
                   },
                 ]}
               >
@@ -94,10 +68,7 @@ const Auth = () => {
             </View>
             <TextInput
               onChangeText={setPhoneNumber}
-              style={[
-                styles.input,
-                { height: keyboardStatus ? "6.5%" : "11.5%" },
-              ]}
+              style={[styles.input, { height: "11.5%" }]}
               keyboardType="numeric"
               value={phone}
               placeholder="+7(9__)___-__-__"
@@ -106,10 +77,7 @@ const Auth = () => {
             />
             <TextInput
               onChangeText={setPassword}
-              style={[
-                styles.input,
-                { height: keyboardStatus ? "6.5%" : "11.5%" },
-              ]}
+              style={[styles.input, { height: "11.5%" }]}
               secureTextEntry={true}
               value={password}
               placeholder="Пароль"
@@ -131,8 +99,8 @@ const Auth = () => {
                 gStyle.button,
                 styles.button,
                 {
-                  marginTop: keyboardStatus ? 0 : "1%",
-                  height: keyboardStatus ? "7%" : "12%",
+                  marginTop: "1%",
+                  height: "12%",
                 },
               ]}
               onPress={async () => {

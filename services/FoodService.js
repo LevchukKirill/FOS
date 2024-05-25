@@ -4,10 +4,10 @@ class FoodService extends ApiService {
   constructor() {
     super({ namespace: "food" });
   }
-  getAllFood() {
-    console.log(this.axios.defaults.baseURL);
+  getAllFood(typeId, restaurantId) {
+    console.log(this.axios.defaults.baseURL, typeId, restaurantId);
     return this.axios
-      .get("")
+      .get("", { params: { typeId, restaurantId } })
       .then((response) => {
         return response.data;
       })
