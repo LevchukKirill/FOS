@@ -7,6 +7,7 @@ const SettingItem = (props) => {
   return (
     <View style={styles.item}>
       <TouchableOpacity
+        disabled={props.disabled}
         onPress={() => {
           if (typeof props.handler === "function") props.handler();
         }}

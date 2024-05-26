@@ -21,12 +21,12 @@ const SindbadScreen = (props) => {
     ActiveRestaurantContext,
   );
   const [menuShown, setMenuShown] = useState(false);
-  // console.log(props?.restaurantId);
 
   useFocusEffect(() => {
     setActiveRestaurant(props.restaurant);
-    // console.log(props.restaurant);
+    // console.log(props.foods);
   });
+
   if (user?.role === "ADMIN")
     return (
       <ScrollView style={styles.main}>
@@ -36,8 +36,7 @@ const SindbadScreen = (props) => {
         </View>
       </ScrollView>
     );
-  // userService.auth();
-  // if (user?.role === "USER")
+
   if (user?.role === "COURIER")
     return (
       <ScrollView style={styles.main}>

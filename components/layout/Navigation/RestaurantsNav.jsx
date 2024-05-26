@@ -34,7 +34,6 @@ function RestaurantsNav() {
     typeService.getAllTypes().then((r) => {
       setTypes(r);
       setActiveType(r[0]);
-      // console.log(r[0]);
     });
     restaurantsService.getAllRestaurants().then((r) => {
       setRestaurants(r);
@@ -44,29 +43,29 @@ function RestaurantsNav() {
   }, []);
 
   useEffect(() => {
-    console.log(activeRestaurant?.id, activeType?.id);
-    // if (!activeType && !activeRestaurant) return () => {};
+    // console.log(activeRestaurant?.id, activeType?.id);
+
     // console.log(activeType.id, activeRestaurant);
-    // if (!activeType?.foods && !activeRestaurant?.foods) {
+
     foodService.getAllFood(activeType?.id, activeRestaurant?.id).then((res) => {
-      // activeType.foods = res;
-      // activeRestaurant.foods = res.rows;
-      // console.log(activeRestaurant + "жто тут");
+      setActiveFoods([]);
       setActiveFoods(res.rows);
-      console.log(res.rows.map((i) => i));
+      // console.log(res.rows.map((i) => i));
     });
-    // TODO: Загрузить приложение
-    // TODO: СМС-оповещения (auth through sms-code)
-    // TODO: Фокус на локацию
-    //
-    // TODO: Стили
-    // TODO: Настроить сервис оплаты
-    // TODO: Настроить отправку уведомлений определенным пользователям
-    // TODO: Чат поддержки
-    // TODO: Подгрузка еды в соответствии с категорией
-    // TODO: Обнуление категории(после перехода на другой рест) и корзины (после смены пользователя)
-    // TODO: Красивые поля редактирования пользователя
   }, [activeType, activeRestaurant]);
+
+  useEffect(() => {
+    setActiveType(types[0]);
+  }, [activeRestaurant]);
+
+  // TODO: Загрузить приложение
+  // TODO: СМС-оповещения (auth through sms-code)
+  // TODO: Фокус на локацию
+  //
+  // TODO: Стили
+  // TODO: Настроить сервис оплаты
+  // TODO: Настроить отправку уведомлений определенным пользователям
+  // TODO: Чат поддержки
 
   const TopTab = createMaterialTopTabNavigator();
 
@@ -94,11 +93,9 @@ function RestaurantsNav() {
                   tabBarLabelStyle: {
                     textTransform: "capitalize",
                   },
-                  // tabBarGap: 10,
                   tabBarIndicatorStyle: {
                     backgroundColor: COLORS.black,
                     height: 2,
-                    // width: "20%",
                   },
                 }}
                 initialRouteName={"sindbad"}

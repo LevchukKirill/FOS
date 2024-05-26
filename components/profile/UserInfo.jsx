@@ -13,9 +13,7 @@ import UserService from "../../services/UserService";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-// import { HandySvg } from "handy-svg";
-// import iconUser from "./user.svg";
+import UpdateUserForm from "./UpdateUserForm";
 
 const userService = new UserService();
 
@@ -31,23 +29,22 @@ const UserInfo = ({ user }) => {
     setRole(user?.role);
   }, [user]);
 
-  // console.log(user, user.name, phone, role);
   return (
     <View style={styles.container}>
       <View style={styles.block}>
         <View style={styles.dataForm}>
-          {/* <HandySvg src={iconUser}  width="32" height="32" /> */}
-          <FontAwesome
-            name="user-circle"
-            size={70}
-            color="black"
-            style={{ marginLeft: "7%", marginTop: "3%" }}
-          />
-          <View style={{ marginLeft: -30 }}>
+          <View style={{ padding: 10 }}>
+            <FontAwesome
+              name="user-circle"
+              size={70}
+              color="black"
+              style={{ marginLeft: "7%", marginTop: "3%" }}
+            />
+          </View>
+          <View style={{ marginLeft: -30, flex: 0.7 }}>
             <Text style={styles.minitext}>Имя</Text>
             <TextInput
               // value={name}
-              onChangeText={setName}
               readOnly={isButtonPressed}
               style={[{ fontSize: 16, marginTop: "2%" }]}
             >
@@ -56,7 +53,6 @@ const UserInfo = ({ user }) => {
             <Text style={[styles.minitext, { marginTop: "7%" }]}>Телефон</Text>
             <TextInput
               // value={phone}
-              onChangeText={setPhone}
               readOnly={isButtonPressed}
               style={[{ fontSize: 16, marginTop: "2%" }]}
             >
@@ -71,29 +67,17 @@ const UserInfo = ({ user }) => {
             {/*  {user?.role ? `${role}` : "mail не найдено"}*/}
             {/*</TextInput>*/}
           </View>
-
-          <TouchableOpacity
-            disabled={user ? false : true}
-            onPress={async () => {
-              setIsButtonPressed(!isButtonPressed);
-              await userService.updateUser(user.id, { name, phone, role });
-            }}
-            style={styles.updateBtn}
-          >
-            <View>
-              <Text>
-                {isButtonPressed ? (
-                  <FontAwesome6 name="pen-to-square" size={18} color="black" />
-                ) : (
-                  <MaterialCommunityIcons
-                    name="pencil-off-outline"
-                    size={21}
-                    color="black"
-                  />
-                )}
-              </Text>
-            </View>
-          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            borderWidth: 0,
+            flexShrink: 1,
+            padding: 15,
+            width: 50,
+            // paddingTop: 10,
+          }}
+        >
+          <UpdateUserForm user={user} />
         </View>
       </View>
       <View style={styles.menuItem}>
@@ -124,11 +108,12 @@ const styles = StyleSheet.create({
     // columnGap: 140,
   },
   dataForm: {
+    justifyContent: "space-between",
     marginTop: "5%",
     flexDirection: "row",
     // borderWidth: 1,
+
     flex: 1,
-    justifyContent: "space-between",
     // borderWidth: 1,
     // padding: 5,
   },
