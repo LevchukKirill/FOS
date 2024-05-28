@@ -21,14 +21,14 @@ const CurrentOrder = (props) => {
   useEffect(() => {
     orderService.getCurrentOrderById(props.id).then((response) => {
       setCurrentOrders(response);
-      console.log(response);
+      // console.log(response);
     });
   }, [props.id]);
 
   return (
     <View>
       <Modal
-        presentationStyle={"pageSheet"}
+        // presentationStyle={"pageSheet"}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}
@@ -46,7 +46,7 @@ const CurrentOrder = (props) => {
           />
           <ScrollView>
             {currentOrders?.map((item) => (
-              <View style={{ padding: 10 }}>
+              <View key={item.id} style={{ padding: 10 }}>
                 <CurrentOrderItem order={item} />
               </View>
             ))}
@@ -72,11 +72,15 @@ const CurrentOrder = (props) => {
 
 const styles = StyleSheet.create({
   button: {
+    // borderWidth: 1,
     width: "100%",
-    padding: 10,
-    borderRadius: 20,
-    alignItems: "center",
+    height: 70,
     backgroundColor: COLORS.lightGray1,
+    borderRadius: 20,
+    // marginTop: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   modalView: {
     width: "100%",

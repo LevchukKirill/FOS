@@ -9,6 +9,8 @@ import FoodService from "../../../services/FoodService";
 import TypeService from "../../../services/TypeService";
 import { TypeContext } from "../../../hooks/useCategories";
 import { ActiveTypeContext } from "../../../hooks/useActiveType";
+import { ActiveRestaurantContext } from "../../../hooks/useActiveRestaurant";
+import { SwipeEnabledContext } from "../../../hooks/useNavigation";
 import { RestaurantsService } from "../../../services/RestaurantsService";
 
 const restaurantsService = new RestaurantsService();
@@ -22,83 +24,105 @@ function RestaurantsNav() {
 
   const [types, setTypes] = useState([]);
   const [activeType, setActiveType] = useState(undefined);
-  const [activeFoods, setActiveFoods] = useState([]);
   const [restaurants, setRestaurants] = useState(undefined);
+  const [activeRestaurant, setActiveRestaurant] = useState(undefined);
+  const [activeFoods, setActiveFoods] = useState([]);
+
+  const [swipeEnabled, setSwipeEnabled] = useState(true);
 
   useEffect(() => {
     typeService.getAllTypes().then((r) => {
       setTypes(r);
       setActiveType(r[0]);
     });
-    restaurantsService.getAllRestaurants().then((r) => {
-      // console.log(r);
-      setRestaurants(r);
-    });
   }, []);
 
   useEffect(() => {
-    if (!activeType) return () => {};
-    if (!activeType.foods) {
-      // console.log(`${activeType.id} активити тайп айди`);
-      foodService.getFoodByType(activeType.id).then((res) => {
-        activeType.foods = res;
-        // console.log(activeType + "жто тут");
-        setActiveFoods(activeType.foods);
-      });
-      // TODO: Запрос разделяющий еду по ресторанам
-      // TODO: Разделение заказов по категориям
-      // TODO: Чат поддержки
-      // TODO: Запрос на получение адресов доставки
-      // TODO: Получение своего месторасположения
-      // TODO: Отслеживание локации курьеров
-      // TODO: Настроить сервис оплаты
-      // TODO: Настроить отправку уведомлений определенным пользователям
-      // TODO: СМС-оповещения (auth through sms-code)
-    } else {
-      setActiveFoods(activeType.foods);
-    }
-  }, [activeType]);
+    console.log(activeRestaurant?.id, activeType?.id);
+    // if (!activeType && !activeRestaurant) return () => {};
+    // console.log(activeType.id, activeRestaurant);
+    // if (!activeType?.foods && !activeRestaurant?.foods) {
+    foodService.getAllFood(activeType?.id, activeRestaurant?.id).then((res) => {
+      // activeType.foods = res;
+      // activeRestaurant.foods = res.rows;
+      // console.log(activeRestaurant + "жто тут");
+      setActiveFoods(res.rows);
+      console.log(res.rows.map((i) => i));
+    });
+    // TODO: Загрузить приложение
+    // TODO: СМС-оповещения (auth through sms-code)
+    // TODO: Фокус на локацию
+    //
+    // TODO: Стили
+    // TODO: Настроить сервис оплаты
+    // TODO: Настроить отправку уведомлений определенным пользователям
+    // TODO: Чат поддержки
+    // TODO: Подгрузка еды в соответствии с категорией
+    // TODO: Обнуление категории(после перехода на другой рест) и корзины (после смены пользователя)
+    // TODO: Красивые поля редактирования пользователя
+  }, [activeType, activeRestaurant]);
 
   const TopTab = createMaterialTopTabNavigator();
 
   const restaurantComponents = {
     pizza: SindbadScreen,
-    "pizza-reversed": ElladaScreen,
     coffee: ShtolenhofScreen,
+    "pizza-reversed": ElladaScreen,
   };
 
   return (
     <TypeContext.Provider value={[types, setTypes]}>
-      <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
-        {restaurants ? (
-          <TopTab.Navigator
-            screenOptions={{ tabBarStyle: { borderWidth: 0 } }}
-            initialRouteName={"sindbad"}
+      <ActiveRestaurantContext.Provider
+        value={[activeRestaurant, setActiveRestaurant]}
+      >
+        <ActiveTypeContext.Provider value={[activeType, setActiveType]}>
+          <SwipeEnabledContext.Provider
+            value={{ swipeEnabled, setSwipeEnabled }}
           >
-            {restaurants?.map((item) => {
-              const Tab = restaurantComponents[item.type];
-              // console.log(Tab, item.type);
-              return (
-                <TopTab.Screen
-                  name={item.name}
-                  key={item.id}
-                  children={() => (
-                    <Tab
-                      transport={transport}
-                      connected={isConnected}
-                      foods={activeFoods}
-                      type={types}
-                      restaurantId={item.id}
+            {restaurants ? (
+              <TopTab.Navigator
+                screenOptions={{
+                  tabBarStyle: { borderWidth: 0 },
+                  swipeEnabled,
+                  tabBarActiveTintColor: "#000",
+                  tabBarLabelStyle: {
+                    textTransform: "capitalize",
+                  },
+                  tabBarIndicatorStyle: {
+                    backgroundColor: COLORS.black,
+                    height: 2,
+                  },
+                }}
+                initialRouteName={"sindbad"}
+              >
+                {restaurants?.map((item) => {
+                  const Screen = restaurantComponents[item.type];
+                  return (
+                    <TopTab.Screen
+                      name={item.name}
+                      key={item.id}
+                      children={() => (
+                        <Screen
+                          restaurant={item}
+                          transport={transport}
+                          connected={isConnected}
+                          foods={activeFoods}
+                          activeType={activeType?.id}
+                          type={types}
+                          restaurantId={item.id}
+                          address={item.address}
+                        />
+                      )}
                     />
-                  )}
-                />
-              );
-            })}
-          </TopTab.Navigator>
-        ) : (
-          <Text>Загрузка...</Text>
-        )}
-      </ActiveTypeContext.Provider>
+                  );
+                })}
+              </TopTab.Navigator>
+            ) : (
+              <Text>Загрузка...</Text>
+            )}
+          </SwipeEnabledContext.Provider>
+        </ActiveTypeContext.Provider>
+      </ActiveRestaurantContext.Provider>
     </TypeContext.Provider>
   );
 }

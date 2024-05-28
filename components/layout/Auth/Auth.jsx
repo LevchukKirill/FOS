@@ -4,9 +4,9 @@ import {
   Text,
   TextInput,
   Modal,
-  StyleSheet,
   Pressable,
   Keyboard,
+  StyleSheet,
 } from "react-native";
 import { COLORS } from "../../../constants/theme";
 import UserService from "../../../services/UserService";
@@ -26,24 +26,10 @@ const Auth = () => {
   const userService = new UserService();
   const [keyboardStatus, setKeyboardStatus] = useState(false);
 
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-      setKeyboardStatus(true);
-    });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-      setKeyboardStatus(false);
-    });
-
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, []);
-
   return (
     <View>
       <Modal
-        presentationStyle={"pageSheet"}
+        // presentationStyle={"pageSheet"}
         animationType={"slide"}
         transparent={true}
         visible={modalVisible}
@@ -51,121 +37,102 @@ const Auth = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <BlurView
-          intensity={5}
-          tint="light"
-          style={styles.blurContainer}
-        ></BlurView>
-
-        <View
-          style={[
-            styles.modalView,
-            styles.shadow,
-            styles.blur,
-            { justifyContent: keyboardStatus ? "flex-start" : "flex-start" },
-            { height: keyboardStatus ? "83%" : "52%" },
-          ]}
-        >
+        <BlurView intensity={25} tint="dark" style={styles.blurContainer}>
           <View
-            style={[gStyle.line, { height: keyboardStatus ? "0.9%" : "1.5%" }]}
-          ></View>
-
-          <Text
             style={[
-              gStyle.text,
-              styles.text1,
-              { marginTop: keyboardStatus ? "3%" : "4%" },
+              styles.modalView,
+              styles.shadow,
+              styles.blur,
+              { height: "52%" },
             ]}
           >
-            Вход в систему ресторанов
-          </Text>
+            <View style={[gStyle.line, { height: "1.5%" }]}></View>
 
-          <View>
+            <Text style={[gStyle.text, styles.text1, { marginTop: "4%" }]}>
+              Вход в систему ресторанов
+            </Text>
+
+            <View>
+              <Text
+                style={[
+                  gStyle.title,
+                  {
+                    marginLeft: "3%",
+                    marginBottom: "1%",
+                    marginTop: "7%",
+                  },
+                ]}
+              >
+                {isLogin ? "Авторизация" : "Регистрация"}
+              </Text>
+            </View>
+            <TextInput
+              onChangeText={setPhoneNumber}
+              style={[styles.input, { height: "11.5%" }]}
+              keyboardType="numeric"
+              value={phone}
+              placeholder="+7(9__)___-__-__"
+              onBlur={() => Keyboard.dismiss()} ////////////////////////////////////////////////
+              //static dismiss();
+            />
+            <TextInput
+              onChangeText={setPassword}
+              style={[styles.input, { height: "11.5%" }]}
+              secureTextEntry={true}
+              value={password}
+              placeholder="Пароль"
+              onBlur={() => Keyboard.dismiss()}
+            />
+
             <Text
+              style={{
+                marginTop: "1%",
+                fontSize: 14,
+                fontWeight: "300",
+                marginLeft: "3%",
+              }}
+            >
+              {error ? "Неверный пароль или логин" : ""}
+            </Text>
+            <Pressable
               style={[
-                gStyle.title,
+                gStyle.button,
+                styles.button,
                 {
-                  marginLeft: "3%",
-                  marginBottom: "1%",
-                  marginTop: keyboardStatus ? "3%" : "7%",
+                  marginTop: "1%",
+                  height: "12%",
                 },
               ]}
+              onPress={async () => {
+                const data = isLogin
+                  ? userService.login({ phone, password })
+                  : userService.register({ phone, password });
+                data
+                  .then(() => {
+                    setModalVisible(false);
+                    userService.auth().then(setUser);
+                  })
+                  .catch(setError);
+              }}
             >
-              {isLogin ? "Авторизация" : "Регистрация"}
-            </Text>
+              <Text style={[gStyle.textBtn, { fontSize: 15 }]}>Продолжить</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => {
+                setIsLogin(!isLogin);
+              }}
+            >
+              <Text
+                style={[
+                  styles.anotherBtn,
+                  { marginTop: keyboardStatus ? "2%" : "3%" },
+                ]}
+              >
+                {isLogin ? "Зарегистрироваться" : "Войти в аккаунт"}
+              </Text>
+            </Pressable>
           </View>
-          <TextInput
-            onChangeText={setPhoneNumber}
-            style={[
-              styles.input,
-              { height: keyboardStatus ? "6.5%" : "11.5%" },
-            ]}
-            keyboardType="numeric"
-            value={phone}
-            placeholder="+7(9__)___-__-__"
-            onBlur={() => Keyboard.dismiss()} ////////////////////////////////////////////////
-            //static dismiss();
-          />
-          <TextInput
-            onChangeText={setPassword}
-            style={[
-              styles.input,
-              { height: keyboardStatus ? "6.5%" : "11.5%" },
-            ]}
-            secureTextEntry={true}
-            value={password}
-            placeholder="Пароль"
-            onBlur={() => Keyboard.dismiss()}
-          />
-
-          <Text
-            style={{
-              marginTop: "1%",
-              fontSize: 14,
-              fontWeight: "300",
-              marginLeft: "3%",
-            }}
-          >
-            {error ? "Неверный пароль или логин" : ""}
-          </Text>
-          <Pressable
-            style={[
-              gStyle.button,
-              styles.button,
-              {
-                marginTop: keyboardStatus ? 0 : "1%",
-                height: keyboardStatus ? "7%" : "12%",
-              },
-            ]}
-            onPress={async () => {
-              const data = isLogin
-                ? userService.login({ phone, password })
-                : userService.register({ phone, password });
-              data
-                .then(() => {
-                  setModalVisible(false);
-                  userService.auth().then(setUser);
-                })
-                .catch(setError);
-            }}
-          >
-            <Text style={[gStyle.textBtn, { fontSize: 15 }]}>Продолжить</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              setIsLogin(!isLogin);
-            }}
-          >
-            <Text
-              style={[
-                styles.anotherBtn,
-                { marginTop: keyboardStatus ? "2%" : "3%" },
-              ]}
-            >
-              {isLogin ? "Зарегистрироваться" : "Войти в аккаунт"}
-            </Text>
-          </Pressable>
-        </View>
+        </BlurView>
       </Modal>
       <View>
         <Pressable
@@ -199,7 +166,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     position: "absolute",
-    borderRadius: 30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     paddingHorizontal: 30,
     backgroundColor: COLORS.white,
     flex: 1,
@@ -216,12 +184,12 @@ const styles = StyleSheet.create({
   },
   blurContainer: {
     flex: 1,
-    padding: 20,
+    // padding: 20,
     //margin: 16,
-    textAlign: "center",
-    justifyContent: "center",
+    // textAlign: "center",
+    // justifyContent: "center",
     overflow: "hidden",
-    borderRadius: 20,
+    // borderRadius: 20,
   },
   input: {
     paddingHorizontal: "5%",

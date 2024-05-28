@@ -10,20 +10,10 @@ const Profile = (props) => {
   const { user } = useContext(UserContext);
   return (
     <View style={styles.container}>
-      <View
-        style={[
-          styles.section,
-          { height: Platform.OS === "ios" ? "30%" : "31%" },
-        ]}
-      >
+      <View style={{ height: "30%" }}>
         <UserInfo user={user} />
       </View>
-      <View
-        style={[
-          styles.section,
-          { height: Platform.OS === "ios" ? "70%" : "69%" },
-        ]}
-      >
+      <View>
         <Settings />
       </View>
     </View>
@@ -33,17 +23,9 @@ const Profile = (props) => {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
-    // borderWidth: 1,
-    // paddingHorizontal: 10,
-    paddingVertical: 1,
     display: "flex",
     flexDirection: "column",
-    // backgroundColor: COLORS.white,
-    // rowGap: 5,
-  },
-  section: {
     backgroundColor: COLORS.white,
-    // borderRadius: 10,
   },
 });
 

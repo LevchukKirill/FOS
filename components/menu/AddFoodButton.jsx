@@ -9,11 +9,21 @@ const AddFoodButton = (props) => {
       onPress={props.clickHandler}
       style={[
         styles.button,
-        { backgroundColor: props.plus ? COLORS.green : COLORS.red },
+        {
+          backgroundColor: props.plus
+            ? "rgba(255, 140, 0, 0.2)"
+            : COLORS.primary,
+        },
       ]}
     >
       <View>
-        <Text>{props.name}</Text>
+        <Text
+          style={{
+            color: props.plus ? COLORS.primary : COLORS.white,
+          }}
+        >
+          {props.name}
+        </Text>
       </View>
     </Pressable>
   );
@@ -22,10 +32,12 @@ const AddFoodButton = (props) => {
 const styles = StyleSheet.create({
   button: {
     // borderWidth: 1,
-    // width: "50%",
+    maxWidth: "100%",
+    minWidth: "33%",
+    justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
-    height: 20,
+    height: "100%",
   },
 });
 

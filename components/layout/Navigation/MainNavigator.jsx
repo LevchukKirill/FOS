@@ -35,8 +35,7 @@ const MainNavigator = () => {
             } else if (route.name === profileName) {
               iconName = "user";
             }
-
-            return <Feather name={iconName} size={28} color={color} />; //Icon
+            return <Feather name={iconName} size={28} color={color} />;
           },
         })}
       >

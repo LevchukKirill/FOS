@@ -5,6 +5,7 @@ import CategoryItem from "./CategoryItem";
 import { TypeContext } from "../../hooks/useCategories";
 import { ActiveTypeContext } from "../../hooks/useActiveType";
 
+// gg
 const Categories = ({ type }) => {
   const [activeType, setActiveType] = useContext(ActiveTypeContext);
   const [types, setTypes] = useContext(TypeContext);
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 10,
+    columnGap: 20,
     padding: 10,
     alignItems: "stretch",
     justifyContent: "center",

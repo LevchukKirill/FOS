@@ -1,36 +1,44 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 
-import { ScrollView, Text, View } from "react-native";
+import { View } from "react-native";
 import { Circle } from "./Table";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Card } from "./TableItem";
-import { COLORS } from "../../constants";
+import { COLORS } from "../../../../smth/FOS/constants";
 
-const TableMenu = ({ reversed, enabled, handler, foods }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handleAction = useCallback((index) => {
-    setCurrentIndex(index);
-    // console.log(index);
-  }, []);
-
+const TableMenu = ({
+  reversed,
+  enabled,
+  handler,
+  foods,
+  setEnabled,
+  stop,
+  category,
+}) => {
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView
+      onTouchMove={(event) => {
+        event.stopPropagation();
+      }}
+    >
       <View style={{ position: "relative" }}>
         <Circle
           contentContainerStyle={{
-            left: !reversed ? (enabled ? 200 : 330) : !enabled ? -330 : -200,
+            left: !reversed ? (enabled ? 200 : 360) : !enabled ? -360 : -200,
+            bottom: -35,
           }}
           blurredView={{
-            backgroundColor: COLORS.lightGray1,
+            // backgroundColor: "rgba(225, 225, 225, 1)",
+            backgroundColor: "#2E3044",
             tint: "light",
             intensity: 100,
           }}
+          stop={stop}
+          setEnabled={setEnabled}
           enabled={enabled}
           reversed={reversed}
           handler={handler}
           items={foods}
-          onAction={handleAction}
+          category={category}
         />
       </View>
     </GestureHandlerRootView>

@@ -18,32 +18,33 @@ export const gStyle = StyleSheet.create({
     fontSize: 17,
     fontFamily: "r-black",
     marginBottom: 3,
-    fontWeight: '500'
+    fontWeight: "500",
   },
   text: {
     //fontFamily: "gothic",
-    fontFamily: '',
+    fontFamily: "",
     fontSize: 16,
     marginBottom: 3,
-    fontWeight: '400'
+    fontWeight: "400",
   },
   button: {
     paddingVertical: 6,
     paddingHorizontal: 15,
     alignItems: "center",
     //justifyContent: "center",
-    borderRadius:30,
+    borderRadius: 30,
     backgroundColor: "rgba(255, 140, 0, 0.6)",
-    
+
     //opacity: 0.9
 
     //backgroundColor: "#ff8c00",
-  }, 
+  },
   textBtn: {
     fontSize: 15,
     fontWeight: "500",
     color: "#843700",
-    opacity: 0.8,
+    // color: "000",
+    // opacity: 0.8,
   },
   line: {
     marginTop: "8%",
@@ -51,6 +52,6 @@ export const gStyle = StyleSheet.create({
     //height: "1.5%",
     backgroundColor: "rgba(211, 211, 211, 0.5)",
     borderRadius: 20,
-    marginLeft: '30%'
-  }
+    marginLeft: "30%",
+  },
 });

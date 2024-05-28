@@ -62,6 +62,16 @@ class UserService extends ApiService {
         throw new Error(error.status);
       });
   }
+
+  updateUserLocation(location) {
+    return this.axios
+      .post("/location", { location }, { withCredentials: true })
+      .then((response) => console.log(response.data))
+      .catch((error) => {
+        throw new Error(error.status);
+      });
+  }
+
   deleteUser(id) {
     return this.axios
       .delete(`${id}`)
