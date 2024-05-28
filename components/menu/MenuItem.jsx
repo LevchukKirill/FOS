@@ -1,88 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-import { Text, View, StyleSheet, Image } from "react-native";
-import MenuButton from "./MenuButton";
-import { useActions } from "../../hooks/useActions";
-import { useSelector } from "react-redux";
-import { getKey } from "../../store/basket/BasketSlice";
+import { View, StyleSheet } from "react-native";
 
-const MenuItem = ({ food, isActive, isEnabled }) => {
-  // const [active, setActive] = useState(false);
+import MenuImage from "./MenuImage";
+import MenuInfo from "./MenuInfo";
 
-  // setActive(isActive);
-
-  const basket = useSelector((state) => state.basket.foods);
-
-  const { addToBasket, removeFromBasket } = useActions();
-  // console.log(process.env.EXPO_PUBLIC_API_URL + food?.img);
+const MenuItem = ({ isReversed, food, isActive, isEnabled }) => {
   return (
     <View
       style={
-        isEnabled
-          ? isActive
-            ? styles.activeContainer
-            : styles.container
-          : styles.disabledContainer
+        !isReversed
+          ? isEnabled
+            ? isActive
+              ? styles.activeContainer
+              : styles.container
+            : styles.disabledContainer
+          : isEnabled
+            ? isActive
+              ? styles.revActiveContainer
+              : styles.revContainer
+            : isActive
+              ? styles.revActiveEnabledContainer
+              : styles.revDisabledContainer
       }
     >
-      {/*<View style={ ? styles.activeContainer : styles.container }>*/}
-      {/*<View style={{ flexDirection: "row", display: "flex", borderWidth: 1 }}>*/}
-      <View
-        style={{
-          // width: isActive ? "50%" : "100%",
-          height: "100%",
-          // borderWidth: 1,
-          aspectRatio: "1/1",
-        }}
-      >
-        <Image
-          source={{ uri: process.env.EXPO_PUBLIC_API_URL + food?.img }}
-          style={{ width: "100%", height: "100%" }}
-        />
-      </View>
-      {/*<Text>{food?.price}</Text>*/}
-
-      {isActive ? (
-        <View
-          style={{
-            // borderWidth: 1,
-            width: "50%",
-            height: "100%",
-            padding: 0,
-            // justifyContent: "space-around",
-            // marginHorizontal: 40,
-          }}
-        >
-          <View
-            style={{
-              padding: 5,
-              marginLeft: -5,
-              marginRight: 5,
-              alignItems: "center",
-              // borderWidth: 1,
-              height: "100%",
-              // rowGap: 10,
-              // paddingVertical: 20
-              justifyContent: "center",
-              rowGap: 10,
-            }}
-          >
-            <View style={{ alignItems: "center" }}>
-              <Text style={{ color: "#E0E0E0" }}>{food?.name}</Text>
-              <Text style={{ color: "#E0E0E0" }}>{food?.price} ₽</Text>
-            </View>
-            <MenuButton
-              count={basket[getKey(food)]?.amount ?? 0}
-              inc={() => addToBasket(food)}
-              dec={() => removeFromBasket(food)}
-            />
-          </View>
+      {!isReversed ? (
+        <View style={{ width: "100%", flexDirection: "row" }}>
+          <MenuImage food={food} />
+          {isActive ? <MenuInfo food={food} /> : <></>}
         </View>
       ) : (
-        <></>
+        <View style={{ width: "100%", flexDirection: "row" }}>
+          {isActive ? <MenuInfo food={food} /> : <></>}
+          <MenuImage food={food} />
+        </View>
       )}
-
-      {/*</View>*/}
     </View>
   );
 };
@@ -94,31 +46,8 @@ const styles = StyleSheet.create({
     height: "180%",
     flexDirection: "row",
     display: "flex",
-
-    // aspectRatio: "1/1",
-    // display: "flex",
-    // alignContent: "center",
-    // justifyContent: "space-between",
-
-    // flex: 1,
-    // borderWidth: 1,
-    // marginBottom: 5,
-    // borderWidth: 1,
-    // paddingHorizontal: 20,
   },
   activeContainer: {
-    // display: "flex",
-    // justifyContent: "space-around",
-    // alignContent: "center",
-    // justifyContent: "center",
-    // columnGap: 5,
-    // alignItems: "center"
-    // padding: 10,
-    // aspectRatio: "1/1",
-    // marginBottom: 5,
-    // borderWidth: 1,
-    // paddingHorizontal: 0,
-    // paddingHorizontal: 20,
     justifyContent: "space-between",
     width: "100%",
     height: "180%",
@@ -129,6 +58,39 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "130%",
     flexDirection: "row",
+  },
+
+  revContainer: {
+    justifyContent: "center",
+    width: "100%",
+    height: "180%",
+    flexDirection: "row",
+    display: "flex",
+    // marginLeft: 200,
+  },
+  revActiveContainer: {
+    justifyContent: "space-between",
+    width: "100%",
+    height: "180%",
+    marginRight: 200,
+
+    flexDirection: "row",
+  },
+  revActiveEnabledContainer: {
+    justifyContent: "space-between",
+    width: "100%",
+    height: "130%",
+    marginRight: 235,
+
+    flexDirection: "row",
+  },
+  revDisabledContainer: {
+    // borderWidth: 1,
+    justifyContent: "space-between",
+    width: "100%",
+    height: "130%",
+    flexDirection: "row",
+    marginLeft: 0,
   },
 });
 

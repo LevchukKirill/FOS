@@ -5,44 +5,28 @@ import { COLORS } from "../../constants";
 import { UserContext } from "../../hooks/useUser";
 import UsersOrders from "../admin/UsersOrder";
 import OrdersForDelivery from "../courier/OrdersForDelivery";
-// import Barcode from "react-barcode";
-import JsBarcode from "jsbarcode";
-import UserService from "../../services/UserService";
 import TableMenu from "../products/TableMenu";
 import Svg, { SvgUri, SvgXml } from "react-native-svg";
 import Categories from "../categories/Categories";
 import OrderType from "../order/OrderType";
 import { ActiveRestaurantContext } from "../../hooks/useActiveRestaurant";
-import { useFocusEffect } from "@react-navigation/native";
 import { SwipeEnabledContext } from "../../hooks/useNavigation";
 import { BlurView } from "expo-blur";
+import { useFocusEffect } from "@react-navigation/native";
 
 const ElladaScreen = (props) => {
-  const [barcodeURL, setBarcodeURL] = useState(undefined);
-  const [menuShown, setMenuShown] = useState(true);
   const { setSwipeEnabled } = useContext(SwipeEnabledContext);
+  const { user } = useContext(UserContext);
   const [activeRestaurant, setActiveRestaurant] = useContext(
     ActiveRestaurantContext,
   );
-
-  const { user } = useContext(UserContext);
-  const userService = new UserService();
-  // console.log(props?.restaurantId);
+  const [menuShown, setMenuShown] = useState(false);
 
   useFocusEffect(() => {
     setActiveRestaurant(props.restaurant);
-    // console.log(props);
+    // console.log(props.foods);
   });
 
-  useEffect((props) => {
-    (async () => {
-      const url = await userService.getBarcode();
-      setBarcodeURL(url);
-      // console.log(url);
-    })();
-  }, []);
-
-  // console.log(props);
   if (user?.role === "ADMIN")
     return (
       <ScrollView style={styles.main}>
@@ -61,48 +45,53 @@ const ElladaScreen = (props) => {
         </View>
       </ScrollView>
     );
-  // userService.auth();
-  // if (user?.role === "USER")
   else
     return (
       <View style={[styles.container, styles.main]}>
-        <View
-          style={{
-            position: "absolute",
-            zIndex: menuShown ? 1 : 0,
-            // borderWidth: 1,
-            width: "100%",
-            height: "100%",
-            bottom: 0,
-          }}
-        >
-          <BlurView
-            intensity={menuShown ? 15 : 0}
-            tint="light"
-            experimentalBlurMethod={"dimezisBlurView"}
-            blurReductionFactor={100}
-            style={{
-              flex: 1,
-              // top: 0,
-              // borderWidth: 1,
-              position: "absolute",
-              // backgroundColor: "transparent",
-              width: "100%",
-              height: "100%",
-            }}
-          />
-          <TableMenu
-            reversed={true}
-            setEnabled={() => {
-              setMenuShown(!menuShown);
-              setSwipeEnabled(menuShown);
-            }}
-            enabled={menuShown}
-            handler={setMenuShown}
-            foods={props.foods}
-          />
-        </View>
         <View style={styles.section}>
+          {props.foods?.length ? (
+            <View
+              style={{
+                position: "absolute",
+                zIndex: menuShown ? 1 : 0,
+                // borderWidth: 1,
+                width: "100%",
+                height: "100%",
+                // backgroundColor: "transparent",
+                top: 0,
+              }}
+            >
+              <BlurView
+                intensity={menuShown ? 15 : 0}
+                tint="light"
+                experimentalBlurMethod={"dimezisBlurView"}
+                blurReductionFactor={100}
+                style={{
+                  flex: 1,
+                  // top: 0,
+                  // borderWidth: 1,
+                  position: "absolute",
+                  // backgroundColor: "transparent",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+              <TableMenu
+                reversed={true}
+                setEnabled={() => {
+                  setMenuShown(!menuShown);
+                  setSwipeEnabled(menuShown);
+                }}
+                category={props.activeType}
+                enabled={menuShown}
+                handler={setMenuShown}
+                foods={props.foods}
+              />
+            </View>
+          ) : (
+            <Text>Loading...</Text>
+          )}
+
           {props.type ? (
             <Categories types={props.type} />
           ) : (

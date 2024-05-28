@@ -1,20 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Button,
-} from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 import { useSelector } from "react-redux";
 import OrderFoodService from "../../services/OrderFoodService";
 import OrderService from "../../services/OrderService";
 import { useActions } from "../../hooks/useActions";
 import { MaterialIcons } from "@expo/vector-icons";
-import { gStyle } from "../../styles/style";
 import { WebView } from "react-native-webview";
 
 const Payment = ({ handler }) => {

@@ -29,11 +29,6 @@ export const ordersSlice = createSlice({
       }
       state.foods[id].amount--;
     },
-    clearBasket: (state, action) => {
-      state = getInitialState();
-
-      return state;
-    },
   },
 });
 

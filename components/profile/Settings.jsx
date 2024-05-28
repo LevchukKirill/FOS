@@ -5,18 +5,28 @@ import { Text, View, StyleSheet } from "react-native";
 import UserService from "../../services/UserService";
 import { UserContext } from "../../hooks/useUser";
 import OrderService from "../../services/OrderService";
+import { useActions } from "../../hooks/useActions";
+import basket from "../../screens/Basket/Basket";
+import { useSelector } from "react-redux";
 
 const Settings = () => {
+  const basket = useSelector((state) => state.basket);
+
   const { user, setUser } = useContext(UserContext);
   const [addresses, setAddresses] = useState(undefined);
+
+  const { clearBasket } = useActions();
+
   function logout() {
     new UserService().logout().then(() => {
       setUser(undefined);
+      clearBasket(undefined);
     });
   }
 
   function deleteUser() {
     new UserService().deleteUser(user.id).then(() => {
+      clearBasket();
       setUser(undefined);
     });
   }
@@ -38,6 +48,7 @@ const Settings = () => {
         <SettingItem
           style={styles.left}
           handler={getUserOrdersDelivery}
+          disabled={!user?.id}
           name={"Адреса доставки"}
         />
       </View>

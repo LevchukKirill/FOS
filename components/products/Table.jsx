@@ -166,15 +166,23 @@ export const Circle = ({
           <View
             key={idx}
             style={{
+              // borderWidth: 1,
               position: "absolute",
-              left:
-                isActive && enabled
+              left: !reversed
+                ? isActive && enabled
                   ? x - 45
                   : enabled
                     ? x - 15
                     : !isActive
                       ? x - 25
-                      : x - 10,
+                      : x - 10
+                : isActive && enabled
+                  ? x - 125
+                  : enabled
+                    ? x - 65
+                    : !isActive
+                      ? x - 55
+                      : x - 100,
               top:
                 isActive && enabled
                   ? y - 25
@@ -183,13 +191,19 @@ export const Circle = ({
                     : !isActive
                       ? y - 25
                       : y - 35,
+
               width: isActive ? "50%" : 100,
               height: isActive ? 100 : 70,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <MenuItem isActive={isActive} isEnabled={enabled} food={item} />
+            <MenuItem
+              isReversed={reversed}
+              isActive={isActive}
+              isEnabled={enabled}
+              food={item}
+            />
           </View>
         );
       }),
@@ -240,15 +254,16 @@ export const Circle = ({
         </Animated.View>
         <TouchableOpacity
           style={{
+            // width: 100,
             // borderWidth: 3,
-            // position: "relative",
+            position: "relative",
             left: reversed
               ? enabled
-                ? size / 2 + size / 6
+                ? size / 2 + size / 5
                 : size / 2 + size / 8
               : enabled
-                ? -size / 2 - size / 4
-                : -size / 2 - size / 6,
+                ? -size / 2 - size / 5
+                : -size / 2 - size / 7.5,
             top: -size / 2,
           }}
           onPress={() => {
@@ -256,22 +271,36 @@ export const Circle = ({
           }}
         >
           <View
-            style={{
-              position: "absolute",
-              top: -10,
-              // right: reversed ? -622 : -40,
-              // zIndex: 3,
-              borderWidth: 1,
-            }}
+            style={
+              {
+                // position: "absolute",
+                // top: -10,
+                // right: reversed ? -622 : -40,
+                // zIndex: 3,
+                // borderWidth: 1,
+              }
+            }
           >
             {enabled ? (
+              !reversed ? (
+                <Image
+                  source={arrows[1]}
+                  style={{ width: 35, height: 35, objectFit: "scale-down" }}
+                />
+              ) : (
+                <Image
+                  source={arrows[0]}
+                  style={{ width: 35, height: 35, objectFit: "scale-down" }}
+                />
+              )
+            ) : !reversed ? (
               <Image
-                source={arrows[1]}
+                source={arrows[0]}
                 style={{ width: 35, height: 35, objectFit: "scale-down" }}
               />
             ) : (
               <Image
-                source={arrows[0]}
+                source={arrows[1]}
                 style={{ width: 35, height: 35, objectFit: "scale-down" }}
               />
             )}
